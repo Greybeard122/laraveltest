@@ -1,0 +1,219 @@
+/* General Form Control Styling */
+
+.filter-box {
+    max-width: 100%;
+    width: 100%;
+}
+
+
+.filter-box .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
+    gap: 16px; /* Spacing between items */
+    grid-template-rows: repeat(2, auto); /* Two rows */
+}
+
+
+.filter-box .flex {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; 
+}
+
+/* Full-width buttons */
+.filter-box .filter-buttons {
+    grid-column: span 2; 
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.filter-box {
+    max-width: 100%;
+    width: 100%;
+}
+.filter-box .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
+    gap: 16px; /* Spacing between items */
+}
+.filter-box .flex {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; 
+}
+.filter-box .btn {
+    width: 100%;
+}
+
+.form-control {
+    font-size: 1rem;
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    border: 1px solid #d1d5db; /* Gray border */
+    transition: all 0.2s ease-in-out;
+}
+
+/* Focus Effect */
+.form-control:focus {
+    border-color: #3b82f6; /* Blue border */
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+    outline: none;
+}
+
+/* Filter Button Section - Better Alignment */
+.filter-buttons {
+    padding-top: 8px; /* Ensures proper spacing from inputs */
+}
+
+/* Improve Button Styling */
+.btn {
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #2563eb; /* Darker blue on hover */
+}
+
+.btn-secondary:hover {
+    background-color: #4b5563; /* Darker gray on hover */
+}
+
+
+.table-container {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Same as form */
+    padding: 1.5rem;
+    overflow-x: auto;
+}
+
+/* Table Border & Spacing */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Table Header Styling */
+.table th {
+    padding: 12px;
+    text-align: left;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease-in-out;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-bottom: 2px solid #e5e7eb;
+}
+
+/* Sortable Columns */
+.sortable {
+    cursor: pointer;
+    position: relative;
+    padding-right: 20px !important;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.sortable:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Sorted Column */
+.sorting-asc, .sorting-desc {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Sorting Icons */
+.sort-icon {
+    font-size: 14px;
+    margin-left: 5px;
+    opacity: 0.6;
+    transition: opacity 0.2s ease-in-out;
+}
+
+/* Arrow Indicators */
+.sorting-asc .sort-icon::after {
+    content: " ↑";
+    opacity: 1;
+}
+
+.sorting-desc .sort-icon::after {
+    content: " ↓";
+    opacity: 1;
+}/* Table Borders & Shadows */
+.table-container {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    overflow-x: auto;
+}
+
+/* Table Styling */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Table Header */
+.table th {
+    padding: 12px;
+    text-align: left;
+    font-weight: bold;
+    transition: all 0.2s ease-in-out;
+    background-color: rgba(37, 35, 35, 0);
+    border-bottom: 2px solid #e5e7eb;
+}
+
+/* Hover on Table Headers */
+.table th:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Row Borders & Hover */
+.table tbody tr {
+    border-bottom: 1px solid #e5e7eb;
+    transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+/* Row Hover Effect */
+.table tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Student Name Hover */
+.student-link {
+    color: #2563eb;
+    font-weight: bold;
+    transition: all 0.2s ease-in-out;
+}
+
+.student-link:hover {
+    text-decoration: underline;
+    color: #1d4ed8;
+    background-color: rgba(37, 99, 235, 0.1);
+    padding: 4px;
+    border-radius: 5px;
+}
+
+/* Responsive Fixes */
+@media (max-width: 768px) {
+    .grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+    .filter-buttons {
+        padding-top: 12px;
+    }
+}

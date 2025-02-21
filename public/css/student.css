@@ -1,0 +1,134 @@
+/* Background and Layout */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: -1;
+}
+
+body {
+    position: relative;
+    z-index: 1;
+    line-height: 1.6;
+    letter-spacing: 0.5px;
+}
+
+main {
+    padding: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Typography */
+h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a365d;
+}
+
+p {
+    font-size: 1.1rem;
+    color: #4a5568;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+/* Cards */
+.card {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* List Group */
+.list-group-item {
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.list-group-item:hover {
+    background-color: #f7fafc;
+    border-color: #63b3ed;
+}
+
+/* Badges */
+.badge {
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+}
+
+.bg-green-600 {
+    background-color: #38a169;
+}
+
+.bg-yellow-600 {
+    background-color: #d69e2e;
+}
+
+/* Footer */
+footer {
+    background-color: #1a202c;
+    padding: 1.5rem 0;
+    margin-top: 2rem;
+}
+
+footer p {
+    color: #e2e8f0;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h2 {
+        font-size: 2rem;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
