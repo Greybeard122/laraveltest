@@ -7,19 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $title ?? 'File Retrieval System' }}</title>
 
-    @if(app()->environment('production'))
-    <link href="{{ secure_asset('build/assets/app.css') }}" rel="stylesheet">
-    <script src="{{ secure_asset('build/assets/app.js') }}" defer></script>
-@else
-    @vite('resources/css/app.css')
-    @vite('resources/js/app.js')
-@endif
+    @if (app()->environment('production'))
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @else
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @endif
 
-    <link href="{{ secure_asset('css/responsive-admin.css') }}" rel="stylesheet">
-    <link rel="icon" href="{{ secure_asset('images/PRMSU.png') }}">
-    <script src="//unpkg.com/alpinejs" defer></script>
+    <link rel="icon" href="{{ asset('images/PRMSU.png') }}">
+    <script src="https://unpkg.com/alpinejs" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
 </head>
 
 <body class="bg-gray-100 text-gray-800 bg-cover bg-center" style="background-image: url('{{ secure_asset('images/bg-login-register.jpg') }}');">
