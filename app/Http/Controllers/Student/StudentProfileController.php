@@ -12,34 +12,22 @@ use Illuminate\Support\Facades\Log;
 class StudentProfileController extends Controller
 {
     public function show()
-    {
-        try {
-            Log::info('Attempting to show student profile');
-            
-            $student = Auth::guard('student')->user();
-            Log::info('Auth guard student check:', [
-                'is_authenticated' => Auth::guard('student')->check(),
-                'student_data' => $student
-            ]);
+{
+    Log::info('StudentProfileController@show: Checking authentication', [
+        'authenticated' => Auth::guard('student')->check(),
+        'user' => Auth::guard('student')->user()
+    ]);
 
-            if (!$student) {
-                Log::error('Student not found in auth guard');
-                return redirect()->route('login');
-            }
+    $student = Auth::guard('student')->user();
 
-            Log::info('Rendering student profile view');
-            return view('student.profile.show', ['student' => $student]);
-
-        } catch (\Exception $e) {
-            Log::error('Error in profile show: ', [
-                'message' => $e->getMessage(),
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-                'trace' => $e->getTraceAsString()
-            ]);
-            return back()->with('error', 'An error occurred while loading your profile');
-        }
+    if (!$student) {
+        Log::warning('StudentProfileController@show: Redirecting due to missing student');
+        return redirect()->route('login')->with('error', 'Session expired. Please log in again.');
     }
+
+    Log::info('StudentProfileController@show: Rendering profile page');
+    return view('student.profile.show', compact('student'));
+}
 
     public function edit()
     {
