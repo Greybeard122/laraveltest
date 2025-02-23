@@ -10,70 +10,54 @@ use Illuminate\Support\Facades\Hash;
 
 class StudentProfileController extends Controller
 {
-    /**
-     * Show the student's profile
-     */
+    // Show the student's profile
     public function show()
     {
-        $student = Auth::guard('student')->user();
-
-        if (!$student) {
-            abort(403, "Unauthorized Access");
-        }
+        // Get the logged-in student
+        $student = Auth::user(); 
 
         return view('student.profile.show', compact('student'));
     }
 
-    /**
-     * Show the form to edit the student's profile
-     */
+    // Show the form to edit the student's profile
     public function edit()
     {
-        $student = Auth::guard('student')->user();
-
-        if (!$student) {
-            abort(403, "Unauthorized Access");
-        }
+        // Get the logged-in student
+        $student = Auth::user();
 
         return view('student.profile.edit', compact('student'));
     }
 
-    /**
-     * Update the student's profile
-     */
+    // Update the student's profile
     public function update(Request $request)
 {
-    $student = Auth::guard('student')->user();
+    // Get the logged-in student
+    $student = Auth::user();
 
-    if (!$student) {
-        abort(403, "Unauthorized Access");
-    }
-
-    if (!($student instanceof \Illuminate\Database\Eloquent\Model)) {
-        throw new \Exception("Invalid Student model instance.");
-    }
-
-    $validated = $request->validate([
-        'first_name' => 'required|string|max:255',
-        'last_name' => 'required|string|max:255',
+    // Define the validation rules
+    $validationRules = [
+        'student_id' => 'required|unique:students,student_id,' . $student->id,
+        'first_name' => 'required',
+        'last_name' => 'required',
         'email' => 'required|email|unique:students,email,' . $student->id,
-        'course' => 'required|string|max:255',
-        'contact_number' => 'required|string|max:20',
-        'password' => $request->filled('password') ? 'required|string|min:6|confirmed' : '',
-    ]);
+        'course' => 'required',
+        'contact_number' => 'required',
+    ];
 
-    if (!$request->filled('password')) {
-        unset($validated['password']);
-    } else {
+    // If a password is provided, add password validation rules
+    if ($request->filled('password')) {
+        $validationRules['password'] = 'required|min:6|confirmed'; 
+    }
+
+    // Validate the input
+    $validated = $request->validate($validationRules);
+
+    // If password is provided, hash it before updating
+    if ($request->filled('password')) {
         $validated['password'] = Hash::make($validated['password']);
     }
 
-    $validated = array_intersect_key($validated, array_flip($student->getFillable()));
-
-    if (!$student->exists) {
-        throw new \Exception("Student record does not exist.");
-    }
-
+    // Update the student's details, excluding student_id which is not editable
     $student->update($validated);
 
     return redirect()->route('student.profile.show')->with('message', 'Profile updated successfully');
