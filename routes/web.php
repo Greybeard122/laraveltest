@@ -85,7 +85,7 @@ Route::middleware(['auth:web'])->prefix('admin')->group(function () {
 });
 
 // Student Routes
-Route::middleware(['auth:student'])->group(function () {
+Route::middleware(['auth:student'])->prefix('student')->group(function () {
     Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');
     Route::get('/schedule', [StudentScheduleController::class, 'create'])->name('student.schedules.create');
     Route::post('/schedule', [StudentScheduleController::class, 'store'])->name('student.schedules.store');
