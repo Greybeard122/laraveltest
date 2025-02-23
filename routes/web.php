@@ -87,7 +87,7 @@ Route::middleware(['auth:web'])->prefix('admin')->group(function () {
 
 
     // All Student Routes
-    Route::middleware(['auth:student'])->prefix('student')->group(function () {
+    Route::middleware(['auth.student'])->prefix('student')->group(function () {
         // Dashboard routes
         Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');
         
