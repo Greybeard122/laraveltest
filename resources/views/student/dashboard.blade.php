@@ -43,4 +43,4 @@
     </div>
 </div>
 @endsection
-<link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
+<link href="{{ asset('css/student.css') }}" rel="stylesheet">
