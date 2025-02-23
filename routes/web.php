@@ -89,6 +89,11 @@ Route::middleware(['auth:student'])->prefix('student')->group(function () {
     Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');
     Route::get('/schedule', [StudentScheduleController::class, 'create'])->name('student.schedules.create');
     Route::post('/schedule', [StudentScheduleController::class, 'store'])->name('student.schedules.store');
+    
+   
+});
+
+Route::middleware(['auth:student'])->group(function () {
     Route::get('/profile', [StudentProfileController::class, 'show'])->name('student.profile.show');
     Route::get('/profile/edit', [StudentProfileController::class, 'edit'])->name('student.profile.edit');
     Route::put('/profile', [StudentProfileController::class, 'update'])->name('student.profile.update');

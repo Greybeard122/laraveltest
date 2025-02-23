@@ -10,21 +10,18 @@ use Illuminate\Support\Facades\Hash;
 
 class StudentProfileController extends Controller
 {
-    // Show the student's profile
     public function show()
     {
         $student = Auth::guard('student')->user();
         return view('student.profile.show', compact('student'));
     }
 
-    // Show the form to edit the student's profile
     public function edit()
     {
         $student = Auth::guard('student')->user();
         return view('student.profile.edit', compact('student'));
     }
 
-    // Update the student's profile
     public function update(Request $request)
     {
         $student = Student::find(Auth::guard('student')->id());
@@ -43,12 +40,16 @@ class StudentProfileController extends Controller
 
         $validated = $request->validate($validationRules);
 
+        // Update the student's attributes
+        $student->fill($validated);
+
         if ($request->filled('password')) {
-            $validated['password'] = Hash::make($validated['password']);
+            $student->password = Hash::make($validated['password']);
         }
 
         $student->save();
 
-        return redirect()->route('student.profile.show')->with('message', 'Profile updated successfully');
+        return redirect()->route('student.profile.show')
+            ->with('message', 'Profile updated successfully');
     }
 }
