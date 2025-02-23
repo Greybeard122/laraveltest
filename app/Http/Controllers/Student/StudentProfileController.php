@@ -10,32 +10,27 @@ use Illuminate\Support\Facades\Hash;
 
 class StudentProfileController extends Controller
 {
-    // Show the student's profile
-    // In StudentProfileController.php
-public function show()
-{
-    try {
-        // Get the logged-in student
-        $student = Auth::user();
-        
-        // Check if we actually have a student
-        if (!$student) {
-            \Log::error('No authenticated user found in profile show');
-            return redirect()->route('login');
+    public function show()
+    {
+        try {
+            // Debug authentication status
+            \Log::info('Auth check: ' . (Auth::check() ? 'true' : 'false'));
+            
+            $student = Auth::user();
+            \Log::info('Student data: ' . json_encode($student));
+            
+            // Force view check
+            if (!view()->exists('student.profile.show')) {
+                \Log::error('View student.profile.show does not exist');
+                return redirect()->route('dashboard')->with('error', 'Profile view not found');
+            }
+            
+            return view('student.profile.show', compact('student'));
+        } catch (\Exception $e) {
+            \Log::error('Profile show error: ' . $e->getMessage());
+            return redirect()->route('dashboard')->with('error', $e->getMessage());
         }
-
-        // Log successful data retrieval
-        \Log::info('Profile data retrieved for student: ' . $student->id);
-        
-        return view('student.profile.show', compact('student'));
-    } catch (\Exception $e) {
-        // Log the specific error
-        \Log::error('Error in profile show: ' . $e->getMessage());
-        
-        // Return a more graceful error response
-        return back()->with('error', 'Unable to load profile. Please try again later.');
     }
-}
 
     // Show the form to edit the student's profile
     public function edit()
