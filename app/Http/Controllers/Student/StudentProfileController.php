@@ -11,10 +11,19 @@ use Illuminate\Support\Facades\Hash;
 class StudentProfileController extends Controller
 {
     public function show()
-    {
+{
+    try {
         $student = Auth::guard('student')->user();
+        if (!$student) {
+            \Log::error('Student not found in auth guard');
+            return redirect()->route('login');
+        }
         return view('student.profile.show', compact('student'));
+    } catch (\Exception $e) {
+        \Log::error('Error in profile show: ' . $e->getMessage());
+        return back()->with('error', 'An error occurred while loading your profile');
     }
+}
 
     public function edit()
     {
