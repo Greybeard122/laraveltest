@@ -85,7 +85,7 @@ Route::middleware(['auth:web'])->prefix('admin')->group(function () {
 });
 
 
-Route::middleware(['web'])->group(function () {  
+
     // All Student Routes
     Route::middleware(['auth:student'])->prefix('student')->group(function () {
         // Dashboard routes
@@ -100,7 +100,7 @@ Route::middleware(['web'])->group(function () {
         Route::get('/profile/edit', [StudentProfileController::class, 'edit'])->name('student.profile.edit');
         Route::put('/profile', [StudentProfileController::class, 'update'])->name('student.profile.update');
     });
-});
+
 
 Route::get('/debug-student-auth', function() {
     return response()->json([
