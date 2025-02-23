@@ -10,67 +10,70 @@ use Illuminate\Support\Facades\Hash;
 
 class StudentProfileController extends Controller
 {
+    /**
+     * Show the student's profile
+     */
     public function show()
     {
-        try {
-            // Debug authentication status
-            \Log::info('Auth check: ' . (Auth::check() ? 'true' : 'false'));
-            
-            $student = Auth::user();
-            \Log::info('Student data: ' . json_encode($student));
-            
-            // Force view check
-            if (!view()->exists('student.profile.show')) {
-                \Log::error('View student.profile.show does not exist');
-                return redirect()->route('dashboard')->with('error', 'Profile view not found');
-            }
-            
-            return view('student.profile.show', compact('student'));
-        } catch (\Exception $e) {
-            \Log::error('Profile show error: ' . $e->getMessage());
-            return redirect()->route('dashboard')->with('error', $e->getMessage());
+        $student = Auth::guard('student')->user();
+
+        if (!$student) {
+            abort(403, "Unauthorized Access");
         }
+
+        return view('student.profile.show', compact('student'));
     }
 
-    // Show the form to edit the student's profile
+    /**
+     * Show the form to edit the student's profile
+     */
     public function edit()
     {
-        // Get the logged-in student
-        $student = Auth::user();
+        $student = Auth::guard('student')->user();
+
+        if (!$student) {
+            abort(403, "Unauthorized Access");
+        }
 
         return view('student.profile.edit', compact('student'));
     }
 
-    // Update the student's profile
+    /**
+     * Update the student's profile
+     */
     public function update(Request $request)
 {
-    // Get the logged-in student
-    $student = Auth::user();
+    $student = Auth::guard('student')->user();
 
-    // Define the validation rules
-    $validationRules = [
-        'student_id' => 'required|unique:students,student_id,' . $student->id,
-        'first_name' => 'required',
-        'last_name' => 'required',
-        'email' => 'required|email|unique:students,email,' . $student->id,
-        'course' => 'required',
-        'contact_number' => 'required',
-    ];
-
-    // If a password is provided, add password validation rules
-    if ($request->filled('password')) {
-        $validationRules['password'] = 'required|min:6|confirmed'; 
+    if (!$student) {
+        abort(403, "Unauthorized Access");
     }
 
-    // Validate the input
-    $validated = $request->validate($validationRules);
+    if (!($student instanceof \Illuminate\Database\Eloquent\Model)) {
+        throw new \Exception("Invalid Student model instance.");
+    }
 
-    // If password is provided, hash it before updating
-    if ($request->filled('password')) {
+    $validated = $request->validate([
+        'first_name' => 'required|string|max:255',
+        'last_name' => 'required|string|max:255',
+        'email' => 'required|email|unique:students,email,' . $student->id,
+        'course' => 'required|string|max:255',
+        'contact_number' => 'required|string|max:20',
+        'password' => $request->filled('password') ? 'required|string|min:6|confirmed' : '',
+    ]);
+
+    if (!$request->filled('password')) {
+        unset($validated['password']);
+    } else {
         $validated['password'] = Hash::make($validated['password']);
     }
 
-    // Update the student's details, excluding student_id which is not editable
+    $validated = array_intersect_key($validated, array_flip($student->getFillable()));
+
+    if (!$student->exists) {
+        throw new \Exception("Student record does not exist.");
+    }
+
     $student->update($validated);
 
     return redirect()->route('student.profile.show')->with('message', 'Profile updated successfully');
