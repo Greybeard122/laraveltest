@@ -13,20 +13,30 @@ class StudentProfileController extends Controller
 {
     public function show()
 {
-    Log::info('StudentProfileController@show: Checking authentication', [
+    \Log::info('StudentProfileController@show: Checking authentication', [
         'authenticated' => Auth::guard('student')->check(),
         'user' => Auth::guard('student')->user()
     ]);
 
-    $student = Auth::guard('student')->user();
+    try {
+        $student = Auth::guard('student')->user();
 
-    if (!$student) {
-        Log::warning('StudentProfileController@show: Redirecting due to missing student');
-        return redirect()->route('login')->with('error', 'Session expired. Please log in again.');
+        if (!$student) {
+            \Log::warning('StudentProfileController@show: No student found, redirecting...');
+            return redirect()->route('login')->with('error', 'Session expired. Please log in again.');
+        }
+
+        \Log::info('StudentProfileController@show: Rendering profile page');
+        return view('student.profile.show', compact('student'));
+
+    } catch (\Exception $e) {
+        \Log::error('StudentProfileController@show: ERROR!', [
+            'message' => $e->getMessage(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine()
+        ]);
+        abort(500, 'Something went wrong.');
     }
-
-    Log::info('StudentProfileController@show: Rendering profile page');
-    return view('student.profile.show', compact('student'));
 }
 
     public function edit()
