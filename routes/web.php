@@ -102,11 +102,11 @@ Route::middleware(['auth:web'])->prefix('admin')->group(function () {
     });
 
 
-Route::get('/debug-student-auth', function() {
-    return response()->json([
-        'session_id' => session()->getId(),
-        'is_authenticated' => Auth::guard('student')->check(),
-        'user' => Auth::guard('student')->user(),
-        'session_data' => session()->all()
-    ]);
-});
+    Route::get('/debug-student-auth', function() {
+        return response()->json([
+            'session_id' => session()->getId(),
+            'is_authenticated' => Auth::guard('student')->check(),
+            'user' => Auth::guard('student')->user(),
+            'session_data' => session()->all()
+        ]);
+    });
