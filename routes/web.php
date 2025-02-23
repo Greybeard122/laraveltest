@@ -84,17 +84,29 @@ Route::middleware(['auth:web'])->prefix('admin')->group(function () {
     Route::post('/register', [AdminRegisterController::class, 'register']);
 });
 
-// Student Routes
-Route::middleware(['auth:student'])->prefix('student')->group(function () {
-    Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');
-    Route::get('/schedule', [StudentScheduleController::class, 'create'])->name('student.schedules.create');
-    Route::post('/schedule', [StudentScheduleController::class, 'store'])->name('student.schedules.store');
-    
-   
+
+Route::middleware(['web'])->group(function () {  
+    // All Student Routes
+    Route::middleware(['auth:student'])->prefix('student')->group(function () {
+        // Dashboard routes
+        Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');
+        
+        // Schedule routes
+        Route::get('/schedule', [StudentScheduleController::class, 'create'])->name('student.schedules.create');
+        Route::post('/schedule', [StudentScheduleController::class, 'store'])->name('student.schedules.store');
+        
+        // Profile routes
+        Route::get('/profile', [StudentProfileController::class, 'show'])->name('student.profile.show');
+        Route::get('/profile/edit', [StudentProfileController::class, 'edit'])->name('student.profile.edit');
+        Route::put('/profile', [StudentProfileController::class, 'update'])->name('student.profile.update');
+    });
 });
 
-Route::middleware(['auth:student'])->group(function () {
-    Route::get('/profile', [StudentProfileController::class, 'show'])->name('student.profile.show');
-    Route::get('/profile/edit', [StudentProfileController::class, 'edit'])->name('student.profile.edit');
-    Route::put('/profile', [StudentProfileController::class, 'update'])->name('student.profile.update');
+Route::get('/debug-student-auth', function() {
+    return response()->json([
+        'session_id' => session()->getId(),
+        'is_authenticated' => Auth::guard('student')->check(),
+        'user' => Auth::guard('student')->user(),
+        'session_data' => session()->all()
+    ]);
 });

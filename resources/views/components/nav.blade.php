@@ -75,9 +75,11 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('student.profile.show') }}" class="block py-2 px-4 text-white rounded-lg transition duration-300 hover:bg-gray-700 hover:text-sky-400">
-                                My Profile
-                            </a>
+                            <a href="{{ route('student.profile.show') }}" 
+   class="block py-2 px-4 text-white rounded-lg transition duration-300 hover:bg-gray-700 hover:text-sky-400"
+   onclick="event.preventDefault(); window.location.href='{{ route('student.profile.show') }}';">
+    My Profile
+</a>
                         </li>
                     @endif
 

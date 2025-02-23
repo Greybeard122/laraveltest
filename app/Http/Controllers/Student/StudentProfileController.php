@@ -7,23 +7,39 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class StudentProfileController extends Controller
 {
     public function show()
-{
-    try {
-        $student = Auth::guard('student')->user();
-        if (!$student) {
-            \Log::error('Student not found in auth guard');
-            return redirect()->route('login');
+    {
+        try {
+            Log::info('Attempting to show student profile');
+            
+            $student = Auth::guard('student')->user();
+            Log::info('Auth guard student check:', [
+                'is_authenticated' => Auth::guard('student')->check(),
+                'student_data' => $student
+            ]);
+
+            if (!$student) {
+                Log::error('Student not found in auth guard');
+                return redirect()->route('login');
+            }
+
+            Log::info('Rendering student profile view');
+            return view('student.profile.show', ['student' => $student]);
+
+        } catch (\Exception $e) {
+            Log::error('Error in profile show: ', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            return back()->with('error', 'An error occurred while loading your profile');
         }
-        return view('student.profile.show', compact('student'));
-    } catch (\Exception $e) {
-        \Log::error('Error in profile show: ' . $e->getMessage());
-        return back()->with('error', 'An error occurred while loading your profile');
     }
-}
 
     public function edit()
     {
