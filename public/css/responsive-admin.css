@@ -1,27 +1,37 @@
-/* Fix pagination arrows size */
+/* Fix big pagination arrows */
 .pagination .page-link {
-    font-size: 0.85rem;  /* Adjust font size */
-    padding: 6px 10px;   /* Reduce padding */
+    font-size: 0.85rem !important; /* Reduce font size */
+    padding: 6px 10px !important;  /* Reduce padding */
 }
 
-/* Adjust the pagination container */
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px; /* Add spacing between pagination buttons */
-}
-
-/* Center pagination text */
+/* Center pagination text and controls */
 .card-footer {
     text-align: center;
 }
 
-/* Optional: Make sure the text "Showing X to X of X results" is centered */
+/* Center "Showing X to X of X results" */
 .card-footer .pagination-summary {
     display: block;
     text-align: center;
     font-size: 0.9rem;
+}
+
+/* Fix Bootstrap pagination buttons */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px; /* Add spacing between buttons */
+}
+
+.pagination .page-item {
+    display: inline-block;
+}
+
+.pagination .page-item .page-link {
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 5px;
 }
 
 
