@@ -26,6 +26,12 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/register', [StudentRegisterController::class, 'showRegistrationForm'])->name('register');
     Route::post('/register', [StudentRegisterController::class, 'register']);
+
+    Route::get('/forgot-password', [StudentForgotPasswordController::class, 'showForgotPasswordForm'])->name('student.password.request');
+Route::post('/forgot-password', [StudentForgotPasswordController::class, 'sendResetLink'])->name('student.password.email');
+
+Route::get('/reset-password/{token}', [StudentForgotPasswordController::class, 'showResetForm'])->name('student.password.reset');
+Route::post('/reset-password', [StudentForgotPasswordController::class, 'resetPassword'])->name('student.password.update');
 });
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -97,10 +103,6 @@ Route::middleware(['auth:student'])->prefix('student')->group(function () {
     Route::put('/profile', [StudentProfileController::class, 'update'])->name('student.profile.update');
     
 });
-Route::get('/reset-password/{token}', [StudentForgotPasswordController::class, 'showResetForm'])->name('student.password.reset');
-    Route::post('/reset-password', [StudentForgotPasswordController::class, 'resetPassword'])->name('student.password.update');
-Route::get('/forgot-password', [StudentForgotPasswordController::class, 'showForgotPasswordForm'])->name('student.password.request');
-Route::post('/forgot-password', [StudentForgotPasswordController::class, 'sendResetLink'])->name('student.password.email');
 
 Route::get('/debug-log', function() {
     return response()->file(storage_path('logs/laravel.log'));
