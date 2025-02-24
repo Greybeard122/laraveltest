@@ -27,7 +27,129 @@
 .pagination .relative.inline-flex.items-center {
     padding: 6px 10px !important;
 }
+/* Pagination Improvements */
+.pagination .page-link {
+    font-size: 14px !important;  /* Reduce text size */
+    padding: 6px 10px !important; /* Adjust padding */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: auto !important;
+}
 
+/* Ensure the arrows don't stretch */
+.pagination .page-item {
+    display: inline-block;
+}
+
+/* Center pagination text */
+.card-footer {
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 0.75rem 1.25rem;
+}
+
+/* Reduce pagination arrow size */
+.pagination svg {
+    width: 14px !important;  /* Adjust arrow size */
+    height: 14px !important;
+}
+
+/* Improve pagination appearance */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.2rem;
+}
+
+.pagination .relative.inline-flex.items-center {
+    padding: 6px 10px !important;
+}
+
+/* Improve pagination status text */
+.pagination + p.text-sm {
+    margin-top: 0.75rem;
+    text-align: center;
+}
+
+/* Responsive pagination adjustments */
+@media (max-width: 768px) {
+    .pagination .relative.inline-flex.items-center {
+        padding: 4px 8px !important;
+    }
+    
+    .pagination .page-link {
+        font-size: 12px !important;
+    }
+    
+    .pagination svg {
+        width: 12px !important;
+        height: 12px !important;
+    }
+}
+
+/* Improve overall interface spacing and consistency */
+.form-control, .btn {
+    font-size: 0.95rem;
+}
+
+.table th, .table td {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+}
+
+/* Enhance status indicators */
+.status-pending {
+    color: #e67e22;
+    font-weight: 600;
+}
+
+.status-approved {
+    color: #27ae60;
+    font-weight: 600;
+}
+
+.status-rejected {
+    color: #e74c3c;
+    font-weight: 600;
+}
+
+/* Improve card appearance */
+.card {
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+/* Improve filter box appearance */
+.filter-box {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.filter-box label {
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+}
+
+/* Ensure buttons are properly sized in containers */
+.button-container .btn {
+    flex: 1;
+    min-width: 100px;
+}
+
+/* Improve table responsiveness */
+@media (max-width: 768px) {
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .table th, .table td {
+        white-space: nowrap;
+        padding: 0.6rem 0.8rem;
+        font-size: 0.9rem;
+    }
+}
 
 
 /* Hover effect for dropdown boxes */
