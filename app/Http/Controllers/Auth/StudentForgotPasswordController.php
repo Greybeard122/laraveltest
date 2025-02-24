@@ -23,24 +23,38 @@ class StudentForgotPasswordController extends Controller
      */
     public function sendResetLink(Request $request)
 {
-    
-    Log::info('Password Reset Request Initiated', ['email' => $request->email]);
+    try {
+        Log::info('Password Reset Request Initiated', ['email' => $request->email]);
 
-    $request->validate(['email' => 'required|email|exists:students,email']);
+        // Validate email
+        $request->validate(['email' => 'required|email|exists:students,email']);
 
+        Log::info('Validation Passed', ['email' => $request->email]);
 
-    Log::info('Validation Passed', ['email' => $request->email]);
+        // Attempt to send the reset link
+        $status = Password::broker('students')->sendResetLink($request->only('email'));
 
-    $status = Password::broker('students')->sendResetLink(
-        $request->only('email')
-    );
-    dd($status);
-    Log::info('Password Reset Link Sent Status', ['status' => $status]);
+        Log::info('Password Reset Link Status', ['status' => $status]);
 
-    return $status === Password::RESET_LINK_SENT
-        ? back()->with('message', 'Password reset link sent to your email!')
-        : back()->withErrors(['email' => 'Failed to send reset link.']);
+        // Debugging: Show what Laravel returns before error
+        if ($status !== Password::RESET_LINK_SENT) {
+            Log::error('Password Reset Failed', ['error' => trans($status)]);
+            return back()->withErrors(['email' => trans($status)]);
+        }
+
+        return back()->with('message', 'Password reset link sent to your email!');
+
+    } catch (\Exception $e) {
+        Log::error('Forgot Password Error', [
+            'message' => $e->getMessage(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine()
+        ]);
+
+        return back()->withErrors(['email' => 'Something went wrong. Please try again later.']);
+    }
 }
+
 
     /**
      * Show the password reset form.
