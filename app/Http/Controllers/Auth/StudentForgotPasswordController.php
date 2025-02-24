@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class StudentForgotPasswordController extends Controller
 {
@@ -21,17 +22,26 @@ class StudentForgotPasswordController extends Controller
      * Handle sending the reset password email.
      */
     public function sendResetLink(Request $request)
-    {
-        $request->validate(['email' => 'required|email|exists:students,email']);
+{
+    
+    Log::info('Password Reset Request Initiated', ['email' => $request->email]);
 
-        $status = Password::broker('students')->sendResetLink(
-            $request->only('email')
-        );
+    $request->validate(['email' => 'required|email|exists:students,email']);
 
-        return $status === Password::RESET_LINK_SENT
-            ? back()->with('message', 'Password reset link sent to your email!')
-            : back()->withErrors(['email' => 'Failed to send reset link.']);
-    }
+    dd($request->all());
+    
+    Log::info('Validation Passed', ['email' => $request->email]);
+
+    $status = Password::broker('students')->sendResetLink(
+        $request->only('email')
+    );
+
+    Log::info('Password Reset Link Sent Status', ['status' => $status]);
+
+    return $status === Password::RESET_LINK_SENT
+        ? back()->with('message', 'Password reset link sent to your email!')
+        : back()->withErrors(['email' => 'Failed to send reset link.']);
+}
 
     /**
      * Show the password reset form.
