@@ -36,13 +36,12 @@ class StudentForgotPasswordController extends Controller
 
         Log::info('Password Reset Link Status', ['status' => $status]);
 
-        // Debugging: Show what Laravel returns before error
-        if ($status !== Password::RESET_LINK_SENT) {
+        if ($status === Password::RESET_LINK_SENT) {
+            return back()->with('message', 'Password reset link sent to your email!');
+        } else {
             Log::error('Password Reset Failed', ['error' => trans($status)]);
             return back()->withErrors(['email' => trans($status)]);
         }
-
-        return back()->with('message', 'Password reset link sent to your email!');
 
     } catch (\Exception $e) {
         Log::error('Forgot Password Error', [
