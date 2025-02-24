@@ -28,14 +28,13 @@ class StudentForgotPasswordController extends Controller
 
     $request->validate(['email' => 'required|email|exists:students,email']);
 
-    dd($request->all());
-    
+
     Log::info('Validation Passed', ['email' => $request->email]);
 
     $status = Password::broker('students')->sendResetLink(
         $request->only('email')
     );
-
+    dd($status);
     Log::info('Password Reset Link Sent Status', ['status' => $status]);
 
     return $status === Password::RESET_LINK_SENT
