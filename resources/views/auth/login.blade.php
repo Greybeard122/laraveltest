@@ -38,17 +38,18 @@
                 @enderror
             </div>
 
-            <div class="flex justify-between items-center text-sm">
-                <label class="flex items-center">
-                    <input type="checkbox" name="remember" class="mr-2">
-                    Remember Me
-                </label>
-
+            <div class="flex flex-col md:flex-row md:justify-between items-center text-sm gap-3 md:gap-6">
+                <div class="flex items-center">
+                    <input type="checkbox" name="remember" id="remember" class="mr-2">
+                    <label for="remember" class="text-gray-700">Remember Me</label>
+                </div>
+            
                 <!-- Forgot Password Link -->
                 <a href="{{ route('student.password.request') }}" class="text-purple-600 hover:underline hover:text-purple-800 transition duration-200">
                     Forgot Password?
                 </a>
             </div>
+            
 
             <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-lg shadow-md transition duration-200">
                 Login
