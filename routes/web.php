@@ -97,10 +97,10 @@ Route::middleware(['auth:student'])->prefix('student')->group(function () {
 });
 
 
-Route::get('/debug', function() {
+/* Route::get('/debug', function() {
     dd([
         'student_guard' => Auth::guard('student')->check(),
         'web_guard' => Auth::guard('web')->check(),
         'student_user' => Auth::guard('student')->user(),
     ]);
-});
+}); */

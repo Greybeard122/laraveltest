@@ -5,11 +5,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Schedule;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class Student extends Authenticatable
+class Student extends Authenticatable implements CanResetPasswordContract
 {
-    use HasFactory, Notifiable;
-
+    use HasFactory, Notifiable, CanResetPassword;
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -55,14 +57,4 @@ class Student extends Authenticatable
     {
         return $this->hasMany(Schedule::class, 'student_id');
     }
-
-    /**
-     * Override the primary key for the student model.
-     */
-   
-
-    /**
-     * If the primary key is not an integer, we can specify the key type as string.
-     */
-    
 }
