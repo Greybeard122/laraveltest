@@ -22,38 +22,37 @@ class StudentForgotPasswordController extends Controller
      * Handle sending the reset password email.
      */
     public function sendResetLink(Request $request)
-{
-    try {
-        Log::info('Password Reset Request Initiated', ['email' => $request->email]);
+    {
+        try {
+            Log::info('Password Reset Request Initiated', ['email' => $request->email]);
 
-        // Validate email
-        $request->validate(['email' => 'required|email|exists:students,email']);
+            // Validate email
+            $request->validate(['email' => 'required|email|exists:students,email']);
 
-        Log::info('Validation Passed', ['email' => $request->email]);
+            Log::info('Validation Passed', ['email' => $request->email]);
 
-        // Attempt to send the reset link
-        $status = Password::broker('students')->sendResetLink($request->only('email'));
+            // Attempt to send the reset link
+            $status = Password::broker('students')->sendResetLink($request->only('email'));
 
-        Log::info('Password Reset Link Status', ['status' => $status]);
+            Log::info('Password Reset Link Status', ['status' => $status]);
 
-        if ($status === Password::RESET_LINK_SENT) {
-            return back()->with('message', 'Password reset link sent to your email!');
-        } else {
-            Log::error('Password Reset Failed', ['error' => trans($status)]);
-            return back()->withErrors(['email' => trans($status)]);
+            if ($status === Password::RESET_LINK_SENT) {
+                return back()->with('message', 'Password reset link sent to your email!');
+            } else {
+                Log::error('Password Reset Failed', ['error' => trans($status)]);
+                return back()->withErrors(['email' => trans($status)]);
+            }
+
+        } catch (\Exception $e) {
+            Log::error('Forgot Password Error', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ]);
+
+            return back()->withErrors(['email' => 'Something went wrong. Please try again later.']);
         }
-
-    } catch (\Exception $e) {
-        Log::error('Forgot Password Error', [
-            'message' => $e->getMessage(),
-            'file' => $e->getFile(),
-            'line' => $e->getLine()
-        ]);
-
-        return back()->withErrors(['email' => 'Something went wrong. Please try again later.']);
     }
-}
-
 
     /**
      * Show the password reset form.
@@ -68,22 +67,40 @@ class StudentForgotPasswordController extends Controller
      */
     public function resetPassword(Request $request)
     {
-        $request->validate([
-            'email' => 'required|email|exists:students,email',
-            'password' => 'required|min:6|confirmed',
-            'token' => 'required'
-        ]);
+        try {
+            Log::info('Password Reset Initiated', ['email' => $request->email]);
 
-        $status = Password::broker('students')->reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
-            function ($student, $password) {
-                $student->password = Hash::make($password);
-                $student->save();
+            $request->validate([
+                'email' => 'required|email|exists:students,email',
+                'password' => 'required|min:6|confirmed',
+                'token' => 'required'
+            ]);
+
+            Log::info('Validation Passed for Password Reset', ['email' => $request->email]);
+
+            $status = Password::broker('students')->reset(
+                $request->only('email', 'password', 'password_confirmation', 'token'),
+                function ($student, $password) {
+                    $student->password = Hash::make($password);
+                    $student->save();
+                }
+            );
+
+            if ($status === Password::PASSWORD_RESET) {
+                Log::info('Password Reset Successfully', ['email' => $request->email]);
+                return redirect()->route('login')->with('message', 'Password reset successfully!');
+            } else {
+                Log::error('Password Reset Failed', ['error' => trans($status)]);
+                return back()->withErrors(['email' => trans($status)]);
             }
-        );
+        } catch (\Exception $e) {
+            Log::error('Password Reset Error', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ]);
 
-        return $status === Password::PASSWORD_RESET
-            ? redirect()->route('login')->with('message', 'Password reset successfully!')
-            : back()->withErrors(['email' => 'Failed to reset password.']);
+            return back()->withErrors(['email' => 'Something went wrong. Please try again later.']);
+        }
     }
 }
