@@ -16,9 +16,6 @@
         <!-- Menu Items -->
         <div :class="open ? 'block' : 'hidden'" class="w-full md:flex md:w-auto" id="navbar-main">
             <ul class="flex flex-col md:flex-row md:space-x-6 px-4">
-                @csrf
-
-                <!-- Links for Guests -->
                 @guest
                     <li>
                         <a href="{{ route('login') }}" class="block py-2 px-4 text-white rounded-lg transition duration-300 hover:bg-gray-700 hover:text-sky-400">
@@ -32,10 +29,8 @@
                     </li>
                 @endguest
 
-                <!-- Links for Authenticated Users -->
-                @auth
+                @auth('web')
                     @if(auth()->user()->is_admin == 1)
-                        <!-- Admin Links -->
                         <li>
                             <a href="{{ route('admin.register') }}" class="block py-2 px-4 text-white rounded-lg transition duration-300 hover:bg-gray-700 hover:text-sky-400">
                                 Add Admin
@@ -52,7 +47,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.students.index')}}" class="block py-2 px-4 text-white rounded-lg transition duration-300 hover:bg-gray-700 hover:text-sky-400"}}">
+                            <a href="{{ route('admin.students.index')}}" class="block py-2 px-4 text-white rounded-lg transition duration-300 hover:bg-gray-700 hover:text-sky-400">
                                 Manage Students
                             </a>
                         </li>
@@ -61,38 +56,37 @@
                                 Manage Files
                             </a>
                         </li>
-                        
-                    @elseif(auth()->user()->is_admin == 0)
-                        <!-- Student Links -->
-                        <li>
-                            <a href="{{ route('student.dashboard') }}" class="block py-2 px-4 text-white rounded-lg transition duration-300 hover:bg-gray-700 hover:text-sky-400">
-                                Dashboard
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('student.schedules.create') }}" class="block py-2 px-4 text-white rounded-lg transition duration-300 hover:bg-gray-700 hover:text-sky-400">
-                                Create Schedule
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('student.profile.show') }}" 
-   class="block py-2 px-4 text-white rounded-lg transition duration-300 hover:bg-gray-700 hover:text-sky-400">
-    My Profile
-</a>
-
-                        </li>
                     @endif
+                @endauth
 
-                    <!-- Logout -->
+                @auth('student')
                     <li>
-                        <form action="{{ route('logout') }}" method="POST" class="logout-form">
+                        <a href="{{ route('student.dashboard') }}" class="block py-2 px-4 text-white rounded-lg transition duration-300 hover:bg-gray-700 hover:text-sky-400">
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('student.schedules.create') }}" class="block py-2 px-4 text-white rounded-lg transition duration-300 hover:bg-gray-700 hover:text-sky-400">
+                            Create Schedule
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('student.profile.show') }}" class="block py-2 px-4 text-white rounded-lg transition duration-300 hover:bg-gray-700 hover:text-sky-400">
+                            My Profile
+                        </a>
+                    </li>
+                @endauth
+
+                @if(Auth::guard('web')->check() || Auth::guard('student')->check())
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST" class="block">
                             @csrf
-                            <button type="submit" class="nav-button">
+                            <button type="submit" class="w-full text-left py-2 px-4 text-white rounded-lg transition duration-300 hover:bg-gray-700 hover:text-sky-400">
                                 Logout
                             </button>
                         </form>
                     </li>
-                @endauth
+                @endif
             </ul>
         </div>
     </div>

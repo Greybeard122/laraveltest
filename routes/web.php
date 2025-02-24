@@ -97,11 +97,10 @@ Route::middleware(['auth:student'])->prefix('student')->group(function () {
 });
 
 
-    Route::get('/debug-student-auth', function() {
-        return response()->json([
-            'session_id' => session()->getId(),
-            'is_authenticated' => Auth::guard('student')->check(),
-            'user' => Auth::guard('student')->user(),
-            'session_data' => session()->all()
-        ]);
-    });
+Route::get('/debug', function() {
+    dd([
+        'student_guard' => Auth::guard('student')->check(),
+        'web_guard' => Auth::guard('web')->check(),
+        'student_user' => Auth::guard('student')->user(),
+    ]);
+});

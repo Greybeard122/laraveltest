@@ -4,7 +4,7 @@
 <div class="dashboard-container">
     <div class="page-overlay">
         <div class="dashboard-header">
-            <h2 class="dashboard-title">Welcome, {{ $user->first_name }} to Your Dashboard</h2>
+            <h2 class="dashboard-title">Welcome, {{ Auth::guard('student')->user()->first_name }} to Your Dashboard</h2>
             <p class="dashboard-subtitle">
                 Here you can manage your schedules and other student-related tasks.
             </p>
