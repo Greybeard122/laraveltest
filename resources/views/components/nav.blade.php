@@ -27,6 +27,11 @@
                             Register
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('student.password.request') }}" class="block py-2 px-4 text-white rounded-lg transition duration-300 hover:bg-gray-700 hover:text-sky-400">
+                            Reset Password
+                        </a>
+                    </li>
                 @endguest
 
                 @auth('web')
