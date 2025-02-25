@@ -90,7 +90,7 @@
                             </td>
                             <td class="p-2">{{ $schedule->preferred_time }}</td>
                             <td class="p-2 capitalize">
-                                <span class="px-2 py-1 rounded bg-gray-200">{{ $schedule->status }}</span>
+                                <span class="status-badge status-{{ $schedule->status }}">{{ $schedule->status }}</span>
                             </td>
                             <td class="p-2 flex space-x-2">
                                 <form action="{{ route('schedules.approve', $schedule->id) }}" method="POST">
@@ -131,5 +131,53 @@ function sortTable(columnIndex) {
     rows[0].dataset.sorted = direction === 1 ? "asc" : "desc";
 }
 </script>
+
+<style>
+/* Status Badge Styling */
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Hover Effects */
+.table-row {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.table-row:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Tailwind Pagination Fix */
+nav[aria-label="Pagination Navigation"] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+nav[aria-label="Pagination Navigation"] a {
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+    background-color: white;
+    text-decoration: none;
+}
+
+nav[aria-label="Pagination Navigation"] span[aria-current="page"] {
+    background-color: #4f46e5;
+    color: white;
+    font-weight: bold;
+}
+</style>
 
 @endsection
