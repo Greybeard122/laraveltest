@@ -1,8 +1,8 @@
 @if ($paginator->hasPages())
-    <nav role="navigation" aria-label="{{ __('Pagination Navigation') }}" class="flex flex-col items-center mt-4 space-y-2">
+    <nav role="navigation" aria-label="{{ __('Pagination Navigation') }}" class="flex flex-col items-center mt-4 space-y-1">
         
         {{-- Display Result Count (Single Line) --}}
-        <div class="text-sm text-gray-600">
+        <div class="text-sm text-gray-600 text-center">
             Showing 
             <span class="font-semibold">{{ $paginator->firstItem() }}</span> 
             to 
@@ -12,8 +12,8 @@
             results
         </div>
 
-        {{-- Pagination Links (Separate Line) --}}
-        <div class="flex items-center space-x-2">
+        {{-- Pagination Links (Forces New Line) --}}
+        <div class="flex items-center space-x-2 mt-1">
             {{-- Previous Page Link --}}
             @if ($paginator->onFirstPage())
                 <span class="px-3 py-2 bg-gray-300 text-gray-600 rounded cursor-not-allowed">«</span>
