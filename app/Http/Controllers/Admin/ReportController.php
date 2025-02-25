@@ -15,7 +15,7 @@ class ReportController extends Controller
 {
     $files = File::all();
     
-    $schedules = Schedule::with(['student', 'file'])
+    $schedules = Schedule::with(['student', 'file', 'schoolYear', 'semester'])
         ->when($request->search, function ($query) use ($request) {
             $query->whereHas('student', function ($q) use ($request) {
                 $q->where('first_name', 'like', '%' . $request->search . '%')
@@ -31,24 +31,21 @@ class ReportController extends Controller
 
     return view('admin.reports.index', compact('schedules', 'files'));
 }
-
-
-
 public function studentReport($id)
 {
     $student = Student::findOrFail($id);
 
-    $studentSchedules = Schedule::with('file', 'semester')
+    $studentSchedules = Schedule::with(['file', 'semester', 'schoolYear'])
         ->where('student_id', $id)
-        ->selectRaw('file_id, semester_id, COUNT(*) as request_count, MAX(created_at) as latest_request, status')
-        ->groupBy('file_id', 'semester_id', 'status')
+        ->selectRaw('file_id, semester_id, school_year_id, COUNT(*) as request_count, MAX(created_at) as latest_request, status')
+        ->groupBy('file_id', 'semester_id', 'school_year_id', 'status')
         ->paginate(10);
 
     return view('admin.reports.student', compact('student', 'studentSchedules'));
 }
 
 
-    public function archivedReports() // ✅ Add this function if needed
+    public function archivedReports() 
     {
         $sevenDaysAgo = now()->subDays(7);
 

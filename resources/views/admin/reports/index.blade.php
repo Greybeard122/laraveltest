@@ -33,8 +33,8 @@
                             <td>{{ \Carbon\Carbon::parse($schedule->preferred_date)->format('M d, Y') }}</td>
                             <td>{{ $schedule->preferred_time }}</td>
                             <td>{{ $schedule->reason }}</td>
-                            <td>{{ $schedule->school_year }}</td>
-                            <td>{{ ucfirst($schedule->semester) }}</td>
+                            <td>{{ optional($schedule->schoolYear)->year ?? $schedule->school_year ?? 'N/A' }}</td>
+                            <td>{{ optional($schedule->semester)->name ?? (is_numeric($schedule->semester) ? ($schedule->semester == 1 ? '1st Semester' : '2nd Semester') : $schedule->semester) ?? 'N/A' }}</td>
                             <td class="status-{{ $schedule->status }}">{{ ucfirst($schedule->status) }}</td>
                         </tr>
                     @empty

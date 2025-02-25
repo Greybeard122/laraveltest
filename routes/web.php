@@ -85,9 +85,9 @@ Route::middleware(['auth:web'])->prefix('admin')->group(function () {
     Route::post('/settings', [SettingController::class, 'update'])->name('admin.settings.update');
 
    // School Year & Semester Management
-Route::get('/school-years-semesters', [SchoolYearSemesterController::class, 'index'])->name('admin.school-years-semesters.index');
-Route::post('/school-years', [SchoolYearSemesterController::class, 'storeSchoolYear'])->name('admin.school-years.store');
-Route::post('/semesters', [SchoolYearSemesterController::class, 'storeSemester'])->name('admin.semesters.store');
+    Route::get('/school-years-semesters', [SchoolYearSemesterController::class, 'index'])->name('admin.school-years-semesters.index');
+    Route::post('/school-years', [SchoolYearSemesterController::class, 'storeSchoolYear'])->name('admin.school-years.store');
+    Route::post('/semesters', [SchoolYearSemesterController::class, 'storeSemester'])->name('admin.semesters.store');
 
     // Admin Registration (Only for other admins)
     Route::get('/register', [AdminRegisterController::class, 'showRegistrationForm'])->name('admin.register');
