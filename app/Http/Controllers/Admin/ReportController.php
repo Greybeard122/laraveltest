@@ -34,18 +34,19 @@ class ReportController extends Controller
 
 
 
-    public function studentReport($studentId)
-    {
-        $student = Student::findOrFail($studentId);
+public function studentReport($id)
+{
+    $student = Student::findOrFail($id);
 
-        $studentSchedules = Schedule::where('student_id', $studentId)
-            ->join('files', 'schedules.file_id', '=', 'files.id')
-            ->select('schedules.*', 'files.file_name')
-            ->orderBy('schedules.created_at', 'desc')
-            ->paginate(10);
+    $studentSchedules = Schedule::with('file', 'semester')
+        ->where('student_id', $id)
+        ->selectRaw('file_id, semester_id, COUNT(*) as request_count, MAX(created_at) as latest_request, status')
+        ->groupBy('file_id', 'semester_id', 'status')
+        ->paginate(10);
 
-        return view('admin.reports.student', compact('student', 'studentSchedules'));
-    }
+    return view('admin.reports.student', compact('student', 'studentSchedules'));
+}
+
 
     public function archivedReports() // ✅ Add this function if needed
     {

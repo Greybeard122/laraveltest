@@ -41,17 +41,9 @@
                 <!-- Reason -->
                 <div class="mb-3">
                     <label class="form-label">Reason for Retrieval</label>
-                    <textarea class="form-control @error('reason') is-invalid @enderror" 
-                              name="reason" rows="3" required></textarea>
-                    @error('reason') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                </div>
-
-                <!-- School Year -->
-                <div class="mb-3">
-                    <label class="form-label">Reason for Retrieval</label>
                     <input type="text" name="reason" class="form-control" required>
                 </div>
-                
+                <!-- School Year -->
                 <div class="mb-3">
                     <label class="form-label">Select School Year</label>
                     <select name="school_year" class="form-control" required>

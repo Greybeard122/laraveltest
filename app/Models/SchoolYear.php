@@ -5,11 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
-class Schedule extends Model
+class SchoolYear extends Model
 {
     use HasFactory;
-   
 
     protected $fillable = [
         'student_id',
@@ -18,18 +16,13 @@ class Schedule extends Model
         'preferred_time',
         'reason',
         'status',
-        'semester_id', 
-        'school_year_id',
+        'semester_id',
+        'school_year_id',  
     ];
     
 
-    public function student()
+    public function semesters()
     {
-        return $this->belongsTo(Student::class);
-    }
-
-    public function file()
-    {
-        return $this->belongsTo(File::class);
+        return $this->hasMany(Semester::class);
     }
 }
