@@ -94,23 +94,6 @@ nav[aria-label="Pagination Navigation"] .pagination-links {
     margin-top: 0.75rem;
     text-align: center;
 }
-
-/* Responsive pagination adjustments */
-@media (max-width: 768px) {
-    .pagination .relative.inline-flex.items-center {
-        padding: 4px 8px !important;
-    }
-    
-    .pagination .page-link {
-        font-size: 12px !important;
-    }
-    
-    .pagination svg {
-        width: 12px !important;
-        height: 12px !important;
-    }
-}
-
 /* Improve overall interface spacing and consistency */
 .form-control, .btn {
     font-size: 0.95rem;
@@ -159,22 +142,6 @@ nav[aria-label="Pagination Navigation"] .pagination-links {
     flex: 1;
     min-width: 100px;
 }
-
-/* Improve table responsiveness */
-@media (max-width: 768px) {
-    .table-responsive {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-    
-    .table th, .table td {
-        white-space: nowrap;
-        padding: 0.6rem 0.8rem;
-        font-size: 0.9rem;
-    }
-}
-
-
 /* Hover effect for dropdown boxes */
 select.form-control:hover {
     background-color: #f8f9fa; 
@@ -955,7 +922,18 @@ td.capitalize:contains('completed') {
 }
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
+    .pagination .relative.inline-flex.items-center {
+        padding: 4px 8px !important;
+    }
     
+    .pagination .page-link {
+        font-size: 12px !important;
+    }
+    
+    .pagination svg {
+        width: 12px !important;
+        height: 12px !important;
+    }
     .sidebar {
         transform: translateX(-100%);
         width: 100%;
@@ -1134,4 +1112,13 @@ td.capitalize:contains('completed') {
     .button-container button {
         width: 100%; /* Ensures both buttons have the same width */
     }
-}
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .table th, .table td {
+        white-space: nowrap;
+        padding: 0.6rem 0.8rem;
+        font-size: 0.9rem;
+    }}
