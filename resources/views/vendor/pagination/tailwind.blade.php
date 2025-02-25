@@ -1,8 +1,8 @@
 @if ($paginator->hasPages())
-    <nav role="navigation" aria-label="{{ __('Pagination Navigation') }}" class="flex flex-col items-center mt-4 space-y-1">
+    <nav role="navigation" aria-label="{{ __('Pagination Navigation') }}" class="flex flex-col items-center mt-4">
         
-        {{-- Display Result Count (Single Line) --}}
-        <div class="text-sm text-gray-600 text-center">
+        {{-- Display Result Count --}}
+        <div class="text-sm text-gray-600 text-center mb-3">
             Showing 
             <span class="font-semibold">{{ $paginator->firstItem() }}</span> 
             to 
@@ -12,27 +12,37 @@
             results
         </div>
 
-        {{-- Pagination Links (Forces New Line) --}}
-        <div class="flex items-center space-x-2 mt-1">
+        {{-- Pagination Links (All in one line) --}}
+        <div class="inline-flex rounded-md shadow-sm">
             {{-- Previous Page Link --}}
             @if ($paginator->onFirstPage())
-                <span class="px-3 py-2 bg-gray-300 text-gray-600 rounded cursor-not-allowed">«</span>
+                <span class="relative inline-flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-gray-200 border border-gray-300 cursor-not-allowed rounded-l-md">
+                    <span aria-hidden="true">«</span>
+                </span>
             @else
-                <a href="{{ $paginator->previousPageUrl() }}" class="px-3 py-2 bg-white border rounded hover:bg-gray-200">«</a>
+                <a href="{{ $paginator->previousPageUrl() }}" class="relative inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-l-md hover:bg-gray-100 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
+                    <span aria-hidden="true">«</span>
+                </a>
             @endif
 
             {{-- Page Numbers --}}
             @foreach ($elements as $element)
                 @if (is_string($element))
-                    <span class="px-3 py-2 border">{{ $element }}</span>
+                    <span class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300">
+                        {{ $element }}
+                    </span>
                 @endif
                 
                 @if (is_array($element))
                     @foreach ($element as $page => $url)
                         @if ($page == $paginator->currentPage())
-                            <span class="px-3 py-2 bg-blue-600 text-white rounded">{{ $page }}</span>
+                            <span aria-current="page" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-blue-600 z-10">
+                                {{ $page }}
+                            </span>
                         @else
-                            <a href="{{ $url }}" class="px-3 py-2 border hover:bg-gray-200">{{ $page }}</a>
+                            <a href="{{ $url }}" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
+                                {{ $page }}
+                            </a>
                         @endif
                     @endforeach
                 @endif
@@ -40,9 +50,14 @@
 
             {{-- Next Page Link --}}
             @if ($paginator->hasMorePages())
-                <a href="{{ $paginator->nextPageUrl() }}" class="px-3 py-2 bg-white border rounded hover:bg-gray-200">»</a>
+                <a href="{{ $paginator->nextPageUrl() }}" class="relative inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-r-md hover:bg-gray-100 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
+                    <span aria-hidden="true">»</span>
+                </a>
             @else
-                <span class="px-3 py-2 bg-gray-300 text-gray-600 rounded cursor-not-allowed">»</span>
+                <span class="relative inline-flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-gray-200 border border-gray-300 cursor-not-allowed rounded-r-md">
+                    <span aria-hidden="true">»</span>
+                </span>
+                
             @endif
         </div>
     </nav>
