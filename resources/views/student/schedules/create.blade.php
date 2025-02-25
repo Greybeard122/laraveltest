@@ -48,22 +48,25 @@
 
                 <!-- School Year -->
                 <div class="mb-3">
-                    <label class="form-label">Select School Year</label>
-                    <input type="text" class="form-control @error('school_year') is-invalid @enderror" 
-                           name="school_year" placeholder="e.g., 2023-2024" required>
-                    @error('school_year') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    <label class="form-label">Reason for Retrieval</label>
+                    <input type="text" name="reason" class="form-control" required>
                 </div>
-
-                <!-- Semester -->
+                
+                <div class="mb-3">
+                    <label class="form-label">Select School Year</label>
+                    <select name="school_year" class="form-control" required>
+                        <option value="2023-2024">2023-2024</option>
+                        <option value="2024-2025">2024-2025</option>
+                    </select>
+                </div>
+                
                 <div class="mb-3">
                     <label class="form-label">Select Semester</label>
-                    <select class="form-control @error('semester') is-invalid @enderror" name="semester" required>
-                        <option value="1st">1st Semester</option>
-                        <option value="2nd">2nd Semester</option>
-                        <option value="summer">Summer</option>
+                    <select name="semester" class="form-control" required>
+                        <option value="1">1st Semester</option>
+                        <option value="2">2nd Semester</option>
                     </select>
-                    @error('semester') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                </div>
+                </div>                
 
                 <button type="submit" class="btn btn-submit">Submit Request</button>
             </form>

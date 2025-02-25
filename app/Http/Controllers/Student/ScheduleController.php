@@ -24,8 +24,8 @@ class ScheduleController extends Controller
         'preferred_date' => 'required|date|after:today',
         'preferred_time' => 'required',
         'reason' => 'required|string|max:255',
-        'school_year' => 'required|string|max:10',
-        'semester' => 'required|string|in:1st,2nd,summer'
+        'school_year' => 'required|string',
+        'semester' => 'required|string|in:1,2'
     ]);
 
     Schedule::create([
