@@ -10,7 +10,7 @@ use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\FileController;
 use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\Admin\SemesterController;
+use App\Http\Controllers\Admin\SchoolYearSemesterController;
 use App\Http\Controllers\Student\ScheduleController as StudentScheduleController;
 use App\Http\Controllers\Student\DashboardController as StudentDashboardController;
 use App\Http\Controllers\Student\StudentProfileController;
@@ -84,12 +84,11 @@ Route::middleware(['auth:web'])->prefix('admin')->group(function () {
     Route::get('/settings', [SettingController::class, 'index'])->name('admin.settings.index');
     Route::post('/settings', [SettingController::class, 'update'])->name('admin.settings.update');
 
-    // Semester Management
-    /* Route::get('/semesters', [SemesterController::class, 'index'])->name('admin.semesters.index');
-    Route::post('/semesters', [SemesterController::class, 'store'])->name('admin.semesters.store');
-    Route::put('/semesters/{semester}', [SemesterController::class, 'update'])->name('admin.semesters.update');
-    Route::delete('/semesters/{semester}', [SemesterController::class, 'destroy'])->name('admin.semesters.destroy');
- */
+   // School Year & Semester Management
+Route::get('/school-years-semesters', [SchoolYearSemesterController::class, 'index'])->name('admin.school-years-semesters.index');
+Route::post('/school-years', [SchoolYearSemesterController::class, 'storeSchoolYear'])->name('admin.school-years.store');
+Route::post('/semesters', [SchoolYearSemesterController::class, 'storeSemester'])->name('admin.semesters.store');
+
     // Admin Registration (Only for other admins)
     Route::get('/register', [AdminRegisterController::class, 'showRegistrationForm'])->name('admin.register');
     Route::post('/register', [AdminRegisterController::class, 'register']);

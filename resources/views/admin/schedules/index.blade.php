@@ -146,4 +146,7 @@
         @endif
     </div>
 </div>
+@php
+    dd($schedules->first());
+@endphp
 @endsection

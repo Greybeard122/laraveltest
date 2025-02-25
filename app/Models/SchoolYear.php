@@ -9,17 +9,7 @@ class SchoolYear extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'student_id',
-        'file_id',
-        'preferred_date',
-        'preferred_time',
-        'reason',
-        'status',
-        'semester_id',
-        'school_year_id',  
-    ];
-    
+    protected $fillable = ['year']; 
 
     public function semesters()
     {
