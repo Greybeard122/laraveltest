@@ -1,3 +1,52 @@
+/* Pagination Styling */
+nav[aria-label="Pagination Navigation"] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+    gap: 8px;
+}
+
+nav[aria-label="Pagination Navigation"] a,
+nav[aria-label="Pagination Navigation"] span {
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+    background-color: white;
+    text-decoration: none;
+}
+
+/* Active Page */
+nav[aria-label="Pagination Navigation"] span[aria-current="page"] {
+    background-color: #4f46e5; /* Tailwind indigo-600 */
+    color: white;
+    font-weight: bold;
+    border-color: #4f46e5;
+}
+
+/* Disabled Buttons */
+nav[aria-label="Pagination Navigation"] span[aria-disabled="true"] {
+    background-color: #e5e7eb; /* Gray */
+    color: #9ca3af; /* Light gray */
+    cursor: not-allowed;
+}
+
+/* Hover Effects */
+nav[aria-label="Pagination Navigation"] a:hover {
+    background-color: #e5e7eb;
+}
+
+/* Space out the page info */
+nav[aria-label="Pagination Navigation"] div p {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: #4a5568;
+    margin-bottom: 8px;
+}
 /* Fix overly large pagination arrows */
 .pagination .page-link {
     font-size: 14px !important;  /* Reduce text size */
