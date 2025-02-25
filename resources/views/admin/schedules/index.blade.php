@@ -326,28 +326,38 @@ function highlightRow(rowId) {
 .btn:hover {
     transform: translateY(-1px);
 }
-/* Pagination Container */
+/* Ensure pagination container is centered */
 nav[aria-label="Pagination Navigation"] {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 8px;
     margin-top: 1rem;
-    gap: 10px;
 }
 
-/* Pagination Number & Arrow Styling */
+/* Fix button spacing */
+nav[aria-label="Pagination Navigation"] > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+/* Remove Bootstrap extra button styling */
 nav[aria-label="Pagination Navigation"] span,
 nav[aria-label="Pagination Navigation"] a {
     padding: 8px 12px;
     font-size: 14px;
     font-weight: 500;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 6px;
     transition: all 0.2s ease-in-out;
+    background-color: white;
+    text-decoration: none;
 }
 
-/* Active Page */
+/* Active Page Highlight */
 nav[aria-label="Pagination Navigation"] span[aria-current="page"] {
     background-color: #4f46e5; /* Tailwind indigo-600 */
     color: white;
@@ -355,25 +365,24 @@ nav[aria-label="Pagination Navigation"] span[aria-current="page"] {
     border-color: #4f46e5;
 }
 
-/* Hover Effect */
-nav[aria-label="Pagination Navigation"] a:hover {
-    background-color: #e5e7eb; /* Tailwind gray-200 */
-    color: #4f46e5;
-}
-
 /* Arrow Buttons */
 nav[aria-label="Pagination Navigation"] svg {
     width: 16px;
     height: 16px;
-    vertical-align: middle;
 }
 
-/* Centering the "Showing X to Y of Z results" */
+/* Space out the page info */
 nav[aria-label="Pagination Navigation"] div p {
     text-align: center;
     font-size: 14px;
     font-weight: 500;
     color: #4a5568;
+    margin-bottom: 8px;
+}
+
+/* Remove extra Bootstrap duplicate pagination */
+nav .pagination {
+    display: none !important; /* Hide Bootstrap pagination */
 }
 </style>
 @endsection

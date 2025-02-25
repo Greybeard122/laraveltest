@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,5 +21,6 @@ class AppServiceProvider extends ServiceProvider
 {
     URL::forceScheme('https'); // Enforce HTTPS everywhere
     Log::info('Application boot completed');
+    Paginator::useTailwind();
 }
 }
