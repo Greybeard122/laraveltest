@@ -124,10 +124,11 @@
             </table>
         </div>
         @if($schedules->hasPages())
-            <div class="card-footer">
-                {{ $schedules->links() }}
-            </div>
-        @endif
+    <div class="p-4 flex justify-center">
+        {{ $schedules->links('vendor.pagination.tailwind') }}
+    </div>
+@endif
+
     </div>
 </div>
 
