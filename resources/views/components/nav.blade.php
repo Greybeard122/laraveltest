@@ -61,6 +61,11 @@
                                 Manage Files
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ route('admin.school-years-semesters.index') }}" class="block py-2 px-4 text-white rounded-lg transition duration-300 hover:bg-gray-700 hover:text-sky-400">
+                                Manage School Years & Semesters
+                            </a>
+                        </li>                        
                     @endif
                 @endauth
 
