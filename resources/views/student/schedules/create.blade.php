@@ -46,19 +46,22 @@
                 <!-- School Year -->
                 <div class="mb-3">
                     <label class="form-label">Select School Year</label>
-                    <select name="school_year" class="form-control" required>
-                        <option value="2023-2024">2023-2024</option>
-                        <option value="2024-2025">2024-2025</option>
+                    <select name="school_year_id" class="form-control" required>
+                        @foreach($schoolYears as $year)
+                            <option value="{{ $year->id }}">{{ $year->year }}</option>
+                        @endforeach
                     </select>
                 </div>
-                
+
+                <!-- Semester -->
                 <div class="mb-3">
                     <label class="form-label">Select Semester</label>
-                    <select name="semester" class="form-control" required>
-                        <option value="1">1st Semester</option>
-                        <option value="2">2nd Semester</option>
+                    <select name="semester_id" class="form-control" required>
+                        @foreach($semesters as $semester)
+                            <option value="{{ $semester->id }}">{{ $semester->name }}</option>
+                        @endforeach
                     </select>
-                </div>                
+                </div>               
 
                 <button type="submit" class="btn btn-submit">Submit Request</button>
             </form>
