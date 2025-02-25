@@ -20,6 +20,8 @@ class ScheduleController extends Controller
         ->when($request->file_id, fn($query) => $query->where('file_id', $request->file_id))
         ->when($request->status, fn($query) => $query->where('status', $request->status))
         ->orderBy('created_at', 'desc')
+        ->when($request->school_year, fn($query) => $query->where('school_year', $request->school_year))
+        ->when($request->semester, fn($query) => $query->where('semester', $request->semester))
         ->paginate(10);
 
     return view('admin.schedules.index', compact('schedules', 'files'));

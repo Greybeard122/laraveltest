@@ -18,22 +18,29 @@ class ScheduleController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'file_id' => 'required|exists:files,id',
-            'preferred_date' => 'required|date|after:today',
-            'preferred_time' => 'required'
-        ]);
+{
+    $validated = $request->validate([
+        'file_id' => 'required|exists:files,id',
+        'preferred_date' => 'required|date|after:today',
+        'preferred_time' => 'required',
+        'reason' => 'required|string|max:255',
+        'school_year' => 'required|string|max:10',
+        'semester' => 'required|string|in:1st,2nd,summer'
+    ]);
 
-        Schedule::create([
-            'student_id' => Auth::id(),
-            'file_id' => $validated['file_id'],
-            'preferred_date' => $validated['preferred_date'],
-            'preferred_time' => $validated['preferred_time'],
-            'status' => 'pending'
-        ]);
+    Schedule::create([
+        'student_id' => Auth::id(),
+        'file_id' => $validated['file_id'],
+        'preferred_date' => $validated['preferred_date'],
+        'preferred_time' => $validated['preferred_time'],
+        'reason' => $validated['reason'],
+        'school_year' => $validated['school_year'],
+        'semester' => $validated['semester'],
+        'status' => 'pending'
+    ]);
 
-        return redirect()->route('student.dashboard')
-            ->with('success', 'Schedule request submitted successfully');
-    }
+    return redirect()->route('student.dashboard')
+        ->with('success', 'Schedule request submitted successfully');
+}
+
 }
