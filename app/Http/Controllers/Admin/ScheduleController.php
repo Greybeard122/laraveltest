@@ -13,19 +13,23 @@ class ScheduleController extends Controller
     public function index(Request $request)
 {
     $files = File::all();
+    $schoolYears = SchoolYear::all();
+    $semesters = Semester::all();
 
-    $schedules = Schedule::with(['student', 'file'])
+    $schedules = Schedule::with(['student', 'file', 'schoolYear', 'semester'])
         ->when($request->date_from, fn($query) => $query->whereDate('created_at', '>=', $request->date_from))
         ->when($request->date_to, fn($query) => $query->whereDate('created_at', '<=', $request->date_to))
         ->when($request->file_id, fn($query) => $query->where('file_id', $request->file_id))
         ->when($request->status, fn($query) => $query->where('status', $request->status))
+        ->when($request->school_year_id, fn($query) => $query->where('school_year_id', $request->school_year_id))
+        ->when($request->semester_id, fn($query) => $query->where('semester_id', $request->semester_id))
         ->orderBy('created_at', 'desc')
-        ->when($request->school_year, fn($query) => $query->where('school_year', $request->school_year))
-        ->when($request->semester, fn($query) => $query->where('semester', $request->semester))
         ->paginate(10);
 
-    return view('admin.schedules.index', compact('schedules', 'files'));
+    return view('admin.schedules.index', compact('schedules', 'files', 'schoolYears', 'semesters'));
 }
+
+
 
     public function weeklySchedules(Request $request)
     {
