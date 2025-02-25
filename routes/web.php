@@ -108,9 +108,9 @@ Route::middleware(['auth:student'])->prefix('student')->group(function () {
     
 });
 
-Route::get('/debug-log', function() {
+/* Route::get('/debug-log', function() {
     return response()->file(storage_path('logs/laravel.log'));
-});
+}); */
 
 
 /* Route::get('/debug', function() {

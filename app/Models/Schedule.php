@@ -30,14 +30,14 @@ class Schedule extends Model
     {
         return $this->belongsTo(File::class);
     }
+    
+public function schoolYear()
+{
+    return $this->belongsTo(SchoolYear::class, 'school_year_id');
+}
 
-    public function semester()
-    {
-        return $this->belongsTo(Semester::class);
-    }
-
-    public function schoolYear()
-    {
-        return $this->belongsTo(SchoolYear::class);
-    }
+public function semester()
+{
+    return $this->belongsTo(Semester::class, 'semester_id');
+}
 }
