@@ -6,16 +6,21 @@ namespace App\Http\Controllers\Student;
 use App\Http\Controllers\Controller;
 use App\Models\File;
 use App\Models\Schedule;
+use App\Models\SchoolYear;
+use App\Models\Semester;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ScheduleController extends Controller
 {
     public function create()
-    {
-        $files = File::where('is_available', true)->get();
-        return view('student.schedules.create', compact('files'));
-    }
+{
+    $files = File::where('is_available', true)->get();
+    $schoolYears = SchoolYear::orderBy('year', 'desc')->get();
+    $semesters = Semester::all();
+
+    return view('student.schedules.create', compact('files', 'schoolYears', 'semesters'));
+}
 
     public function store(Request $request)
 {

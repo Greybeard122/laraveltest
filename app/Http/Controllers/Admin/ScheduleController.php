@@ -33,6 +33,7 @@ class ScheduleController extends Controller
 
 
 
+
     public function weeklySchedules(Request $request)
     {
         $selectedDay = $request->query('day');
