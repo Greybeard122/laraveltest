@@ -21,9 +21,17 @@ class LoginController extends Controller
         return view('auth.login');
     }
     public function showLoginForm()
-    {
-        return view('auth.login');
+{
+    if (Auth::guard('web')->check()) {
+        return redirect()->route('admin.dashboard');
     }
+
+    if (Auth::guard('student')->check()) {
+        return redirect()->route('student.dashboard');
+    }
+
+    return view('auth.login');
+}
 
     public function login(Request $request)
 {

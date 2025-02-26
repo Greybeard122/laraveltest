@@ -1,7 +1,11 @@
 <div x-data="{ open: false }" class="bg-gray-800 fixed w-full z-20 top-0 left-0 px-6 py-4 text-white shadow-lg">
     <div class="container flex justify-between items-center mx-auto">
         <!-- Logo and Title -->
-        <a href="/" class="flex items-center justify-center md:justify-start hover:text-sky-400 transition-transform transform hover:scale-105">
+        <a href="
+            @auth('web') {{ route('admin.dashboard') }}
+            @elseif(auth('student')->check()) {{ route('student.dashboard') }}
+            @endauth"
+            class="flex items-center justify-center md:justify-start hover:text-sky-400 transition-transform transform hover:scale-105">
             <img src="{{ asset('images/PRMSU.png') }}" alt="Logo" class="h-10 mr-2">
             <span class="text-lg font-semibold">File-Retrieval System</span>
         </a>
