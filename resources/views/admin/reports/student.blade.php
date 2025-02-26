@@ -50,8 +50,10 @@
                     Filter
                 </button>
                 <a href="{{ route('admin.reports.student', $student->id) }}" 
-                   class="ml-4 bg-gray-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-gray-600 transition duration-200">
-                    Reset
+                    class="btn btn-secondary ms-2">
+                    <i class="fas fa-undo"></i> Clear
+                </a>
+                    Clear
                 </a>
             </div>
         </form>
