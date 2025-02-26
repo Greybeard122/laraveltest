@@ -104,33 +104,40 @@
     <!-- Sidebar Toggle Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const sidebar = document.getElementById('sidebar');
-            const contentArea = document.getElementById('contentArea');
-            const hamburgerBtn = document.getElementById('hamburgerBtn');
-            const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+    const sidebar = document.getElementById('sidebar');
+    const contentArea = document.getElementById('contentArea');
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const closeSidebarBtn = document.getElementById('closeSidebarBtn');
 
-            function toggleSidebar() {
-                sidebar.classList.toggle('active');
-            }
+    function toggleSidebar() {
+        sidebar.classList.toggle('collapsed'); 
+        contentArea.classList.toggle('full-width'); // Adjust content
+    }
 
-            hamburgerBtn.addEventListener('click', toggleSidebar);
-            closeSidebarBtn.addEventListener('click', toggleSidebar);
+    hamburgerBtn.addEventListener('click', toggleSidebar);
+    closeSidebarBtn.addEventListener('click', toggleSidebar);
 
-            // Close sidebar when clicking outside on mobile
-            document.addEventListener('click', function(event) {
-                const isMobile = window.innerWidth <= 768;
-                if (isMobile && !sidebar.contains(event.target) && event.target !== hamburgerBtn) {
-                    sidebar.classList.remove('active');
-                }
-            });
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', function(event) {
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile && !sidebar.contains(event.target) && event.target !== hamburgerBtn) {
+            sidebar.classList.add('collapsed');
+            contentArea.classList.add('full-width');
+        }
+    });
 
-            // Handle window resize
-            window.addEventListener('resize', function() {
-                if (window.innerWidth > 768) {
-                    sidebar.classList.remove('active');
-                }
-            });
-        });
+    // Ensure sidebar is collapsed on smaller screens
+    window.addEventListener('resize', function() {
+        if (window.innerWidth <= 768) {
+            sidebar.classList.add('collapsed');
+            contentArea.classList.add('full-width');
+        } else {
+            sidebar.classList.remove('collapsed');
+            contentArea.classList.remove('full-width');
+        }
+    });
+});
+
         let logoutTimer;
 
     function resetLogoutTimer() {
@@ -160,7 +167,7 @@
     document.addEventListener("click", resetLogoutTimer);
     document.addEventListener("scroll", resetLogoutTimer);
 
-    resetLogoutTimer(); // Start timer when page loads
+    resetLogoutTimer(); 
     </script>
     @stack('scripts')
 </body>
