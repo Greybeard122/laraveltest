@@ -38,32 +38,32 @@
                     @if(auth()->user()->is_admin == 1)
                         <li>
                             <a href="{{ route('admin.register') }}" class="block py-2 px-4 text-white rounded-lg transition duration-300 hover:bg-gray-700 hover:text-sky-400">
-                                Add Admin
+                                Admins
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('admin.schedules.index') }}" class="block py-2 px-4 text-white rounded-lg transition duration-300 hover:bg-gray-700 hover:text-sky-400">
-                                Manage Requests
+                                Requests
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('admin.reports.index') }}" class="block py-2 px-4 text-white rounded-lg transition duration-300 hover:bg-gray-700 hover:text-sky-400">
-                                View Reports
+                                Reports
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('admin.students.index')}}" class="block py-2 px-4 text-white rounded-lg transition duration-300 hover:bg-gray-700 hover:text-sky-400">
-                                Manage Students
+                                Students
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('admin.files.index') }}" class="block py-2 px-4 text-white rounded-lg transition duration-300 hover:bg-gray-700 hover:text-sky-400">
-                                Manage Files
+                                Files
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('admin.school-years-semesters.index') }}" class="block py-2 px-4 text-white rounded-lg transition duration-300 hover:bg-gray-700 hover:text-sky-400">
-                                Manage School Years & Semesters
+                                School Years & Semesters
                             </a>
                         </li>                        
                     @endif

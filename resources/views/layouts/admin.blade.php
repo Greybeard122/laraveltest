@@ -34,8 +34,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ route('admin.settings.index') }}">
+                            Admins
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link text-white" href="{{ route('admin.schedules.index') }}">
-                            Manage Schedules
+                            Schedules
                         </a>
                     </li>
                     <li class="nav-item">
@@ -45,7 +50,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{{ route('admin.students.index') }}">
-                            Manage Students
+                            Students
                         </a>
                     </li>
                     <li class="nav-item">
@@ -55,7 +60,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{{ route('admin.settings.index') }}">
-                            Settings
+                            Admins
                         </a>
                     </li>
                     <li class="nav-item">
