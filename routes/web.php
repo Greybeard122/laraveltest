@@ -17,7 +17,17 @@ use App\Http\Controllers\Student\StudentProfileController;
 use App\Http\Controllers\Admin\ReportController;
 
 // Landing Page
-Route::get('/', [LoginController::class, 'index'])->name('landing.page');
+Route::get('/', function () {
+    if (Auth::guard('web')->check()) {
+        return redirect()->route('admin.dashboard');
+    }
+
+    if (Auth::guard('student')->check()) {
+        return redirect()->route('student.dashboard');
+    }
+
+    return redirect()->route('login');
+});
 
 // Authentication Routes for Guests
 Route::middleware('guest')->group(function () {
