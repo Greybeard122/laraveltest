@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+
 @section('content')
 <div class="container mx-auto px-4 w-full">
     <!-- Title and Archived Link -->
@@ -79,136 +80,110 @@
     @endif
 
     <!-- Schedules Table -->
-<div class="schedule-table-container">
-    <div class="schedule-table-responsive">
-        <table class="schedule-table">
-            <thead>
-                <tr>
-                    <th><a href="{{ route('admin.schedules.index', array_merge(request()->all(), ['sort' => 'student_id', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc'])) }}">Student ⬍</a></th>
-                    <th><a href="{{ route('admin.schedules.index', array_merge(request()->all(), ['sort' => 'file_id', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc'])) }}">File ⬍</a></th>
-                    <th><a href="{{ route('admin.schedules.index', array_merge(request()->all(), ['sort' => 'preferred_date', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc'])) }}">Date ⬍</a></th>
-                    <th><a href="{{ route('admin.schedules.index', array_merge(request()->all(), ['sort' => 'preferred_time', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc'])) }}">Time ⬍</a></th>
-                    <th><a href="{{ route('admin.schedules.index', array_merge(request()->all(), ['sort' => 'reason', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc'])) }}">Reason ⬍</a></th>
-                    <th><a href="{{ route('admin.schedules.index', array_merge(request()->all(), ['sort' => 'school_year_id', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc'])) }}">School Year ⬍</a></th>
-                    <th><a href="{{ route('admin.schedules.index', array_merge(request()->all(), ['sort' => 'semester_id', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc'])) }}">Semester ⬍</a></th>
-                    <th><a href="{{ route('admin.schedules.index', array_merge(request()->all(), ['sort' => 'status', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc'])) }}">Status ⬍</a></th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($schedules as $schedule)
+    <div class="table-container">
+        <div class="table-responsive">
+            <table class="table schedule-table">
+                <thead>
                     <tr>
-                        <td>
-                            @if($schedule->student)
-                                <a href="{{ route('admin.reports.student', $schedule->student->id) }}" class="text-blue-600 hover:text-blue-800 hover:underline">
-                                    {{ $schedule->student->first_name }} {{ $schedule->student->last_name }}
-                                </a>
-                            @else
-                                N/A
-                            @endif
-                        </td>
-                        <td>{{ optional($schedule->file)->file_name ?? 'N/A' }}</td>
-                        <td>{{ \Carbon\Carbon::parse($schedule->preferred_date)->format('M d, Y') }}</td>
-                        <td>{{ $schedule->preferred_time }}</td>
-                        <td>{{ $schedule->reason }}</td>
-                        <td>{{ optional($schedule->schoolYear)->year ?? 'N/A' }}</td>
-                        <td>{{ optional($schedule->semester)->name ?? 'N/A' }}</td>
-                        <td class="status-{{ $schedule->status }}">{{ ucfirst($schedule->status) }}</td>
-                        <td>
-                            <div class="button-container">
-                                <form action="{{ route('schedules.approve', $schedule->id) }}" method="POST" class="inline">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button type="submit" class="btn btn-success btn-sm">
-                                        <i class="fas fa-check me-1"></i> Approve
-                                    </button>
-                                </form>
-                                <form action="{{ route('schedules.reject', $schedule->id) }}" method="POST" class="inline">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button type="submit" class="btn btn-danger btn-sm">
-                                        <i class="fas fa-times me-1"></i> Reject
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
+                        <th>Student</th>
+                        <th>File</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Reason</th>
+                        <th>School Year</th>
+                        <th>Semester</th>
+                        <th>Status</th>
+                        <th>Actions</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach($schedules as $schedule)
+                        <tr>
+                            <td class="stack-text student-name">
+                                <span>{{ $schedule->student->first_name ?? 'N/A' }}</span>
+                                <span>{{ $schedule->student->last_name ?? '' }}</span>
+                            </td>
+                            <td>{{ optional($schedule->file)->file_name ?? 'N/A' }}</td>
+                            <td>{{ \Carbon\Carbon::parse($schedule->preferred_date)->format('M d, Y') }}</td>
+                            <td>{{ $schedule->preferred_time }}</td>
+                            <td class="stack-text prevent-break">{{ $schedule->reason }}</td>
+                            <td class="stack-text school-year">
+                                <span>{{ optional($schedule->schoolYear)->year ? explode('-', optional($schedule->schoolYear)->year)[0] : 'N/A' }}</span>
+                                <span>{{ optional($schedule->schoolYear)->year ? explode('-', optional($schedule->schoolYear)->year)[1] : '' }}</span>
+                            </td>
+                            <td class="stack-text">{{ optional($schedule->semester)->name ?? 'N/A' }}</td>
+                            <td class="status-{{ $schedule->status }}">{{ ucfirst($schedule->status) }}</td>
+                            <td>
+                                <div class="button-container">
+                                    <form action="{{ route('schedules.approve', $schedule->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="submit" class="btn btn-success btn-sm">
+                                            <i class="fas fa-check me-1"></i> Approve
+                                        </button>
+                                    </form>
+                                    <form action="{{ route('schedules.reject', $schedule->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            <i class="fas fa-times me-1"></i> Reject
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
-</div>
 <style>
-/* Prevent horizontal scroll */
-.schedule-table-container {
-    width: 100%;
-    overflow-x: auto;
-}
-
-/* Ensure table fits within container */
+/* Ensure table takes full width */
 .schedule-table {
     width: 100%;
     border-collapse: collapse;
     table-layout: auto;
 }
 
-/* Ensure headers and cells align properly */
-.schedule-table th,
-.schedule-table td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: center;
-    white-space: nowrap; /* Prevent wrapping */
+/* Apply custom styling for stacked text */
+.stack-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    word-break: keep-all;
 }
 
-/* Allow long content to expand certain columns */
-.schedule-table td:nth-child(5), /* Reason */
-.schedule-table td:nth-child(2)  /* File Name */ {
-    min-width: 200px;
-    white-space: normal; /* Allow wrapping if needed */
-    word-break: break-word;
+/* Student Name Stacking */
+.student-name {
+    font-weight: bold;
 }
 
-/* Status Colors */
-.schedule-table td.status-pending {
-    background-color: rgba(255, 193, 7, 0.2);
-    color: #e67e22;
+/* Semester & School Year Styling */
+.school-year {
+    display: flex;
+    flex-direction: column;
 }
 
-.schedule-table td.status-approved {
-    background-color: rgba(40, 167, 69, 0.2);
-    color: #27ae60;
+/* Prevent single letters from breaking */
+.prevent-break {
+    word-break: keep-all;
+    overflow-wrap: break-word;
 }
 
-.schedule-table td.status-rejected {
-    background-color: rgba(220, 53, 69, 0.2);
-    color: #e74c3c;
+/* Remove horizontal scroll */
+.table-container {
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
-/* Responsive Table */
-@media screen and (max-width: 1024px) {
-    .schedule-table-container {
-        overflow-x: auto;
-    }
-
-    .schedule-table th, 
-    .schedule-table td {
+/* Optimize for smaller screens */
+@media screen and (max-width: 768px) {
+    .schedule-table th, .schedule-table td {
         font-size: 14px;
         padding: 8px;
     }
-
-    .schedule-table td:nth-child(2),
-    .schedule-table td:nth-child(5) {
-        min-width: 180px; /* Smaller width for mobile */
-    }
 }
-
-/* Ensure no unnecessary horizontal scrolling */
-html, body {
-    overflow-x: hidden;
-}
-
 </style>
 @endsection
