@@ -9,11 +9,11 @@
     </div>
 
     <!-- Students Table -->
-    <table class="table">
-        <thead>
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
             <tr>
-                <th class="sortable" data-column="student_id">
-                    Student ID 
+                <th class="sortable" data-column="student_number">
+                    Student Number 
                     <span class="sort-icon"></span>
                 </th>
                 <th class="sortable" data-column="first_name">
@@ -42,7 +42,7 @@
         <tbody>
             @foreach ($students as $student)
                 <tr>
-                    <td>{{ $student->student_id }}</td>
+                    <td>{{ $student->student_number ?? 'N/A' }}</td>
                     <td>{{ $student->first_name }}</td>
                     <td>{{ $student->last_name }}</td>
                     <td>{{ $student->email }}</td>
@@ -61,7 +61,9 @@
         </tbody>
     </table>
     <!-- Pagination -->
-    {{ $students->links() }}
+    <div class="d-flex justify-content-center">
+        {{ $students->links() }}
+    </div>
 </div>
 
 @push('styles')
@@ -88,6 +90,12 @@
     content: '↓';
     opacity: 1;
 }
+
+/* Table Styling */
+.table th, .table td {
+    text-align: center;
+    vertical-align: middle;
+}
 </style>
 @endpush
 
@@ -103,35 +111,35 @@ $(document).ready(function() {
 
     // Handle delete button click
     $('.delete-student').click(function() {
-    const studentId = $(this).data('id');
-    const studentName = $(this).data('student-name');
-    
-    if (confirm(`Are you sure you want to delete ${studentName}?`)) {
-        $.ajax({
-            url: `/admin/students/${studentId}`,
-            type: 'DELETE',
-            success: function(result) {
-                if (result.success) {
-                    alert(result.message);
-                    window.location.reload();
-                } else {
-                    alert('Error: ' + result.message);
+        const studentId = $(this).data('id');
+        const studentName = $(this).data('student-name');
+        
+        if (confirm(`Are you sure you want to delete ${studentName}? This action cannot be undone.`)) {
+            $.ajax({
+                url: `/admin/students/${studentId}`,
+                type: 'DELETE',
+                success: function(result) {
+                    if (result.success) {
+                        alert(result.message);
+                        window.location.reload();
+                    } else {
+                        alert('Error: ' + result.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Status:', status);
+                    console.log('Error:', error);
+                    console.log('Response:', xhr.responseText);
+                    
+                    let errorMessage = 'Error deleting student';
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    }
+                    alert(errorMessage);
                 }
-            },
-            error: function(xhr, status, error) {
-                console.log('Status:', status);
-                console.log('Error:', error);
-                console.log('Response:', xhr.responseText);
-                
-                let errorMessage = 'Error deleting student';
-                if (xhr.responseJSON && xhr.responseJSON.message) {
-                    errorMessage = xhr.responseJSON.message;
-                }
-                alert(errorMessage);
-            }
-        });
-    }
-});
+            });
+        }
+    });
 
     // Handle column sorting
     $('.sortable').click(function() {

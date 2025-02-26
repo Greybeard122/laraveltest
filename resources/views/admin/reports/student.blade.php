@@ -10,8 +10,7 @@
 
     <!-- Student Information -->
     <div class="card bg-white bg-opacity-50 backdrop-blur-sm shadow-lg rounded-lg p-6 mb-6">
-        <p class="text-lg font-semibold text-gray-800">
-            <span class="text-gray-600">Student Number:</span> 
+        <p class="text-lg font-semibold text-gray-800">Student Number: 
             <span class="font-bold">{{ $student->student_number ?? 'N/A' }}</span>
         </p>
     </div>
@@ -50,7 +49,8 @@
                 <button type="submit" class="bg-sky-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-sky-700 transition duration-200">
                     Filter
                 </button>
-                <a href="{{ route('admin.reports.student', $student->id) }}" class="ml-4 bg-gray-400 text-white font-bold py-2 px-4 rounded-lg hover:bg-gray-500 transition duration-200">
+                <a href="{{ route('admin.reports.student', $student->id) }}" 
+                   class="ml-4 bg-gray-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-gray-600 transition duration-200">
                     Reset
                 </a>
             </div>
@@ -61,25 +61,25 @@
     <div class="card bg-white bg-opacity-50 backdrop-blur-sm shadow-lg rounded-lg p-6">
         <div class="table-responsive">
             <table class="table w-full">
-                <thead class="bg-gray-200">
-                    <tr class="text-gray-700">
-                        <th class="px-4 py-2">File Name</th>
-                        <th class="px-4 py-2">Request Count</th>
-                        <th class="px-4 py-2">Semester</th>
-                        <th class="px-4 py-2">School Year</th>
-                        <th class="px-4 py-2">Status</th>
-                        <th class="px-4 py-2">Date Requested</th>
+                <thead>
+                    <tr>
+                        <th>File Name</th>
+                        <th>Request Count</th>
+                        <th>Semester</th>
+                        <th>School Year</th>
+                        <th>Status</th>
+                        <th>Date Requested</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-300">
+                <tbody>
                     @foreach($studentSchedules as $schedule)
-                        <tr class="text-center text-gray-700">
-                            <td class="px-4 py-2">{{ optional($schedule->file)->file_name ?? 'N/A' }}</td>
-                            <td class="px-4 py-2 font-bold">{{ $schedule->request_count }}</td>
-                            <td class="px-4 py-2">{{ optional($schedule->semester)->name ?? 'N/A' }}</td>
-                            <td class="px-4 py-2">{{ optional($schedule->schoolYear)->year ?? 'N/A' }}</td>
-                            <td class="px-4 py-2 capitalize">{{ ucfirst($schedule->status) }}</td>
-                            <td class="px-4 py-2">{{ \Carbon\Carbon::parse($schedule->latest_request)->format('M d, Y') }}</td>
+                        <tr>
+                            <td>{{ optional($schedule->file)->file_name ?? 'N/A' }}</td>
+                            <td class="text-center font-bold">{{ $schedule->request_count }}</td>
+                            <td>{{ optional($schedule->semester)->name ?? 'N/A' }}</td>
+                            <td>{{ optional($schedule->schoolYear)->year ?? 'N/A' }}</td>
+                            <td class="capitalize">{{ ucfirst($schedule->status) }}</td>
+                            <td>{{ \Carbon\Carbon::parse($schedule->latest_request)->format('M d, Y') }}</td>
                         </tr>
                     @endforeach
                 </tbody>
