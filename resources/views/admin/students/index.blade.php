@@ -42,7 +42,7 @@
         <tbody>
             @foreach ($students as $student)
                 <tr>
-                    <td>{{ $student->student_number ?? 'N/A' }}</td>
+                    <td>{{ $student->student_id ?? 'N/A' }}</td>
                     <td>{{ $student->first_name }}</td>
                     <td>{{ $student->last_name }}</td>
                     <td>{{ $student->email }}</td>

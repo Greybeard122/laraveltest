@@ -11,7 +11,7 @@
     <!-- Student Information -->
     <div class="card bg-white bg-opacity-50 backdrop-blur-sm shadow-lg rounded-lg p-6 mb-6">
         <p class="text-lg font-semibold text-gray-800">Student Number: 
-            <span class="font-bold">{{ $student->student_number ?? 'N/A' }}</span>
+            <span class="font-bold">{{ $student->student_id ?? 'N/A' }}</span>
         </p>
     </div>
 
