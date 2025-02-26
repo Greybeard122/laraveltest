@@ -10,9 +10,9 @@
     </div>
 
     <!-- Reports Table -->
-    <div class="card bg-white bg-opacity-30 backdrop-blur-sm shadow-lg rounded-lg">
-        <div class="table-responsive">
-            <table class="table">
+    <div class="schedule-table-container">
+        <div class="schedule-table-responsive">
+            <table class="schedule-table">
                 <thead>
                     <tr>
                         <th>Student</th>
@@ -43,12 +43,12 @@
                 </tbody>
             </table>
         </div>
-
-        @if($schedules->hasPages())
-            <div class="p-4 flex justify-center">
-                {{ $schedules->links('vendor.pagination.tailwind') }}
-            </div>
-        @endif
     </div>
+
+    @if($schedules->hasPages())
+        <div class="p-4 flex justify-center">
+            {{ $schedules->links('vendor.pagination.tailwind') }}
+        </div>
+    @endif
 </div>
 @endsection
