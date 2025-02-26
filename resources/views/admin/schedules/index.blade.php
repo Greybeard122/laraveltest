@@ -140,70 +140,44 @@
 </div>
 
 </div>
-
 <style>
     /* Schedule Table Improvements */
     .table-container {
       overflow-x: visible;
-      border-radius: 0.5rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-      background-color: white;
-      margin-bottom: 2rem;
     }
     
     .schedule-table {
       width: 100%;
       table-layout: fixed;
-      border-collapse: separate;
-      border-spacing: 0;
-      overflow: hidden;
-    }
-    
-    .schedule-table thead {
-      background-color: #f8f9fa;
-      position: sticky;
-      top: 0;
-      z-index: 10;
     }
     
     .schedule-table th {
-      padding: 1rem 0.75rem;
-      vertical-align: middle;
-      border-bottom: 2px solid #dee2e6;
+      padding: 0.75rem;
+      vertical-align: top;
+      border-top: 1px solid #dee2e6;
+      background-color: #f8f9fa;
       font-weight: 600;
       white-space: nowrap;
-      text-align: left;
-      color: #495057;
-      transition: background-color 0.2s;
-    }
-    
-    .schedule-table th:hover {
-      background-color: #e9ecef;
     }
     
     .schedule-table td {
-      padding: 0.875rem 0.75rem;
-      vertical-align: middle;
-      border-bottom: 1px solid #e9ecef;
+      padding: 0.75rem;
+      vertical-align: top;
+      border-top: 1px solid #dee2e6;
       word-wrap: break-word;
       max-width: 100%;
-      transition: background-color 0.2s;
-    }
-    
-    .schedule-table tr:hover td {
-      background-color: rgba(0, 123, 255, 0.03);
     }
     
     /* Column width adjustments - revised */
-    .schedule-table th:nth-child(1), .schedule-table td:nth-child(1) { width: 15%; } /* Student */
-    .schedule-table th:nth-child(2), .schedule-table td:nth-child(2) { width: 12%; } /* File */
-    .schedule-table th:nth-child(3), .schedule-table td:nth-child(3) { width: 8%; } /* Date */
-    .schedule-table th:nth-child(4), .schedule-table td:nth-child(4) { width: 6%; } /* Time */
-    .schedule-table th:nth-child(5), .schedule-table td:nth-child(5) { width: 18%; } /* Reason */
-    .schedule-table th:nth-child(6), .schedule-table td:nth-child(6) { width: 10%; } /* School Year */
-    .schedule-table th:nth-child(7), .schedule-table td:nth-child(7) { width: 9%; } /* Semester */
-    .schedule-table th:nth-child(8), .schedule-table td:nth-child(8) { width: 9%; } /* Status */
-    .schedule-table th:nth-child(9), .schedule-table td:nth-child(9) { width: 13%; } /* Actions */
+.schedule-table th:nth-child(1), .schedule-table td:nth-child(1) { width: 15%; } /* Student */
+.schedule-table th:nth-child(2), .schedule-table td:nth-child(2) { width: 12%; } /* File */
+.schedule-table th:nth-child(3), .schedule-table td:nth-child(3) { width: 8%; } /* Date */
+.schedule-table th:nth-child(4), .schedule-table td:nth-child(4) { width: 6%; } /* Time */
+.schedule-table th:nth-child(5), .schedule-table td:nth-child(5) { width: 18%; } /* Reason - reduced from 20% */
+.schedule-table th:nth-child(6), .schedule-table td:nth-child(6) { width: 10%; } /* School Year */
+.schedule-table th:nth-child(7), .schedule-table td:nth-child(7) { width: 9%; } /* Semester */
+.schedule-table th:nth-child(8), .schedule-table td:nth-child(8) { width: 9%; } /* Status - increased from 7% */
+.schedule-table th:nth-child(9), .schedule-table td:nth-child(9) { width: 13%; } /* Actions - increased slightly */
     
     /* Improve text handling in cells */
     .stack-text {
@@ -226,78 +200,42 @@
     .button-container {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 5px;
     }
     
     .button-container .btn {
       width: 100%;
-      padding: 0.375rem 0.75rem;
-      font-size: 0.875rem;
-      border-radius: 0.25rem;
-      white-space: nowrap;
-      transition: all 0.15s ease-in-out;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .button-container .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    
-    .button-container .btn i {
-      margin-right: 0.25rem;
-    }
-    
-    /* Status styles with improved visual treatment */
-    .status-pending, .status-approved, .status-rejected, .status-completed {
-      font-weight: 600;
-      display: inline-block;
       padding: 0.25rem 0.5rem;
-      border-radius: 0.25rem;
+      font-size: 0.875rem;
       white-space: nowrap;
-      text-align: center;
     }
     
+    /* Status colors */
     .status-pending {
-      color: #856404;
-      background-color: #fff3cd;
-      border: 1px solid #ffeeba;
+      font-weight: 600;
+      color: #ffa500;
     }
     
     .status-approved {
-      color: #155724;
-      background-color: #d4edda;
-      border: 1px solid #c3e6cb;
+      font-weight: 600;
+      color: #28a745;
     }
     
     .status-rejected {
-      color: #721c24;
-      background-color: #f8d7da;
-      border: 1px solid #f5c6cb;
+      font-weight: 600;
+      color: #dc3545;
     }
     
     .status-completed {
-      color: #0c5460;
-      background-color: #d1ecf1;
-      border: 1px solid #bee5eb;
+      font-weight: 600;
+      color: #17a2b8;
     }
-    
-    /* Sort indicators for table headers */
-    .schedule-table th a {
-      color: inherit;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-    }
-    
-    .schedule-table th a::after {
-      content: '↕';
-      margin-left: 0.25rem;
-      font-size: 0.75rem;
-      opacity: 0.5;
-    }
+
+    /* Prevent status text from breaking */
+.status-pending, .status-approved, .status-rejected, .status-completed {
+  white-space: nowrap;
+  display: block;
+}
     
     /* Responsive changes for smaller screens */
     @media (max-width: 992px) {
@@ -316,5 +254,7 @@
         padding: 0.5rem;
       }
     }
-    </style>    
+    </style>
+    
+   
 @endsection
