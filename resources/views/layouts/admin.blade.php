@@ -137,7 +137,21 @@
         clearTimeout(logoutTimer);
         logoutTimer = setTimeout(() => {
             alert('You have been logged out due to inactivity.');
-            window.location.href = "{{ route('logout') }}"; // Redirect to logout
+
+            // Create a form dynamically to send a POST request
+            let form = document.createElement('form');
+            form.method = 'POST';
+            form.action = "{{ route('logout') }}";
+
+            // Add CSRF token input (required for Laravel)
+            let csrfToken = document.createElement('input');
+            csrfToken.type = 'hidden';
+            csrfToken.name = '_token';
+            csrfToken.value = "{{ csrf_token() }}";
+            form.appendChild(csrfToken);
+
+            document.body.appendChild(form);
+            form.submit(); // Submit form to logout properly
         }, 5 * 60 * 1000); // 5 minutes
     }
 
