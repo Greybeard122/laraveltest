@@ -64,14 +64,19 @@ class LoginController extends Controller
 }
 
 
-    public function logout()
-    {
-        if (Auth::guard('web')->check()) {
-            Auth::guard('web')->logout();
-        } else {
-            Auth::guard('student')->logout();
-        }
-        return redirect('/login')->with('message', 'Logout Successful');
-        
+public function logout(Request $request)
+{
+    if (Auth::guard('web')->check()) {
+        Auth::guard('web')->logout();
+    } else {
+        Auth::guard('student')->logout();
     }
+
+    // Invalidate session and regenerate CSRF token
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect('/login')->with('message', 'Logout Successful');
+}
+
 }

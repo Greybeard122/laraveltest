@@ -131,6 +131,22 @@
                 }
             });
         });
+        let logoutTimer;
+
+    function resetLogoutTimer() {
+        clearTimeout(logoutTimer);
+        logoutTimer = setTimeout(() => {
+            alert('You have been logged out due to inactivity.');
+            window.location.href = "{{ route('logout') }}"; // Redirect to logout
+        }, 5 * 60 * 1000); // 5 minutes
+    }
+
+    document.addEventListener("mousemove", resetLogoutTimer);
+    document.addEventListener("keypress", resetLogoutTimer);
+    document.addEventListener("click", resetLogoutTimer);
+    document.addEventListener("scroll", resetLogoutTimer);
+
+    resetLogoutTimer(); // Start timer when page loads
     </script>
     @stack('scripts')
 </body>
