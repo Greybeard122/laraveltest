@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Schedule;
 use App\Models\File;
 use App\Models\Student;
+use App\Models\SchoolYear;
+use App\Models\Semester;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -31,18 +33,30 @@ class ReportController extends Controller
 
     return view('admin.reports.index', compact('schedules', 'files'));
 }
-public function studentReport($id)
+public function studentReport(Request $request, $id)
 {
     $student = Student::findOrFail($id);
 
+    // Fetch school years and semesters for the filters
+    $schoolYears = SchoolYear::all();
+    $semesters = Semester::all();
+
+    // Apply filters if selected
     $studentSchedules = Schedule::with(['file', 'semester', 'schoolYear'])
         ->where('student_id', $id)
+        ->when($request->school_year_id, function ($query) use ($request) {
+            $query->where('school_year_id', $request->school_year_id);
+        })
+        ->when($request->semester_id, function ($query) use ($request) {
+            $query->where('semester_id', $request->semester_id);
+        })
         ->selectRaw('file_id, semester_id, school_year_id, COUNT(*) as request_count, MAX(created_at) as latest_request, status')
         ->groupBy('file_id', 'semester_id', 'school_year_id', 'status')
         ->paginate(10);
 
-    return view('admin.reports.student', compact('student', 'studentSchedules'));
+    return view('admin.reports.student', compact('student', 'studentSchedules', 'schoolYears', 'semesters'));
 }
+
 
 
     public function archivedReports() 

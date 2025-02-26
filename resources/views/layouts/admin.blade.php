@@ -34,7 +34,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('admin.settings.index') }}">
+                        <a class="nav-link text-white" href="{{ route('admin.register') }}">
                             Admins
                         </a>
                     </li>
@@ -56,11 +56,6 @@
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{{ route('admin.files.index') }}">
                             Files
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('admin.settings.index') }}">
-                            Admins
                         </a>
                     </li>
                     <li class="nav-item">
