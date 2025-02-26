@@ -20,18 +20,24 @@ class LoginController extends Controller
     {
         return view('auth.login');
     }
-    public function showLoginForm()
+    public function showLoginForm(Request $request)
 {
+    // Force logout before showing the login page
     if (Auth::guard('web')->check()) {
-        return redirect()->route('admin.dashboard');
+        Auth::guard('web')->logout();
     }
 
     if (Auth::guard('student')->check()) {
-        return redirect()->route('student.dashboard');
+        Auth::guard('student')->logout();
     }
+
+    // Invalidate session and regenerate CSRF token
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
 
     return view('auth.login');
 }
+
 
     public function login(Request $request)
 {
