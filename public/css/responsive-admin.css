@@ -1,3 +1,15 @@
+.reset-btn {
+    background-color: #6b7280 !important; /* Tailwind's bg-gray-500 */
+    color: white !important;
+    border-radius: 0.5rem; /* Match Tailwind rounded-lg */
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.reset-btn:hover {
+    background-color: #4b5563 !important; /* Tailwind's bg-gray-600 */
+}
 /* Pagination Styling */
 nav[aria-label="Pagination Navigation"] {
     display: flex;
