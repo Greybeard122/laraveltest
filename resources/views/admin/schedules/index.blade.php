@@ -170,13 +170,13 @@
     
     /* Column width adjustments - revised */
 .schedule-table th:nth-child(1), .schedule-table td:nth-child(1) { width: 14%; } /* Student */
-.schedule-table th:nth-child(2), .schedule-table td:nth-child(2) { width: 10%; } /* File */
+.schedule-table th:nth-child(2), .schedule-table td:nth-child(2) { width: 11%; } /* File */
 .schedule-table th:nth-child(3), .schedule-table td:nth-child(3) { width: 8%; } /* Date */
-.schedule-table th:nth-child(4), .schedule-table td:nth-child(4) { width: 6%; } /* Time */
+.schedule-table th:nth-child(4), .schedule-table td:nth-child(4) { width: 4%; } /* Time */
 .schedule-table th:nth-child(5), .schedule-table td:nth-child(5) { width: 18%; } /* Reason */
 .schedule-table th:nth-child(6), .schedule-table td:nth-child(6) { width: 10%; } /* School Year */
 .schedule-table th:nth-child(7), .schedule-table td:nth-child(7) { width: 12%; } /* Semester */
-.schedule-table th:nth-child(8), .schedule-table td:nth-child(8) { width: 9%; } /* Status -  */
+.schedule-table th:nth-child(8), .schedule-table td:nth-child(8) { width: 10%; } /* Status -  */
 .schedule-table th:nth-child(9), .schedule-table td:nth-child(9) { width: 13%; } /* Actions - */
     
     /* Improve text handling in cells */
