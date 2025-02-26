@@ -49,11 +49,8 @@
                 <button type="submit" class="bg-sky-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-sky-700 transition duration-200">
                     Filter
                 </button>
-                <a href="{{ route('admin.reports.student', $student->id) }}" 
-                    class="btn btn-secondary ms-2">
-                    <i class="fas fa-undo"></i> Clear
-                </a>
-                    Clear
+                <a href="{{ route('admin.reports.student', $student->id) }}" class="reset-btn">
+                    Reset
                 </a>
             </div>
         </form>
@@ -90,4 +87,18 @@
         {{ $studentSchedules->links() }}
     </div>
 </div>
+<style>
+    .reset-btn {
+        background-color: #6b7280 !important; /* Tailwind's bg-gray-500 */
+        color: white !important;
+        border-radius: 0.5rem; /* Match Tailwind rounded-lg */
+        padding: 0.5rem 1rem;
+        font-weight: bold;
+        transition: background-color 0.2s;
+    }
+    
+    .reset-btn:hover {
+        background-color: #4b5563 !important; /* Tailwind's bg-gray-600 */
+    }
+</style>
 @endsection
