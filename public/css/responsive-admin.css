@@ -26,6 +26,7 @@ body {
     transform: translateY(0);
 }
 
+/* Reset Button */
 .reset-btn {
     background-color: #6b7280 !important;
     color: white !important;
@@ -53,12 +54,10 @@ body {
     box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Sidebar Collapsed */
-.sidebar.collapsed {
-    transform: translateX(-100%);
+.sidebar.active {
+    transform: translateX(0);
 }
 
-/* Sidebar Navigation Links */
 .sidebar .nav-link {
     color: rgba(255, 255, 255, 0.8);
     font-weight: 500;
@@ -115,24 +114,7 @@ body {
     background: rgba(255, 255, 255, 0.2);
 }
 
-/* === CONTENT AREA === */
-.content-area {
-    margin-left: 260px;
-    transition: margin 0.3s ease-in-out;
-    min-height: 100vh;
-    background-color: #f7fafc;
-    padding-bottom: 2rem;
-    width: calc(100% - 260px);
-    max-width: 100%;
-}
-
-/* Adjust Content When Sidebar is Collapsed */
-.sidebar.collapsed + .content-area {
-    margin-left: 0;
-    width: 100%;
-}
-
-/* === NAVBAR === */
+/* === TOP NAVBAR === */
 .navbar {
     background-color: #2d3748;
     padding: 12px;
