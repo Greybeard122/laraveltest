@@ -36,7 +36,7 @@
         <div class="grid grid-cols-7 gap-3">
             @foreach($weeklyCounts as $day => $count)
                 <div class="group rounded-xl bg-white bg-opacity-50 backdrop-blur-sm p-4 shadow-md transition-all hover:bg-white/30">
-                    <h4 class="text-sm font-bold text-black drop-shadow-md">
+                    <h4 class="text-sm  text-black drop-shadow-md">
                         {{ $day }}
                     </h4>
                     <p class="text-2xl font-bold text-black drop-shadow-lg mt-2">
