@@ -45,8 +45,8 @@
             </div>
 
             <!-- Submit & Reset -->
-            <div class="flex items-end">
-                <button type="submit" class="bg-sky-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-sky-700 transition duration-200">
+            <div class="button-group">
+                <button type="submit" class="filter-btn">
                     Filter
                 </button>
                 <a href="{{ route('admin.reports.student', $student->id) }}" class="reset-btn">
@@ -88,17 +88,41 @@
     </div>
 </div>
 <style>
-    .reset-btn {
-        background-color: #6b7280 !important; /* Tailwind's bg-gray-500 */
-        color: white !important;
-        border-radius: 0.5rem; /* Match Tailwind rounded-lg */
-        padding: 0.5rem 1rem;
+    /* Button Container */
+    .button-group {
+        display: flex;
+        gap: 0.75rem; /* Adjust spacing between buttons */
+        align-items: center;
+    }
+
+    /* Filter Button */
+    .filter-btn {
+        background-color: #0284c7; /* Tailwind's bg-sky-600 */
+        color: white;
         font-weight: bold;
-        transition: background-color 0.2s;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
     }
     
+    .filter-btn:hover {
+        background-color: #0369a1; /* Tailwind's bg-sky-700 */
+        transform: scale(1.05);
+    }
+
+    /* Reset Button */
+    .reset-btn {
+        background-color: #6b7280; /* Tailwind's bg-gray-500 */
+        color: white;
+        font-weight: bold;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+    }
+
     .reset-btn:hover {
-        background-color: #4b5563 !important; /* Tailwind's bg-gray-600 */
+        background-color: #4b5563; /* Tailwind's bg-gray-600 */
+        transform: scale(1.05);
     }
 </style>
 @endsection
