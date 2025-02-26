@@ -1,35 +1,14 @@
-/* === ROOT VARIABLES === */
-:root {
-    --hover-bg: rgba(74, 144, 226, 0.15);
-    --hover-text: white;
-    --sidebar-bg: #2d3748;
-    --sidebar-hover-bg: rgba(74, 144, 226, 0.8);
-    --text-color: #4a5568;
-    --status-pending: #e67e22;
-    --status-approved: #27ae60;
-    --status-rejected: #e74c3c;
-    --status-completed: #3498db;
-}
-
 /* === GENERAL STYLES === */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f7fafc;
-    color: var(--text-color);
+    color: #4a5568;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
 }
 
-/* === BUTTON & HOVER STYLES === */
-button:hover, 
-a:hover, 
-.nav-link:hover, 
-.btn:hover {
-    background-color: var(--hover-bg);
-    color: var(--hover-text);
-}
-
+/* === BUTTON STYLES === */
 .btn {
     border-radius: 0.5rem;
     padding: 0.75rem 1.25rem;
@@ -47,7 +26,6 @@ a:hover,
     transform: translateY(0);
 }
 
-/* Reset Button */
 .reset-btn {
     background-color: #6b7280 !important;
     color: white !important;
@@ -68,7 +46,7 @@ a:hover,
     position: fixed;
     top: 0;
     left: 0;
-    background-color: var(--sidebar-bg);
+    background-color: #2d3748;
     transition: transform 0.3s ease-in-out;
     z-index: 1000;
     overflow-y: auto;
@@ -93,7 +71,7 @@ a:hover,
 }
 
 .sidebar .nav-link:hover {
-    background-color: var(--sidebar-hover-bg);
+    background-color: rgba(74, 144, 226, 0.8);
     color: white;
     transform: translateX(4px);
 }
@@ -156,7 +134,7 @@ a:hover,
 
 /* === NAVBAR === */
 .navbar {
-    background-color: var(--sidebar-bg);
+    background-color: #2d3748;
     padding: 12px;
     color: white;
 }
@@ -167,10 +145,14 @@ a:hover,
     transition: background 0.3s;
 }
 
+.navbar .nav-link:hover {
+    background-color: #4a5568;
+    border-radius: 5px;
+}
+
 /* === TABLE STYLES === */
 .table {
     margin-bottom: 0;
-    width: 100%;
 }
 
 .table th {
@@ -185,22 +167,35 @@ a:hover,
     padding: 0.75rem 1rem;
     vertical-align: middle;
     text-align: center;
-    word-wrap: break-word;
-    max-width: 100%;
+}
+
+/* Prevent breaking words */
+.table td {
+    white-space: nowrap;
 }
 
 /* Status Colors */
-.status-pending { color: var(--status-pending); font-weight: 600; }
-.status-approved { color: var(--status-approved); font-weight: 600; }
-.status-rejected { color: var(--status-rejected); font-weight: 600; }
-.status-completed { color: var(--status-completed); font-weight: 600; }
+.status-pending { color: #e67e22; font-weight: 600; }
+.status-approved { color: #27ae60; font-weight: 600; }
+.status-rejected { color: #e74c3c; font-weight: 600; }
 
 /* === FILTER BOX === */
 .filter-box {
     background: rgba(255, 255, 255, 0.9);
     border-radius: 0.5rem;
     padding: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filter-box label {
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+}
+
+.filter-box select {
+    border-radius: 0.5rem;
+    border: 2px solid #e2e8f0;
+    padding: 0.75rem;
 }
 
 /* === PAGINATION === */
@@ -260,6 +255,10 @@ a:hover,
         justify-content: center;
     }
 
+    .hamburger-btn:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
     /* Adjust Table */
     .table-responsive {
         overflow-x: auto;
@@ -279,5 +278,21 @@ a:hover,
     /* Adjust Sidebar Navigation */
     .sidebar .nav-link {
         padding: 0.625rem 1rem;
+    }
+
+    /* Adjust Filter Box */
+    .filter-box .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .filter-box .col-md-3 {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .filter-box .btn {
+        width: 100%;
     }
 }
