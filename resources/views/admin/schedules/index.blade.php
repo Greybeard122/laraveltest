@@ -141,74 +141,114 @@
 
 </div>
 <style>
-/* Prevent horizontal scroll */
-.schedule-table-container {
-    width: 100%;
-    overflow-x: auto;
-}
-
-/* Ensure table fits within container */
-.schedule-table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: auto;
-}
-
-/* Ensure headers and cells align properly */
-.schedule-table th,
-.schedule-table td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: center;
-    white-space: nowrap; /* Prevent wrapping */
-}
-
-/* Allow long content to expand certain columns */
-.schedule-table td:nth-child(5), /* Reason */
-.schedule-table td:nth-child(2)  /* File Name */ {
-    min-width: 200px;
-    white-space: normal; /* Allow wrapping if needed */
-    word-break: break-word;
-}
-
-/* Status Colors */
-.schedule-table td.status-pending {
-    background-color: rgba(255, 193, 7, 0.2);
-    color: #e67e22;
-}
-
-.schedule-table td.status-approved {
-    background-color: rgba(40, 167, 69, 0.2);
-    color: #27ae60;
-}
-
-.schedule-table td.status-rejected {
-    background-color: rgba(220, 53, 69, 0.2);
-    color: #e74c3c;
-}
-
-/* Responsive Table */
-@media screen and (max-width: 1024px) {
-    .schedule-table-container {
-        overflow-x: auto;
+    /* Schedule Table Improvements */
+    .table-container {
+      overflow-x: visible;
     }
-
-    .schedule-table th, 
+    
+    .schedule-table {
+      width: 100%;
+      table-layout: fixed;
+    }
+    
+    .schedule-table th {
+      padding: 0.75rem;
+      vertical-align: top;
+      border-top: 1px solid #dee2e6;
+      background-color: #f8f9fa;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    
     .schedule-table td {
-        font-size: 14px;
-        padding: 8px;
+      padding: 0.75rem;
+      vertical-align: top;
+      border-top: 1px solid #dee2e6;
+      word-wrap: break-word;
+      max-width: 100%;
     }
-
-    .schedule-table td:nth-child(2),
-    .schedule-table td:nth-child(5) {
-        min-width: 180px; /* Smaller width for mobile */
+    
+    /* Column width adjustments */
+    .schedule-table th:nth-child(1), .schedule-table td:nth-child(1) { width: 15%; } /* Student */
+    .schedule-table th:nth-child(2), .schedule-table td:nth-child(2) { width: 12%; } /* File */
+    .schedule-table th:nth-child(3), .schedule-table td:nth-child(3) { width: 8%; } /* Date */
+    .schedule-table th:nth-child(4), .schedule-table td:nth-child(4) { width: 6%; } /* Time */
+    .schedule-table th:nth-child(5), .schedule-table td:nth-child(5) { width: 20%; } /* Reason */
+    .schedule-table th:nth-child(6), .schedule-table td:nth-child(6) { width: 10%; } /* School Year */
+    .schedule-table th:nth-child(7), .schedule-table td:nth-child(7) { width: 10%; } /* Semester */
+    .schedule-table th:nth-child(8), .schedule-table td:nth-child(8) { width: 7%; } /* Status */
+    .schedule-table th:nth-child(9), .schedule-table td:nth-child(9) { width: 12%; } /* Actions */
+    
+    /* Improve text handling in cells */
+    .stack-text {
+      display: flex;
+      flex-direction: column;
     }
-}
-
-/* Ensure no unnecessary horizontal scrolling */
-html, body {
-    overflow-x: hidden;
-}
-
-</style>
+    
+    .student-name span {
+      display: block;
+      white-space: normal;
+    }
+    
+    .prevent-break {
+      word-break: break-word;
+      white-space: normal;
+      overflow-wrap: break-word;
+    }
+    
+    /* Better action buttons layout */
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    
+    .button-container .btn {
+      width: 100%;
+      padding: 0.25rem 0.5rem;
+      font-size: 0.875rem;
+      white-space: nowrap;
+    }
+    
+    /* Status colors */
+    .status-pending {
+      font-weight: 600;
+      color: #ffa500;
+    }
+    
+    .status-approved {
+      font-weight: 600;
+      color: #28a745;
+    }
+    
+    .status-rejected {
+      font-weight: 600;
+      color: #dc3545;
+    }
+    
+    .status-completed {
+      font-weight: 600;
+      color: #17a2b8;
+    }
+    
+    /* Responsive changes for smaller screens */
+    @media (max-width: 992px) {
+      .table-responsive {
+        max-width: 100%;
+        overflow-x: auto;
+      }
+      
+      .schedule-table {
+        min-width: 900px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .schedule-table th, .schedule-table td {
+        padding: 0.5rem;
+      }
+    }
+    </style>
+    
+   
 @endsection
