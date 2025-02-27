@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('semesters', function (Blueprint $table) {
-            $table->id();
-            $table->string('name'); // Example: "1st Semester"
-            $table->unsignedBigInteger('school_year_id');
-            $table->foreign('school_year_id')->references('id')->on('school_years')->onDelete('cascade');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('semesters')) { // ✅ Check if 'semesters' table exists
+            Schema::create('semesters', function (Blueprint $table) {
+                $table->id();
+                $table->string('name'); // Example: "1st Semester"
+                $table->unsignedBigInteger('school_year_id');
+                $table->foreign('school_year_id')->references('id')->on('school_years')->onDelete('cascade');
+                $table->timestamps();
+            });
+        }
     }
 
     /**
@@ -25,13 +27,18 @@ return new class extends Migration
      */
     public function down()
     {
-        // Drop foreign key only if 'schedules' table exists
+        // ✅ Check if 'schedules' exists before modifying it
         if (Schema::hasTable('schedules')) {
             Schema::table('schedules', function (Blueprint $table) {
-                $table->dropForeign(['semester_id']);
+                if (Schema::hasColumn('schedules', 'semester_id')) {
+                    $table->dropForeign(['semester_id']);
+                }
             });
         }
 
-        Schema::dropIfExists('semesters');
+        // ✅ Drop 'semesters' only if it exists
+        if (Schema::hasTable('semesters')) {
+            Schema::dropIfExists('semesters');
+        }
     }
 };

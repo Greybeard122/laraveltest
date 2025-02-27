@@ -1,7 +1,7 @@
 @extends('layouts.admin')
+
 @section('content')
 <div class="container mx-auto px-4 w-full">
-    <!-- Title -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="text-2xl font-semibold">Schedule Reports</h2>
         <a href="{{ route('admin.schedules.index') }}" class="archived-link">
@@ -9,14 +9,84 @@
         </a>
     </div>
 
-    <!-- Reports Table -->
+    <!-- 🔍 Search & Filter Form -->
+    <div class="card mb-4 bg-white bg-opacity-30 backdrop-blur-sm shadow-lg rounded-lg filter-box">
+        <div class="card-body">
+            <form class="row g-3" method="GET" action="{{ route('admin.reports.index') }}">
+                <div class="col-md-3">
+                    <label>Search</label>
+                    <input type="text" class="form-control" name="search" placeholder="Search by student or file" value="{{ request('search') }}">
+                </div>
+                <div class="col-md-3">
+                    <label>From</label>
+                    <input type="date" class="form-control" name="date_from" value="{{ request('date_from') }}">
+                </div>
+                <div class="col-md-3">
+                    <label>To</label>
+                    <input type="date" class="form-control" name="date_to" value="{{ request('date_to') }}">
+                </div>
+                <div class="col-md-3">
+                    <label>File Type</label>
+                    <select class="form-control" name="file_id">
+                        <option value="">All Files</option>
+                        @foreach($files as $file)
+                            <option value="{{ $file->id }}" {{ request('file_id') == $file->id ? 'selected' : '' }}>
+                                {{ $file->file_name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label>Status</label>
+                    <select class="form-control" name="status">
+                        <option value="">All Status</option>
+                        <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                        <option value="approved" {{ request('status') == 'approved' ? 'selected' : '' }}>Approved</option>
+                        <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label>School Year</label>
+                    <select class="form-control" name="school_year_id">
+                        <option value="">All Years</option>
+                        @foreach($schoolYears as $year)
+                            <option value="{{ $year->id }}" {{ request('school_year_id') == $year->id ? 'selected' : '' }}>
+                                {{ $year->year }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label>Semester</label>
+                    <select class="form-control" name="semester_id">
+                        <option value="">All Semesters</option>
+                        @foreach($semesters as $semester)
+                            <option value="{{ $semester->id }}" {{ request('semester_id') == $semester->id ? 'selected' : '' }}>
+                                {{ $semester->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary flex-grow-1">
+                        <i class="fas fa-filter me-1"></i> Filter
+                    </button>
+                    <a href="{{ route('admin.reports.index') }}" class="btn btn-secondary ms-2">
+                        <i class="fas fa-undo"></i> Clear
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 📂 Reports Table -->
     <div class="schedule-table-container">
         <div class="schedule-table-responsive">
             <table class="schedule-table">
                 <thead>
                     <tr>
-                        <th>Student</th>
-                        <th>File</th>
+                        <th><a href="{{ route('admin.reports.index', array_merge(request()->all(), ['sort' => 'student_id', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc'])) }}">Student ⬍</a></th>
+                        <th><a href="{{ route('admin.reports.index', array_merge(request()->all(), ['sort' => 'file_id', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc'])) }}">File ⬍</a></th>
                         <th>Date</th>
                         <th>Time</th>
                         <th>Reason</th>
@@ -26,116 +96,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($schedules as $schedule)
+                    @foreach($schedules as $schedule)
                         <tr>
-                            <td>{{ optional($schedule->student)->first_name }} {{ optional($schedule->student)->last_name }}</td>
+                            <td>{{ $schedule->student->first_name ?? 'N/A' }} {{ $schedule->student->last_name ?? '' }}</td>
                             <td>{{ optional($schedule->file)->file_name ?? 'N/A' }}</td>
                             <td>{{ \Carbon\Carbon::parse($schedule->preferred_date)->format('M d, Y') }}</td>
                             <td>{{ $schedule->preferred_time }}</td>
                             <td>{{ $schedule->reason }}</td>
-                            <td>{{ optional($schedule->schoolYear)->year ?? $schedule->school_year ?? 'N/A' }}</td>
-                            <td>{{ optional($schedule->semester)->name ?? (is_numeric($schedule->semester) ? ($schedule->semester == 1 ? '1st Semester' : '2nd Semester') : $schedule->semester) ?? 'N/A' }}</td>
+                            <td>{{ optional($schedule->schoolYear)->year ?? 'N/A' }}</td>
+                            <td>{{ optional($schedule->semester)->name ?? 'N/A' }}</td>
                             <td class="status-{{ $schedule->status }}">{{ ucfirst($schedule->status) }}</td>
                         </tr>
-                    @empty
-                        <tr><td colspan="8" class="text-center">No reports found.</td></tr>
-                    @endforelse
+                    @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-
-    @if($schedules->hasPages())
-        <div class="p-4 flex justify-center">
-            {{ $schedules->links('vendor.pagination.tailwind') }}
-        </div>
-    @endif
 </div>
 @endsection
-<style>
-    /* Schedule Table Improvements */
-    .table-container {
-      overflow-x: visible;
-    }
-    
-    .schedule-table {
-      width: 100%;
-      table-layout: fixed;
-    }
-    
-    .schedule-table th {
-      padding: 0.75rem;
-      vertical-align: top;
-      border-top: 1px solid #dee2e6;
-      background-color: #f8f9fa;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-    
-    .schedule-table td {
-      padding: 0.75rem;
-      vertical-align: top;
-      border-top: 1px solid #dee2e6;
-      word-wrap: break-word;
-      max-width: 100%;
-    }
-    
-    /* Column width adjustments - revised */
-.schedule-table th:nth-child(1), .schedule-table td:nth-child(1) { width: 14%; } /* Student */
-.schedule-table th:nth-child(2), .schedule-table td:nth-child(2) { width: 11%; } /* File */
-.schedule-table th:nth-child(3), .schedule-table td:nth-child(3) { width: 8%; } /* Date */
-.schedule-table th:nth-child(4), .schedule-table td:nth-child(4) { width: 5%; } /* Time */
-.schedule-table th:nth-child(5), .schedule-table td:nth-child(5) { width: 17%; } /* Reason */
-.schedule-table th:nth-child(6), .schedule-table td:nth-child(6) { width: 10%; } /* School Year */
-.schedule-table th:nth-child(7), .schedule-table td:nth-child(7) { width: 12%; } /* Semester */
-.schedule-table th:nth-child(8), .schedule-table td:nth-child(8) { width: 10%; } /* Status -  */
-.schedule-table th:nth-child(9), .schedule-table td:nth-child(9) { width: 13%; } /* Actions - */
-    
-    /* Improve text handling in cells */
-    .stack-text {
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .student-name span {
-      display: block;
-      white-space: normal;
-    }
-    
-    .prevent-break {
-      word-break: break-word;
-      white-space: normal;
-      overflow-wrap: break-word;
-    }
-    
-    /* Better action buttons layout */
-    .button-container {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-    
-    .button-container .btn {
-      width: 100%;
-      padding: 0.25rem 0.5rem;
-      font-size: 0.875rem;
-      white-space: nowrap;
-    }
-/* Responsive changes for smaller screens */
-    @media (max-width: 992px) {
-      .table-responsive {
-        max-width: 100%;
-        overflow-x: auto;
-      }
-      
-      .schedule-table {
-        min-width: 900px;
-      }
-    }
-    
-    @media (max-width: 768px) {
-      .schedule-table th, .schedule-table td {
-        padding: 0.5rem;
-      }
-    }
-</style>

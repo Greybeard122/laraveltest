@@ -12,10 +12,9 @@ return new class extends Migration
     public function up()
     {
         Schema::table('schedules', function (Blueprint $table) {
-            // Check if semester_id does not exist before adding it
-            if (!Schema::hasColumn('schedules', 'semester_id')) {
-                $table->unsignedBigInteger('semester_id')->after('school_year_id')->nullable();
-                $table->foreign('semester_id')->references('id')->on('semesters')->onDelete('cascade');
+            if (!Schema::hasColumn('schedules', 'school_year_id')) {
+                $table->unsignedBigInteger('school_year_id')->nullable()->after('id');
+                $table->foreign('school_year_id')->references('id')->on('school_years')->onDelete('set null');
             }
         });
     }
@@ -26,9 +25,9 @@ return new class extends Migration
     public function down()
     {
         Schema::table('schedules', function (Blueprint $table) {
-            if (Schema::hasColumn('schedules', 'semester_id')) {
-                $table->dropForeign(['semester_id']);
-                $table->dropColumn('semester_id');
+            if (Schema::hasColumn('schedules', 'school_year_id')) {
+                $table->dropForeign(['school_year_id']);
+                $table->dropColumn('school_year_id');
             }
         });
     }
