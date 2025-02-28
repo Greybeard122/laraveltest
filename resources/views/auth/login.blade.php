@@ -40,7 +40,8 @@
 
             <div class="flex flex-col md:flex-row md:justify-between items-center text-sm gap-3 md:gap-6">
                 <div class="flex items-center">
-                    <input type="checkbox" name="remember" id="remember" class="mr-2">
+                    <input type="checkbox" name="remember" id="remember" class="mr-2"
+                        {{ old('remember') ? 'checked' : '' }}>
                     <label for="remember" class="text-gray-700">Remember Me</label>
                 </div>
             
