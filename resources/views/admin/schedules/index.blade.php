@@ -87,12 +87,15 @@
 
                             <!-- Show Manual SY/Sem if COR/COG is selected -->
                             <td>
-                                @if(in_array(optional($schedule->file)->file_name, ['COR', 'COG']))
-                                    {{ $schedule->manual_school_year ?? 'N/A' }} - {{ $schedule->manual_semester ?? 'N/A' }}
-                                @else
-                                    {{ optional($schedule->file)->file_name ?? 'N/A' }}
+                                {{ optional($schedule->file)->file_name ?? 'N/A' }}
+                                @if(in_array(optional($schedule->file)->file_name, ['COR', 'COG']) && $schedule->manual_school_year && $schedule->manual_semester)
+                                    <br>
+                                    <small class="text-gray-500">
+                                        {{ $schedule->manual_school_year }} - {{ $schedule->manual_semester }}
+                                    </small>
                                 @endif
                             </td>
+                            
 
                             <td>{{ \Carbon\Carbon::parse($schedule->preferred_date)->format('M d, Y') }}</td>
                             <td>{{ $schedule->preferred_time }}</td>
