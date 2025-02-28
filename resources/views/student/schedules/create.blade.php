@@ -1,71 +1,75 @@
 @extends('layouts.student')
-<link href="{{ asset('css/students2.css') }}" rel="stylesheet">
+
 @section('content')
-<div class="container">
-    <div class="card schedule-card">
-        <div class="card-header">Schedule File Retrieval</div>
-        <div class="card-body">
-            <form method="POST" action="{{ route('student.schedules.store') }}" class="schedule-form">
-                @csrf
-                
-                <!-- Select File -->
-                <div class="mb-3">
-                    <label class="form-label">Select File to Retrieve</label>
-                    <select class="form-control @error('file_id') is-invalid @enderror" name="file_id" required>
-                        @foreach($files as $file)
-                            <option value="{{ $file->id }}">{{ $file->file_name }}</option>
-                        @endforeach
-                    </select>
-                    @error('file_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                </div>
-
-                <!-- Preferred Date -->
-                <div class="mb-3">
-                    <label class="form-label">Preferred Date</label>
-                    <input type="date" class="form-control @error('preferred_date') is-invalid @enderror" 
-                           name="preferred_date" min="{{ date('Y-m-d') }}" required>
-                    @error('preferred_date') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                </div>
-
-                <!-- Preferred Time -->
-                <div class="mb-3">
-                    <label class="form-label">Preferred Time</label>
-                    <select class="form-control @error('preferred_time') is-invalid @enderror" 
-                            name="preferred_time" required>
-                        <option value="AM">Morning (AM)</option>
-                        <option value="PM">Afternoon (PM)</option>
-                    </select>
-                    @error('preferred_time') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                </div>
-
-                <!-- Reason -->
-                <div class="mb-3">
-                    <label class="form-label">Reason for Retrieval</label>
-                    <input type="text" name="reason" class="form-control" required>
-                </div>
-                <!-- School Year -->
-                <div class="mb-3">
-                    <label class="form-label">Select School Year</label>
-                    <select name="school_year_id" class="form-control" required>
-                        @foreach($schoolYears as $year)
-                            <option value="{{ $year->id }}">{{ $year->year }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <!-- Semester -->
-                <div class="mb-3">
-                    <label class="form-label">Select Semester</label>
-                    <select name="semester_id" class="form-control" required>
-                        @foreach($semesters as $semester)
-                            <option value="{{ $semester->id }}">{{ $semester->name }}</option>
-                        @endforeach
-                    </select>
-                </div>               
-
-                <button type="submit" class="btn btn-submit">Submit Request</button>
-            </form>
+<div class="flex justify-center items-center h-full">
+    <div class="w-full max-w-3xl bg-white bg-opacity-50 backdrop-blur-sm shadow-lg rounded-lg p-8 sm:px-10">
+        <div class="text-center mb-6">
+            <h2 class="text-3xl font-bold text-gray-800 drop-shadow-lg">Schedule File Retrieval</h2>
         </div>
+
+        <form method="POST" action="{{ route('student.schedules.store') }}" class="space-y-4">
+            @csrf
+            
+            <!-- Select File -->
+            <div>
+                <label class="block text-gray-700 font-bold mb-1">Select File to Retrieve</label>
+                <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-200 @error('file_id') is-invalid @enderror" name="file_id" required>
+                    @foreach($files as $file)
+                        <option value="{{ $file->id }}">{{ $file->file_name }}</option>
+                    @endforeach
+                </select>
+                @error('file_id') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
+            </div>
+
+            <!-- Preferred Date -->
+            <div>
+                <label class="block text-gray-700 font-bold mb-1">Preferred Date</label>
+                <input type="date" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-200 @error('preferred_date') is-invalid @enderror" 
+                       name="preferred_date" min="{{ date('Y-m-d') }}" required>
+                @error('preferred_date') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
+            </div>
+
+            <!-- Preferred Time -->
+            <div>
+                <label class="block text-gray-700 font-bold mb-1">Preferred Time</label>
+                <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-200 @error('preferred_time') is-invalid @enderror" 
+                        name="preferred_time" required>
+                    <option value="AM">Morning (AM)</option>
+                    <option value="PM">Afternoon (PM)</option>
+                </select>
+                @error('preferred_time') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
+            </div>
+
+            <!-- Reason -->
+            <div>
+                <label class="block text-gray-700 font-bold mb-1">Reason for Retrieval</label>
+                <input type="text" name="reason" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-200" required>
+            </div>
+
+            <!-- School Year -->
+            <div>
+                <label class="block text-gray-700 font-bold mb-1">Select School Year</label>
+                <select name="school_year_id" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-200" required>
+                    @foreach($schoolYears as $year)
+                        <option value="{{ $year->id }}">{{ $year->year }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Semester -->
+            <div>
+                <label class="block text-gray-700 font-bold mb-1">Select Semester</label>
+                <select name="semester_id" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-200" required>
+                    @foreach($semesters as $semester)
+                        <option value="{{ $semester->id }}">{{ $semester->name }}</option>
+                    @endforeach
+                </select>
+            </div>               
+
+            <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-lg shadow-md transition duration-200">
+                Submit Request
+            </button>
+        </form>
     </div>
 </div>
 @endsection
