@@ -1,4 +1,4 @@
-@extends('layouts.student')
+@extends('layouts.default')
 
 @section('content')
 <div class="flex justify-center items-center h-full">
