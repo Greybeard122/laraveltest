@@ -33,14 +33,16 @@ public function store(Request $request)
         'reason' => 'required|string|max:255',
         'manual_school_year' => 'nullable|string|max:255',
         'manual_semester' => 'nullable|string|max:255',
-        'school_year_id' => 'nullable|exists:school_years,id',
-        'semester_id' => 'nullable|exists:semesters,id',
         'copies' => 'required|integer|min:1'
     ]);
 
-    // Get file name to check if it's COR or COG
-    $file = File::find($validated['file_id']);
-    $isCorCog = in_array(optional($file)->file_name, ['COR', 'COG']);
+    // Fetch the file name
+    $file = File::find($request->file_id);
+
+    // Ensure manual school year and semester are provided if COR/COG is selected
+    if (in_array(optional($file)->file_name, ['COR', 'COG']) && (!$request->manual_school_year || !$request->manual_semester)) {
+        return back()->withErrors(['manual_school_year' => 'School year and semester are required for COR/COG.']);
+    }
 
     Schedule::create([
         'student_id' => Auth::id(),
@@ -48,14 +50,14 @@ public function store(Request $request)
         'preferred_date' => $validated['preferred_date'],
         'preferred_time' => $validated['preferred_time'],
         'reason' => $validated['reason'],
-        'school_year_id' => $isCorCog ? null : $validated['school_year_id'],
-        'semester_id' => $isCorCog ? null : $validated['semester_id'],
-        'manual_school_year' => $isCorCog ? $validated['manual_school_year'] : null,
-        'manual_semester' => $isCorCog ? $validated['manual_semester'] : null,
+        'manual_school_year' => $validated['manual_school_year'],
+        'manual_semester' => $validated['manual_semester'],
         'copies' => $validated['copies'],
         'status' => 'pending'
     ]);
 
-    return redirect()->route('student.dashboard')->with('success', 'Schedule request submitted successfully');
-} 
+    return redirect()->route('student.dashboard')
+        ->with('success', 'Schedule request submitted successfully.');
+}
+
 }
