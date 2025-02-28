@@ -15,11 +15,13 @@ class ScheduleController extends Controller
 {
     public function create()
 {
+    $files = File::where('is_available', true)->get(); // Retrieve only available files
     $schoolYears = SchoolYear::with('semesters')->orderBy('year', 'desc')->get();
-    $semesters = Semester::all(); 
+    $semesters = Semester::all();
 
-    return view('student.schedules.create', compact('schoolYears', 'semesters'));
+    return view('student.schedules.create', compact('files', 'schoolYears', 'semesters'));
 }
+
 
 
 public function store(Request $request)
