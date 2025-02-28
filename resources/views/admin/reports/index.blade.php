@@ -46,11 +46,11 @@
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <label>Manual School Year</label>
+                    <label>Manual School Year (For COR/COG)</label>
                     <input type="text" class="form-control" name="manual_school_year" placeholder="Enter manually..." value="{{ request('manual_school_year') }}">
                 </div>
                 <div class="col-md-3">
-                    <label>Manual Semester</label>
+                    <label>Manual Semester (For COR/COG)</label>
                     <input type="text" class="form-control" name="manual_semester" placeholder="Enter manually..." value="{{ request('manual_semester') }}">
                 </div>
                 <div class="col-md-3">
@@ -82,8 +82,8 @@
                         <th>Reason</th>
                         <th>School Year</th>
                         <th>Semester</th>
-                        <th>Manual School Year</th>
-                        <th>Manual Semester</th>
+                        <th>Manual SY (COR/COG)</th>
+                        <th>Manual Sem (COR/COG)</th>
                         <th>Copies</th>
                         <th>Status</th>
                     </tr>
@@ -91,15 +91,23 @@
                 <tbody>
                     @foreach($schedules as $schedule)
                         <tr>
-                            <td>{{ $schedule->student->first_name ?? 'N/A' }} {{ $schedule->student->last_name ?? '' }}</td>
+                            <td>
+                                @if($schedule->student)
+                                    <a href="{{ route('admin.reports.student', $schedule->student->id) }}" class="student-link">
+                                        {{ $schedule->student->first_name }} {{ $schedule->student->last_name }}
+                                    </a>
+                                @else
+                                    N/A
+                                @endif
+                            </td>
                             <td>{{ optional($schedule->file)->file_name ?? 'N/A' }}</td>
                             <td>{{ \Carbon\Carbon::parse($schedule->preferred_date)->format('M d, Y') }}</td>
                             <td>{{ $schedule->preferred_time }}</td>
                             <td>{{ $schedule->reason }}</td>
                             <td>{{ optional($schedule->schoolYear)->year ?? 'N/A' }}</td>
                             <td>{{ optional($schedule->semester)->name ?? 'N/A' }}</td>
-                            <td>{{ $schedule->manual_school_year ?? 'N/A' }}</td>
-                            <td>{{ $schedule->manual_semester ?? 'N/A' }}</td>
+                            <td>{{ in_array(optional($schedule->file)->file_name, ['COR', 'COG']) ? $schedule->manual_school_year ?? 'N/A' : '-' }}</td>
+                            <td>{{ in_array(optional($schedule->file)->file_name, ['COR', 'COG']) ? $schedule->manual_semester ?? 'N/A' : '-' }}</td>
                             <td>{{ $schedule->copies }}</td>
                             <td class="status-{{ $schedule->status }}">{{ ucfirst($schedule->status) }}</td>
                         </tr>

@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+
 @section('content')
 <div class="container mx-auto px-4 w-full">
     <!-- Title and Archived Link -->
@@ -9,14 +10,14 @@
         </a>
     </div>
 
-    <!-- Info alert moved above filter box -->
+    <!-- Info Alert -->
     <div class="info-alert">
         <i class="fas fa-info-circle"></i> All schedule requests are kept on this page for 7 days to allow status changes. Older requests are saved on the Report Page.
     </div>
 
     @if(session('success'))
         <div class="success-alert">
-            <i class="fas fa-check-circle"></i>{{ session('success') }}
+            <i class="fas fa-check-circle"></i> {{ session('success') }}
         </div>
     @endif
 
@@ -46,18 +47,40 @@
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <label>Manual School Year</label>
+                    <label>School Year</label>
+                    <select class="form-control" name="school_year_id">
+                        <option value="">All School Years</option>
+                        @foreach($schoolYears as $year)
+                            <option value="{{ $year->id }}" {{ request('school_year_id') == $year->id ? 'selected' : '' }}>
+                                {{ $year->year }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label>Semester</label>
+                    <select class="form-control" name="semester_id">
+                        <option value="">All Semesters</option>
+                        @foreach($semesters as $semester)
+                            <option value="{{ $semester->id }}" {{ request('semester_id') == $semester->id ? 'selected' : '' }}>
+                                {{ $semester->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label>Manual School Year (For COR/COG)</label>
                     <input type="text" class="form-control" name="manual_school_year" placeholder="Enter manually..." value="{{ request('manual_school_year') }}">
                 </div>
                 <div class="col-md-3">
-                    <label>Manual Semester</label>
+                    <label>Manual Semester (For COR/COG)</label>
                     <input type="text" class="form-control" name="manual_semester" placeholder="Enter manually..." value="{{ request('manual_semester') }}">
                 </div>
                 <div class="col-md-3">
                     <label>Number of Copies</label>
                     <input type="number" class="form-control" name="copies" min="1" value="{{ request('copies') }}">
                 </div>
-                <div class="col-md-3 d-flex align-items-end filter-buttons">
+                <div class="col-md-3 d-flex align-items-end">
                     <button type="submit" class="btn btn-primary flex-grow-1">
                         <i class="fas fa-filter"></i> Filter
                     </button>
@@ -82,8 +105,8 @@
                         <th>Reason</th>
                         <th>School Year</th>
                         <th>Semester</th>
-                        <th>Manual School Year</th>
-                        <th>Manual Semester</th>
+                        <th>Manual SY (COR/COG)</th>
+                        <th>Manual Sem (COR/COG)</th>
                         <th>Copies</th>
                         <th>Status</th>
                         <th>Actions</th>
@@ -92,32 +115,42 @@
                 <tbody>
                     @foreach($schedules as $schedule)
                         <tr>
-                            <td>{{ $schedule->student->first_name ?? 'N/A' }} {{ $schedule->student->last_name ?? '' }}</td>
+                            <td>
+                                @if($schedule->student)
+                                    <a href="{{ route('admin.reports.student', $schedule->student->id) }}" class="student-link">
+                                        {{ $schedule->student->first_name }} {{ $schedule->student->last_name }}
+                                    </a>
+                                @else
+                                    N/A
+                                @endif
+                            </td>
                             <td>{{ optional($schedule->file)->file_name ?? 'N/A' }}</td>
                             <td>{{ \Carbon\Carbon::parse($schedule->preferred_date)->format('M d, Y') }}</td>
                             <td>{{ $schedule->preferred_time }}</td>
                             <td>{{ $schedule->reason }}</td>
                             <td>{{ optional($schedule->schoolYear)->year ?? 'N/A' }}</td>
                             <td>{{ optional($schedule->semester)->name ?? 'N/A' }}</td>
-                            <td>{{ $schedule->manual_school_year ?? 'N/A' }}</td>
-                            <td>{{ $schedule->manual_semester ?? 'N/A' }}</td>
+                            <td>{{ in_array(optional($schedule->file)->file_name, ['COR', 'COG']) ? $schedule->manual_school_year ?? 'N/A' : '-' }}</td>
+                            <td>{{ in_array(optional($schedule->file)->file_name, ['COR', 'COG']) ? $schedule->manual_semester ?? 'N/A' : '-' }}</td>
                             <td>{{ $schedule->copies }}</td>
                             <td class="status-{{ $schedule->status }}">{{ ucfirst($schedule->status) }}</td>
                             <td>
-                                <form action="{{ route('schedules.approve', $schedule->id) }}" method="POST" class="inline">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button type="submit" class="btn btn-success btn-sm">
-                                        <i class="fas fa-check"></i> Approve
-                                    </button>
-                                </form>
-                                <form action="{{ route('schedules.reject', $schedule->id) }}" method="POST" class="inline">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button type="submit" class="btn btn-danger btn-sm">
-                                        <i class="fas fa-times"></i> Reject
-                                    </button>
-                                </form>
+                                <div class="button-container">
+                                    <form action="{{ route('schedules.approve', $schedule->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="submit" class="btn btn-success btn-sm">
+                                            <i class="fas fa-check"></i> Approve
+                                        </button>
+                                    </form>
+                                    <form action="{{ route('schedules.reject', $schedule->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            <i class="fas fa-times"></i> Reject
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @endforeach

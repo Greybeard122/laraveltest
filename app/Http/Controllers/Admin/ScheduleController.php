@@ -14,21 +14,26 @@ class ScheduleController extends Controller
 {
     public function index(Request $request)
 {
-    $files = File::all(); // Add this line to fetch all files
+    $files = File::all();
     $schoolYears = SchoolYear::all();
     $semesters = Semester::all();
 
     $schedules = Schedule::with(['student', 'file', 'schoolYear', 'semester'])
+        ->when($request->search, fn($query) => $query->whereHas('student', fn($q) => 
+            $q->where('first_name', 'like', '%' . $request->search . '%')
+              ->orWhere('last_name', 'like', '%' . $request->search . '%')))
         ->when($request->file_id, fn($query) => $query->where('file_id', $request->file_id))
         ->when($request->status, fn($query) => $query->where('status', $request->status))
-        ->when($request->manual_school_year, fn($query) => $query->where('manual_school_year', 'LIKE', "%{$request->manual_school_year}%"))
-        ->when($request->manual_semester, fn($query) => $query->where('manual_semester', 'LIKE', "%{$request->manual_semester}%"))
-        ->when($request->copies, fn($query) => $query->where('copies', $request->copies))
+        ->when($request->school_year_id, fn($query) => $query->where('school_year_id', $request->school_year_id))
+        ->when($request->semester_id, fn($query) => $query->where('semester_id', $request->semester_id))
+        ->when($request->manual_school_year, fn($query) => $query->whereNotNull('manual_school_year')->where('manual_school_year', 'LIKE', "%{$request->manual_school_year}%"))
+        ->when($request->manual_semester, fn($query) => $query->whereNotNull('manual_semester')->where('manual_semester', 'LIKE', "%{$request->manual_semester}%"))
         ->orderBy('preferred_date', 'desc')
         ->paginate(10);
 
-    return view('admin.schedules.index', compact('schedules', 'files', 'schoolYears', 'semesters'));
+    return view('admin.reports.index', compact('schedules', 'files', 'schoolYears', 'semesters'));
 }
+
     public function weeklySchedules(Request $request)
     {
         $selectedDay = $request->query('day');
