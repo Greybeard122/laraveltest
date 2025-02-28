@@ -25,7 +25,7 @@ class ScheduleController extends Controller
 public function store(Request $request)
 {
     $validated = $request->validate([
-        'file_id' => 'required|exists:files,id',
+        'file_id' => 'nullable|exists:files,id',
         'preferred_date' => 'required|date|after:today',
         'preferred_time' => 'required',
         'reason' => 'required|string|max:255',
