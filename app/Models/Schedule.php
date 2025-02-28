@@ -19,6 +19,7 @@ class Schedule extends Model
         'semester_id',
         'school_year_id',
         'remarks',
+        'school_year',
     ];
 
     public function student()
