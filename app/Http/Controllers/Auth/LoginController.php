@@ -39,28 +39,24 @@ class LoginController extends Controller
 }
 
 
-    public function login(Request $request)
+public function login(Request $request)
 {
     $credentials = $request->validate([
         'email' => 'required|email',
         'password' => 'required'
     ]);
 
-    // Try admin login first
-    if (Auth::guard('web')->attempt($credentials)) {
-        // Access the admin's first name
-        $user = Auth::guard('web')->user();
-        $firstName = $user->name; // Assuming 'name' is the column for the first name in users table
+    $remember = $request->has('remember'); // Check if "Remember Me" is checked
 
+    // Try admin login first
+    if (Auth::guard('web')->attempt($credentials, $remember)) {
+        $user = Auth::guard('web')->user();
         return redirect()->intended('/admin/dashboard')->with('message', 'Welcome, ' . $user->name . '!');
     }
 
     // Try student login
-    if (Auth::guard('student')->attempt($credentials)) {
-        // Access the student's first name
+    if (Auth::guard('student')->attempt($credentials, $remember)) {
         $student = Auth::guard('student')->user();
-        $firstName = $student->first_name; // Assuming 'first_name' is the column for the first name in students table
-
         return redirect()->intended('/student/dashboard')->with('message', 'Welcome, ' . $student->first_name . '!');
     }
 
@@ -68,6 +64,7 @@ class LoginController extends Controller
         'email' => 'Invalid credentials',
     ])->with('message', 'Please check your credentials and try again.');
 }
+
 
 
 public function logout(Request $request)
