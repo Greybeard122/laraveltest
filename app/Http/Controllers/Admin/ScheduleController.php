@@ -14,24 +14,15 @@ class ScheduleController extends Controller
 {
     public function index(Request $request)
 {
-    $files = File::all();
-    $schoolYears = SchoolYear::all();
-    $semesters = Semester::all();
-
-    // Sorting logic
-    $sort = $request->input('sort', 'preferred_date'); // Default sorting by date
-    $direction = $request->input('direction', 'desc'); // Default descending order
-
-    $schedules = Schedule::with(['student', 'file', 'schoolYear', 'semester'])
-        ->when($request->file_id, fn($query) => $query->where('file_id', $request->file_id))
-        ->when($request->status, fn($query) => $query->where('status', $request->status))
-        ->when($request->school_year_id, fn($query) => $query->where('school_year_id', $request->school_year_id))
-        ->when($request->semester_id, fn($query) => $query->where('semester_id', $request->semester_id))
-        ->orderBy($sort, $direction)
+    $schedules = Schedule::with(['student', 'file'])
+        ->when($request->manual_school_year, fn($query) => $query->where('manual_school_year', 'LIKE', "%{$request->manual_school_year}%"))
+        ->when($request->manual_semester, fn($query) => $query->where('manual_semester', 'LIKE', "%{$request->manual_semester}%"))
+        ->when($request->copies, fn($query) => $query->where('copies', $request->copies))
         ->paginate(10);
 
-    return view('admin.schedules.index', compact('schedules', 'files', 'schoolYears', 'semesters'));
+    return view('admin.schedules.index', compact('schedules'));
 }
+
 
     public function weeklySchedules(Request $request)
     {

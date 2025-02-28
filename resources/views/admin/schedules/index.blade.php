@@ -46,26 +46,16 @@
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <label>School Year</label>
-                    <select class="form-control" name="school_year_id">
-                        <option value="">All School Years</option>
-                        @foreach($schoolYears as $year)
-                            <option value="{{ $year->id }}" {{ request('school_year_id') == $year->id ? 'selected' : '' }}>
-                                {{ $year->year }}
-                            </option>
-                        @endforeach
-                    </select>
+                    <label>Manual School Year</label>
+                    <input type="text" class="form-control" name="manual_school_year" placeholder="Enter manually..." value="{{ request('manual_school_year') }}">
                 </div>
                 <div class="col-md-3">
-                    <label>Semester</label>
-                    <select class="form-control" name="semester_id">
-                        <option value="">All Semesters</option>
-                        @foreach($semesters as $semester)
-                            <option value="{{ $semester->id }}" {{ request('semester_id') == $semester->id ? 'selected' : '' }}>
-                                {{ $semester->name }}
-                            </option>
-                        @endforeach
-                    </select>
+                    <label>Manual Semester</label>
+                    <input type="text" class="form-control" name="manual_semester" placeholder="Enter manually..." value="{{ request('manual_semester') }}">
+                </div>
+                <div class="col-md-3">
+                    <label>Number of Copies</label>
+                    <input type="number" class="form-control" name="copies" min="1" value="{{ request('copies') }}">
                 </div>
                 <div class="col-md-3 d-flex align-items-end filter-buttons">
                     <button type="submit" class="btn btn-primary flex-grow-1">
@@ -85,53 +75,49 @@
             <table class="schedule-table">
                 <thead>
                     <tr>
-                        <th><a href="{{ route('admin.schedules.index', array_merge(request()->all(), ['sort' => 'student_id', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc'])) }}">Student <i class="fas fa-sort"></i></a></th>
-                        <th><a href="{{ route('admin.schedules.index', array_merge(request()->all(), ['sort' => 'file_id', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc'])) }}">File <i class="fas fa-sort"></i></a></th>
-                        <th><a href="{{ route('admin.schedules.index', array_merge(request()->all(), ['sort' => 'preferred_date', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc'])) }}">Date <i class="fas fa-sort"></i></a></th>
-                        <th><a href="{{ route('admin.schedules.index', array_merge(request()->all(), ['sort' => 'preferred_time', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc'])) }}">Time <i class="fas fa-sort"></i></a></th>
-                        <th><a href="{{ route('admin.schedules.index', array_merge(request()->all(), ['sort' => 'reason', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc'])) }}">Reason <i class="fas fa-sort"></i></a></th>
-                        <th><a href="{{ route('admin.schedules.index', array_merge(request()->all(), ['sort' => 'school_year_id', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc'])) }}">School Year <i class="fas fa-sort"></i></a></th>
-                        <th><a href="{{ route('admin.schedules.index', array_merge(request()->all(), ['sort' => 'semester_id', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc'])) }}">Semester <i class="fas fa-sort"></i></a></th>
-                        <th><a href="{{ route('admin.schedules.index', array_merge(request()->all(), ['sort' => 'status', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc'])) }}">Status <i class="fas fa-sort"></i></a></th>
+                        <th>Student</th>
+                        <th>File</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Reason</th>
+                        <th>School Year</th>
+                        <th>Semester</th>
+                        <th>Manual School Year</th>
+                        <th>Manual Semester</th>
+                        <th>Copies</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($schedules as $schedule)
                         <tr>
-                            <td>
-                                @if($schedule->student)
-                                    <a href="{{ route('admin.reports.student', $schedule->student->id) }}" class="student-link">
-                                        {{ $schedule->student->first_name }} {{ $schedule->student->last_name }}
-                                    </a>
-                                @else
-                                    N/A
-                                @endif
-                            </td>
+                            <td>{{ $schedule->student->first_name ?? 'N/A' }} {{ $schedule->student->last_name ?? '' }}</td>
                             <td>{{ optional($schedule->file)->file_name ?? 'N/A' }}</td>
                             <td>{{ \Carbon\Carbon::parse($schedule->preferred_date)->format('M d, Y') }}</td>
                             <td>{{ $schedule->preferred_time }}</td>
-                            <td class="prevent-break">{{ $schedule->reason }}</td>
+                            <td>{{ $schedule->reason }}</td>
                             <td>{{ optional($schedule->schoolYear)->year ?? 'N/A' }}</td>
                             <td>{{ optional($schedule->semester)->name ?? 'N/A' }}</td>
-                            <td><span class="status-{{ $schedule->status }}">{{ ucfirst($schedule->status) }}</span></td>
+                            <td>{{ $schedule->manual_school_year ?? 'N/A' }}</td>
+                            <td>{{ $schedule->manual_semester ?? 'N/A' }}</td>
+                            <td>{{ $schedule->copies }}</td>
+                            <td class="status-{{ $schedule->status }}">{{ ucfirst($schedule->status) }}</td>
                             <td>
-                                <div class="button-container">
-                                    <form action="{{ route('schedules.approve', $schedule->id) }}" method="POST" class="inline">
-                                        @csrf
-                                        @method('PATCH')
-                                        <button type="submit" class="btn btn-success btn-sm">
-                                            <i class="fas fa-check"></i> Approve
-                                        </button>
-                                    </form>
-                                    <form action="{{ route('schedules.reject', $schedule->id) }}" method="POST" class="inline">
-                                        @csrf
-                                        @method('PATCH')
-                                        <button type="submit" class="btn btn-danger btn-sm">
-                                            <i class="fas fa-times"></i> Reject
-                                        </button>
-                                    </form>
-                                </div>
+                                <form action="{{ route('schedules.approve', $schedule->id) }}" method="POST" class="inline">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="btn btn-success btn-sm">
+                                        <i class="fas fa-check"></i> Approve
+                                    </button>
+                                </form>
+                                <form action="{{ route('schedules.reject', $schedule->id) }}" method="POST" class="inline">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-times"></i> Reject
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
@@ -141,6 +127,7 @@
     </div>
 </div>
 @endsection
+
 <style>
     /* Enhanced Schedule Management Page Styles */
 

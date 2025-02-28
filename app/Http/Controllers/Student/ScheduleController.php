@@ -29,8 +29,9 @@ public function store(Request $request)
         'preferred_date' => 'required|date|after:today',
         'preferred_time' => 'required',
         'reason' => 'required|string|max:255',
-        'school_year_id' => 'required|exists:school_years,id',  // Changed from school_year
-        'semester_id' => 'required|exists:semesters,id'         // Changed from semester
+        'manual_school_year' => 'nullable|string|max:255',
+        'manual_semester' => 'nullable|string|max:255',
+        'copies' => 'required|integer|min:1'
     ]);
 
     Schedule::create([
@@ -39,8 +40,9 @@ public function store(Request $request)
         'preferred_date' => $validated['preferred_date'],
         'preferred_time' => $validated['preferred_time'],
         'reason' => $validated['reason'],
-        'school_year_id' => $validated['school_year_id'],  // Changed
-        'semester_id' => $validated['semester_id'],        // Changed
+        'manual_school_year' => $validated['manual_school_year'],
+        'manual_semester' => $validated['manual_semester'],
+        'copies' => $validated['copies'],
         'status' => 'pending'
     ]);
 

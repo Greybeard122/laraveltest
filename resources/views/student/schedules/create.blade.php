@@ -21,6 +21,25 @@
                 @error('file_id') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
             </div>
 
+            <!-- COR/COG Checkboxes -->
+            <div>
+                <label class="block text-gray-700 font-bold mb-1">Select Document Type</label>
+                <div class="flex gap-4">
+                    <label><input type="checkbox" name="cor" value="1"> COR</label>
+                    <label><input type="checkbox" name="cog" value="1"> COG</label>
+                </div>
+            </div>
+
+            <!-- Manual School Year & Semester -->
+            <div>
+                <label class="block text-gray-700 font-bold mb-1">Enter School Year (If applicable)</label>
+                <input type="text" name="manual_school_year" class="w-full px-4 py-3 border border-gray-300 rounded-lg">
+            </div>
+            <div>
+                <label class="block text-gray-700 font-bold mb-1">Enter Semester (If applicable)</label>
+                <input type="text" name="manual_semester" class="w-full px-4 py-3 border border-gray-300 rounded-lg">
+            </div>
+
             <!-- Preferred Date -->
             <div>
                 <label class="block text-gray-700 font-bold mb-1">Preferred Date</label>
@@ -64,7 +83,13 @@
                         <option value="{{ $semester->id }}">{{ $semester->name }}</option>
                     @endforeach
                 </select>
-            </div>               
+            </div> 
+            
+            <!-- Copies -->
+            <div>
+                <label class="block text-gray-700 font-bold mb-1">Number of Copies</label>
+                <input type="number" name="copies" min="1" class="w-full px-4 py-3 border border-gray-300 rounded-lg" required>
+            </div>
 
             <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-lg shadow-md transition duration-200">
                 Submit Request

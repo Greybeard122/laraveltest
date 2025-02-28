@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.admin') 
 
 @section('content')
 <div class="container mx-auto px-4 w-full">
@@ -46,26 +46,16 @@
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <label>School Year</label>
-                    <select class="form-control" name="school_year_id">
-                        <option value="">All Years</option>
-                        @foreach($schoolYears as $year)
-                            <option value="{{ $year->id }}" {{ request('school_year_id') == $year->id ? 'selected' : '' }}>
-                                {{ $year->year }}
-                            </option>
-                        @endforeach
-                    </select>
+                    <label>Manual School Year</label>
+                    <input type="text" class="form-control" name="manual_school_year" placeholder="Enter manually..." value="{{ request('manual_school_year') }}">
                 </div>
                 <div class="col-md-3">
-                    <label>Semester</label>
-                    <select class="form-control" name="semester_id">
-                        <option value="">All Semesters</option>
-                        @foreach($semesters as $semester)
-                            <option value="{{ $semester->id }}" {{ request('semester_id') == $semester->id ? 'selected' : '' }}>
-                                {{ $semester->name }}
-                            </option>
-                        @endforeach
-                    </select>
+                    <label>Manual Semester</label>
+                    <input type="text" class="form-control" name="manual_semester" placeholder="Enter manually..." value="{{ request('manual_semester') }}">
+                </div>
+                <div class="col-md-3">
+                    <label>Number of Copies</label>
+                    <input type="number" class="form-control" name="copies" min="1" value="{{ request('copies') }}">
                 </div>
                 <div class="col-md-3 d-flex align-items-end">
                     <button type="submit" class="btn btn-primary flex-grow-1">
@@ -85,13 +75,16 @@
             <table class="schedule-table">
                 <thead>
                     <tr>
-                        <th><a href="{{ route('admin.reports.index', array_merge(request()->all(), ['sort' => 'student_id', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc'])) }}">Student ⬍</a></th>
-                        <th><a href="{{ route('admin.reports.index', array_merge(request()->all(), ['sort' => 'file_id', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc'])) }}">File ⬍</a></th>
+                        <th>Student</th>
+                        <th>File</th>
                         <th>Date</th>
                         <th>Time</th>
                         <th>Reason</th>
                         <th>School Year</th>
                         <th>Semester</th>
+                        <th>Manual School Year</th>
+                        <th>Manual Semester</th>
+                        <th>Copies</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -105,6 +98,9 @@
                             <td>{{ $schedule->reason }}</td>
                             <td>{{ optional($schedule->schoolYear)->year ?? 'N/A' }}</td>
                             <td>{{ optional($schedule->semester)->name ?? 'N/A' }}</td>
+                            <td>{{ $schedule->manual_school_year ?? 'N/A' }}</td>
+                            <td>{{ $schedule->manual_semester ?? 'N/A' }}</td>
+                            <td>{{ $schedule->copies }}</td>
                             <td class="status-{{ $schedule->status }}">{{ ucfirst($schedule->status) }}</td>
                         </tr>
                     @endforeach

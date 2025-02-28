@@ -20,6 +20,9 @@ class Schedule extends Model
         'school_year_id',
         'remarks',
         'school_year',
+        'manual_school_year', 
+        'manual_semester', 
+        'copies'
     ];
 
     public function student()
