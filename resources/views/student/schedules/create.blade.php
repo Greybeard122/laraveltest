@@ -13,13 +13,14 @@
             <!-- Select File -->
             <div>
                 <label class="block text-gray-700 font-bold mb-1">Select File to Retrieve</label>
-                <select class="form-control" name="file_id">
-                    <option value="">-- Select a file (Optional) --</option> 
+                <select class="form-control" name="file_id" required>
+                    <option value="">-- Select a file --</option> 
                     @foreach($files as $file)
                         <option value="{{ $file->id }}">{{ $file->file_name }}</option>
                     @endforeach
                 </select>
             </div>
+
 
             <!-- COR/COG Checkboxes -->
             <div>
