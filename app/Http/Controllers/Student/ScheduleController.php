@@ -15,12 +15,12 @@ class ScheduleController extends Controller
 {
     public function create()
 {
-    $files = File::where('is_available', true)->get();
-    $schoolYears = SchoolYear::orderBy('year', 'desc')->get();
-    $semesters = Semester::all();
+    $schoolYears = SchoolYear::with('semesters')->orderBy('year', 'desc')->get();
+    $semesters = Semester::all(); 
 
-    return view('student.schedules.create', compact('files', 'schoolYears', 'semesters'));
+    return view('student.schedules.create', compact('schoolYears', 'semesters'));
 }
+
 
 public function store(Request $request)
 {
@@ -49,5 +49,5 @@ public function store(Request $request)
     return redirect()->route('student.dashboard')
         ->with('success', 'Schedule request submitted successfully');
 }
-
+    
 }

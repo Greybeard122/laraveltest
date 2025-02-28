@@ -65,25 +65,24 @@
                 <input type="text" name="reason" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-200" required>
             </div>
 
-            <!-- School Year -->
+            <!-- Select School Year -->
             <div>
                 <label class="block text-gray-700 font-bold mb-1">Select School Year</label>
-                <select name="school_year_id" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-200" required>
+                <select id="school_year" name="school_year_id" class="form-control" required>
+                    <option value="">-- Select a School Year --</option>
                     @foreach($schoolYears as $year)
                         <option value="{{ $year->id }}">{{ $year->year }}</option>
                     @endforeach
                 </select>
             </div>
 
-            <!-- Semester -->
+            <!-- Select Semester -->
             <div>
                 <label class="block text-gray-700 font-bold mb-1">Select Semester</label>
-                <select name="semester_id" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-200" required>
-                    @foreach($semesters as $semester)
-                        <option value="{{ $semester->id }}">{{ $semester->name }}</option>
-                    @endforeach
+                <select id="semester" name="semester_id" class="form-control" required>
+                    <option value="">-- Select a Semester --</option>
                 </select>
-            </div> 
+            </div>
             
             <!-- Copies -->
             <div>
@@ -97,4 +96,27 @@
         </form>
     </div>
 </div>
+<!-- JavaScript to Filter Semesters -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const schoolYearDropdown = document.getElementById('school_year');
+        const semesterDropdown = document.getElementById('semester');
+        const semesters = @json($semesters); 
+
+        schoolYearDropdown.addEventListener('change', function () {
+            const selectedYearId = this.value;
+            semesterDropdown.innerHTML = '<option value="">-- Select a Semester --</option>'; // Reset
+
+            if (selectedYearId) {
+                semesters.filter(sem => sem.school_year_id == selectedYearId)
+                         .forEach(sem => {
+                            let option = document.createElement('option');
+                            option.value = sem.id;
+                            option.textContent = sem.name;
+                            semesterDropdown.appendChild(option);
+                        });
+            }
+        });
+    });
+</script>
 @endsection
