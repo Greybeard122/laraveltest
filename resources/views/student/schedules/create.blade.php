@@ -20,17 +20,7 @@
                     @endforeach
                 </select>
             </div>
-
-
-            <!-- COR/COG Checkboxes -->
-            <div>
-                <label class="block text-gray-700 font-bold mb-1">Select Document Type</label>
-                <div class="flex gap-4">
-                    <label><input type="checkbox" name="cor" value="1"> COR</label>
-                    <label><input type="checkbox" name="cog" value="1"> COG</label>
-                </div>
-            </div>
-
+            
             <!-- Manual School Year & Semester -->
             <div>
                 <label class="block text-gray-700 font-bold mb-1">Enter School Year (If applicable)</label>
