@@ -14,7 +14,7 @@ return new class extends Migration
     Schema::create('schedules', function (Blueprint $table) {
         $table->id();
         $table->unsignedBigInteger('student_id')->nullable();
-        $table->unsignedBigInteger('file_id')->nullable();
+        $table->unsignedBigInteger('file_id')->nullable()->change();
         $table->date('preferred_date');
         $table->enum('preferred_time', ['AM', 'PM'])->default('AM');
         $table->text('reason')->nullable();

@@ -13,8 +13,8 @@
             <!-- Select File -->
             <div>
                 <label class="block text-gray-700 font-bold mb-1">Select File to Retrieve</label>
-                <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" name="file_id">
-                    <option value="">-- Select a file --</option> <!-- Allow blank selection -->
+                <select class="form-control" name="file_id">
+                    <option value="">-- Select a file (Optional) --</option> 
                     @foreach($files as $file)
                         <option value="{{ $file->id }}">{{ $file->file_name }}</option>
                     @endforeach
