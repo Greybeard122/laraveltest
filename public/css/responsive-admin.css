@@ -1,20 +1,11 @@
 .title-container {
-    font-size: 1.5rem; /* Adjust size */
-    font-weight: 700; /* Make it bold */
-    text-align: center; /* Center text */
-    text-transform: uppercase; /* Optional: Make text uppercase */
-    letter-spacing: 0.05em; /* Add slight spacing */
-    background: rgba(255, 255, 255, 0.1); /* Subtle background */
-    padding: 12px 20px; /* Add spacing */
-    border-radius: 8px; /* Rounded edges */
-    display: inline-block; /* Keep it compact */
+    font-size: 1.5rem; 
+    font-weight: 700; 
+    text-align: center; 
+    text-transform: uppercase; 
+    letter-spacing: 0.05em; 
 }
-.mx-auto {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
+
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f7fafc;
