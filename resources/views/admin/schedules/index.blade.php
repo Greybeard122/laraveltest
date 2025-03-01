@@ -14,10 +14,6 @@
         <div class="card-body">
             <form class="row g-3" method="GET" action="{{ route('admin.schedules.index') }}">
                 <div class="col-md-3">
-                    <label>Search by Name</label>
-                    <input type="text" class="form-control" name="search" placeholder="Enter student name" value="{{ request('search') }}">
-                </div>
-                <div class="col-md-3">
                     <label>File Type</label>
                     <select class="form-control" name="file_id">
                         <option value="">All Files</option>
@@ -36,14 +32,6 @@
                         <option value="approved" {{ request('status') == 'approved' ? 'selected' : '' }}>Approved</option>
                         <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
                     </select>
-                </div>
-                <div class="col-md-3">
-                    <label>From Date</label>
-                    <input type="date" class="form-control" name="date_from" value="{{ request('date_from') }}">
-                </div>
-                <div class="col-md-3">
-                    <label>To Date</label>
-                    <input type="date" class="form-control" name="date_to" value="{{ request('date_to') }}">
                 </div>
                 <div class="col-md-3 d-flex align-items-end">
                     <button type="submit" class="btn btn-primary flex-grow-1">
