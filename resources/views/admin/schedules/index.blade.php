@@ -96,8 +96,8 @@
                             <td>{{ $schedule->reason }}</td>
                             <td>
                                 {{ optional($schedule->schoolYear)->year ?? 'N/A' }} - 
-                                {{ optional($schedule->semester)->name ?? 'N/A' }}
-                            </td>                            
+                                {{ $schedule->semester_name ?? 'N/A' }}
+                            </td>                         
                             <td>{{ $schedule->copies }}</td>
                             <td class="status-cell">
                                 <span class="badge bg-{{ $schedule->status == 'approved' ? 'success' : ($schedule->status == 'rejected' ? 'danger' : 'warning') }}">
