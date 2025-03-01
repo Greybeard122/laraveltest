@@ -98,8 +98,11 @@
                             <td>{{ $schedule->reason }}</td>
                             <td>{{ optional($schedule->schoolYear)->year ?? 'N/A' }} - {{ optional($schedule->semester)->name ?? 'N/A' }}</td>
                             <td>{{ $schedule->copies }}</td>
-                            <td class="status-{{ $schedule->status }}">{{ ucfirst($schedule->status) }}</td>
                             <td>
+                                <span class="badge bg-{{ $schedule->status == 'approved' ? 'success' : ($schedule->status == 'rejected' ? 'danger' : 'warning') }}">
+                                    {{ ucfirst($schedule->status) }}
+                                </span>
+                            </td>
                                 <div class="button-container">
                                     <form action="{{ route('schedules.approve', $schedule->id) }}" method="POST" class="inline">
                                         @csrf
