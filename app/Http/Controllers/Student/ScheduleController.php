@@ -35,7 +35,7 @@ public function store(Request $request)
         'manual_semester' => 'nullable|string|max:255',
         'copies' => 'required|integer|min:1',
         'school_year_id' => 'nullable|exists:school_years,id',  
-        'semester_id' => 'nullable|exists:semesters,id'  
+        'semester_id' => 'required|exists:semesters,id', 
     ]);
     
 

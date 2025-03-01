@@ -95,12 +95,9 @@
                             <td>{{ $schedule->preferred_time }}</td>
                             <td>{{ $schedule->reason }}</td>
                             <td>
-                                @if($schedule->semester)
-                                    {{ $schedule->semester->name }} (ID: {{ $schedule->semester->id }})
-                                @else
-                                    N/A
-                                @endif
-                            </td>                                                        
+                                {{ optional($schedule->schoolYear)->year ?? 'N/A' }} - 
+                                {{ optional($schedule->semester)->name ?? 'N/A' }}
+                            </td>                            
                             <td>{{ $schedule->copies }}</td>
                             <td class="status-cell">
                                 <span class="badge bg-{{ $schedule->status == 'approved' ? 'success' : ($schedule->status == 'rejected' ? 'danger' : 'warning') }}">

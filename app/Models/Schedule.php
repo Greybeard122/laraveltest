@@ -41,7 +41,7 @@ public function schoolYear()
 }
 public function semester()
 {
-    return $this->belongsTo(Semester::class, 'semester_id', 'id');
+    return $this->belongsTo(Semester::class);
 }
 
 }
