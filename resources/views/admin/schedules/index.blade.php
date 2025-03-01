@@ -129,4 +129,6 @@
         </div>
     </div>
 </div>
+@dd($schedules)
+
 @endsection
