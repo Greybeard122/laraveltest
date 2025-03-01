@@ -45,9 +45,12 @@
                             <td>{{ $schedule->reason }}</td>
 
                             <!-- School Year & Semester -->
-                            <td>{{ optional($schedule->schoolYear)->year ?? 'N/A' }} - {{ optional($schedule->semester)->name ?? 'N/A' }}</td>
-
-                            <td class="status-{{ $schedule->status }}">{{ ucfirst($schedule->status) }}</td>
+                            <td>
+                                {{ optional($schedule->schoolYear)->year ?? 'N/A' }} - 
+                                {{ $schedule->semester_name ?? 'N/A' }}
+                            </td> 
+                            <td>{{ $schedule->copies }}</td>    
+                            
                         </tr>
                     @endforeach
                 </tbody>
