@@ -17,13 +17,13 @@ class Schedule extends Model
         'reason',
         'status',
         'semester_id',
-        'school_year_id',
+        'school_year_id',  
         'remarks',
-        'school_year',
-        'manual_school_year', 
-        'manual_semester', 
+        'manual_school_year',  
+        'manual_semester',  
         'copies'
     ];
+    
 
     public function student()
     {
