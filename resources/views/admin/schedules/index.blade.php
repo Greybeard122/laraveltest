@@ -8,7 +8,8 @@
             <i class="fas fa-archive"></i> View Report Page
         </a>
     </div>
-    {{ dd($schedule->semester) }}
+    <pre>{{ print_r($schedules->toArray(), true) }}</pre>
+
     <!-- Filter Form -->
     <div class="card mb-4 bg-white bg-opacity-30 backdrop-blur-sm shadow-lg rounded-lg filter-box">
         <div class="card-body">
