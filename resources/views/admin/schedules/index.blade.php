@@ -113,16 +113,4 @@
     @endif
 </div>
 <style>
-.table {
-    width: 100%;
-    table-layout: auto;
-    border-collapse: collapse;
-}
-
-.table th, .table td {
-    padding: 10px;
-    white-space: nowrap;
-    text-align: left;
-}
-</style>
 @endsection

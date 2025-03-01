@@ -377,7 +377,15 @@ body {
 
 /* Prevent breaking words */
 .table td {
-    white-space: nowrap;
+    white-space: normal; 
+    word-wrap: break-word; 
+    vertical-align: middle;
+    text-align: left; 
+    max-width: 200px; 
+}
+/* Specifically for the reason column which has longer text */
+.table td:nth-child(5) {
+    max-width: 250px; /* Adjust this value based on your needs */
 }
 
 /* === FILTER BOX === */
