@@ -1,7 +1,7 @@
 @extends('layouts.admin')
-
 @section('content')
 <div class="container mx-auto px-4 w-full">
+    <!-- Title and Archived Link -->
     <div class="page-header">
         <h2 class="text-2xl font-semibold">Schedule Management</h2>
         <a href="{{ route('admin.reports.index') }}" class="archived-link">
@@ -9,13 +9,14 @@
         </a>
     </div>
 
+    <!-- Info alert -->
     <div class="info-alert">
         <i class="fas fa-info-circle"></i> All schedule requests are kept on this page for 7 days to allow status changes. Older requests are saved on the Report Page.
     </div>
 
     @if(session('success'))
         <div class="success-alert">
-            <i class="fas fa-check-circle"></i> {{ session('success') }}
+            <i class="fas fa-check-circle"></i>{{ session('success') }}
         </div>
     @endif
 
@@ -44,7 +45,29 @@
                         <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>Completed</option>
                     </select>
                 </div>
-                <div class="col-md-3 d-flex align-items-end filter-buttons">
+                <div class="col-md-3">
+                    <label>School Year</label>
+                    <select class="form-control" name="school_year_id">
+                        <option value="">All School Years</option>
+                        @foreach($schoolYears as $year)
+                            <option value="{{ $year->id }}" {{ request('school_year_id') == $year->id ? 'selected' : '' }}>
+                                {{ $year->year }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label>Semester</label>
+                    <select class="form-control" name="semester_id">
+                        <option value="">All Semesters</option>
+                        @foreach($semesters as $semester)
+                            <option value="{{ $semester->id }}" {{ request('semester_id') == $semester->id ? 'selected' : '' }}>
+                                {{ $semester->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
                     <button type="submit" class="btn btn-primary flex-grow-1">
                         <i class="fas fa-filter"></i> Filter
                     </button>
@@ -56,7 +79,7 @@
         </div>
     </div>
 
-    <!-- Schedule Table -->
+    <!-- Schedules Table -->
     <div class="schedule-table-container">
         <div class="schedule-table-responsive">
             <table class="schedule-table">
@@ -75,51 +98,40 @@
                 <tbody>
                     @foreach($schedules as $schedule)
                         <tr>
-                            <td>
-                                @if($schedule->student)
-                                    <a href="{{ route('admin.reports.student', $schedule->student->id) }}" class="student-link">
-                                        {{ $schedule->student->first_name }} {{ $schedule->student->last_name }}
-                                    </a>
-                                @else
-                                    N/A
-                                @endif
-                            </td>
-
-                            <!-- Show Manual SY/Sem if COR/COG is selected -->
+                            <td>{{ $schedule->student->first_name ?? 'N/A' }} {{ $schedule->student->last_name ?? '' }}</td>
                             <td>
                                 {{ optional($schedule->file)->file_name ?? 'N/A' }}
                                 @if(in_array(optional($schedule->file)->file_name, ['COR', 'COG']) && $schedule->manual_school_year && $schedule->manual_semester)
                                     <br>
-                                    <small class="text-gray-500">
-                                        {{ $schedule->manual_school_year }} - {{ $schedule->manual_semester }}
-                                    </small>
+                                    <small class="text-gray-500">{{ $schedule->manual_school_year }} - {{ $schedule->manual_semester }}</small>
                                 @endif
                             </td>
-                            
-
                             <td>{{ \Carbon\Carbon::parse($schedule->preferred_date)->format('M d, Y') }}</td>
                             <td>{{ $schedule->preferred_time }}</td>
                             <td>{{ $schedule->reason }}</td>
-
-                            <!-- School Year & Semester -->
                             <td>{{ optional($schedule->schoolYear)->year ?? 'N/A' }} - {{ optional($schedule->semester)->name ?? 'N/A' }}</td>
-
-                            <td><span class="status-{{ $schedule->status }}">{{ ucfirst($schedule->status) }}</span></td>
+                            <td class="status-{{ $schedule->status }}">{{ ucfirst($schedule->status) }}</td>
                             <td>
-                                <form action="{{ route('schedules.approve', $schedule->id) }}" method="POST" class="inline">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button type="submit" class="btn btn-success btn-sm">
-                                        <i class="fas fa-check"></i> Approve
-                                    </button>
-                                </form>
-                                <form action="{{ route('schedules.reject', $schedule->id) }}" method="POST" class="inline">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button type="submit" class="btn btn-danger btn-sm">
-                                        <i class="fas fa-times"></i> Reject
-                                    </button>
-                                </form>
+                                <div class="button-container">
+                                    @if($schedule->status == 'pending')
+                                        <form action="{{ route('schedules.approve', $schedule->id) }}" method="POST" class="inline">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button type="submit" class="btn btn-success btn-sm">
+                                                <i class="fas fa-check"></i> Approve
+                                            </button>
+                                        </form>
+                                        <form action="{{ route('schedules.reject', $schedule->id) }}" method="POST" class="inline">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <i class="fas fa-times"></i> Reject
+                                            </button>
+                                        </form>
+                                    @else
+                                        <span class="text-gray-500">No Actions Available</span>
+                                    @endif
+                                </div>
                             </td>
                         </tr>
                     @endforeach
@@ -129,7 +141,6 @@
     </div>
 </div>
 @endsection
-
 
 <style>
     /* Enhanced Schedule Management Page Styles */
