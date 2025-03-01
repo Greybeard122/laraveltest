@@ -53,8 +53,11 @@ public function store(Request $request)
         'manual_school_year' => $validated['manual_school_year'],
         'manual_semester' => $validated['manual_semester'],
         'copies' => $validated['copies'],
+        'school_year_id' => $request->school_year_id, 
+        'semester_id' => $request->semester_id,       
         'status' => 'pending'
     ]);
+    
 
     return redirect()->route('student.dashboard')
         ->with('success', 'Schedule request submitted successfully.');

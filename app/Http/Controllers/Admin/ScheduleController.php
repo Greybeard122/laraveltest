@@ -19,16 +19,15 @@ class ScheduleController extends Controller
     $semesters = Semester::all();
 
     $schedules = Schedule::with(['student', 'file', 'schoolYear', 'semester'])
-        ->when($request->file_id, fn($query) => $query->where('file_id', $request->file_id))
-        ->when($request->status, fn($query) => $query->where('status', $request->status))
-        ->when($request->school_year_id, fn($query) => $query->where('school_year_id', $request->school_year_id))
-        ->when($request->semester_id, fn($query) => $query->where('semester_id', $request->semester_id))
-        ->orderBy('preferred_date', 'desc')
-        ->paginate(10);
+    ->when($request->file_id, fn($query) => $query->where('file_id', $request->file_id))
+    ->when($request->status, fn($query) => $query->where('status', $request->status))
+    ->when($request->school_year_id, fn($query) => $query->where('school_year_id', $request->school_year_id))
+    ->when($request->semester_id, fn($query) => $query->where('semester_id', $request->semester_id))
+    ->orderBy('preferred_date', 'desc')
+    ->paginate(10);
 
     return view('admin.schedules.index', compact('schedules', 'files', 'schoolYears', 'semesters'));
 }
-
 
     public function weeklySchedules(Request $request)
     {

@@ -94,8 +94,11 @@
                             <td>{{ \Carbon\Carbon::parse($schedule->preferred_date)->format('M d, Y') }}</td>
                             <td>{{ $schedule->preferred_time }}</td>
                             <td>{{ $schedule->reason }}</td>
-                            <td>{{ optional($schedule->schoolYear)->year ?? 'N/A' }} - {{ optional($schedule->semester)->name ?? 'N/A' }}</td>
-                            <td>{{ $schedule->copies }}</td>
+                            <td>
+                                {{ $schedule->schoolYear->year ?? 'N/A' }} - 
+                                {{ $schedule->semester->name ?? 'N/A' }}
+                            </td>
+                                                        <td>{{ $schedule->copies }}</td>
                             <td class="status-cell">
                                 <span class="badge bg-{{ $schedule->status == 'approved' ? 'success' : ($schedule->status == 'rejected' ? 'danger' : 'warning') }}">
                                     {{ ucfirst($schedule->status) }}
