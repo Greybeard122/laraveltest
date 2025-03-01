@@ -13,7 +13,6 @@
     <div class="card mb-4 bg-white bg-opacity-30 backdrop-blur-sm shadow-lg rounded-lg filter-box">
         <div class="card-body">
             <form class="row g-3" method="GET" action="{{ route('admin.schedules.index') }}">
-                
                 <div class="col-md-3">
                     <label>File Type</label>
                     <select class="form-control" name="file_id">
@@ -62,10 +61,10 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Student</th>
-                        <th>File</th>
-                        <th>Date</th>
-                        <th>Time</th>
+                        <th><a href="{{ route('admin.schedules.index', array_merge(request()->all(), ['sort' => 'student_id', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc'])) }}">Student <i class="fas fa-sort"></i></a></th>
+                        <th><a href="{{ route('admin.schedules.index', array_merge(request()->all(), ['sort' => 'file_id', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc'])) }}">File <i class="fas fa-sort"></i></a></th>
+                        <th><a href="{{ route('admin.schedules.index', array_merge(request()->all(), ['sort' => 'preferred_date', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc'])) }}">Date <i class="fas fa-sort"></i></a></th>
+                        <th><a href="{{ route('admin.schedules.index', array_merge(request()->all(), ['sort' => 'preferred_time', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc'])) }}">Time <i class="fas fa-sort"></i></a></th>
                         <th>Reason</th>
                         <th>School Year & Semester</th>
                         <th>Copies</th>
@@ -78,8 +77,7 @@
                         <tr>
                             <td>
                                 @if($schedule->student)
-                                    <a href="{{ route('admin.reports.student', $schedule->student->id) }}" 
-                                        class="text-blue-600 hover:text-blue-800 hover:underline">
+                                    <a href="{{ route('admin.reports.student', $schedule->student->id) }}" class="text-blue-600 hover:text-blue-800 hover:underline">
                                         {{ $schedule->student->first_name }} {{ $schedule->student->last_name }}
                                     </a>
                                 @else
@@ -98,20 +96,21 @@
                             <td>{{ $schedule->reason }}</td>
                             <td>{{ optional($schedule->schoolYear)->year ?? 'N/A' }} - {{ optional($schedule->semester)->name ?? 'N/A' }}</td>
                             <td>{{ $schedule->copies }}</td>
-                            <td>
+                            <td class="status-cell">
                                 <span class="badge bg-{{ $schedule->status == 'approved' ? 'success' : ($schedule->status == 'rejected' ? 'danger' : 'warning') }}">
                                     {{ ucfirst($schedule->status) }}
                                 </span>
                             </td>
-                                <div class="button-container">
-                                    <form action="{{ route('schedules.approve', $schedule->id) }}" method="POST" class="inline">
+                            <td>
+                                <div class="button-container d-flex gap-2">
+                                    <form action="{{ route('schedules.approve', $schedule->id) }}" method="POST">
                                         @csrf
                                         @method('PATCH')
                                         <button type="submit" class="btn btn-success btn-sm">
                                             <i class="fas fa-check me-1"></i> Approve
                                         </button>
                                     </form>
-                                    <form action="{{ route('schedules.reject', $schedule->id) }}" method="POST" class="inline">
+                                    <form action="{{ route('schedules.reject', $schedule->id) }}" method="POST">
                                         @csrf
                                         @method('PATCH')
                                         <button type="submit" class="btn btn-danger btn-sm">

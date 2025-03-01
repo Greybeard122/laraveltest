@@ -1,3 +1,8 @@
+.status-cell {
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+}
 /* === RESPONSIVE ADJUSTMENTS === */
 @media (max-width: 992px) {
     .schedule-table-responsive {
@@ -169,7 +174,8 @@
 /* Better action buttons */
 .button-container {
     display: flex;
-    gap: 0.5rem;
+    justify-content: center;
+    gap: 5px;
 }
 
 .button-container .btn {
@@ -199,11 +205,6 @@
     }
 }
 
-@media (max-width: 768px) {
-    .button-container {
-        flex-direction: column;
-    }
-}
 /* === GENERAL STYLES === */
 body {
     font-family: 'Arial', sans-serif;
