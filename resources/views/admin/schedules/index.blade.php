@@ -8,7 +8,6 @@
             <i class="fas fa-archive"></i> View Report Page
         </a>
     </div>
-    <pre>{{ print_r($schedules->toArray(), true) }}</pre>
 
     <!-- Filter Form -->
     <div class="card mb-4 bg-white bg-opacity-30 backdrop-blur-sm shadow-lg rounded-lg filter-box">
@@ -96,9 +95,9 @@
                             <td>{{ $schedule->preferred_time }}</td>
                             <td>{{ $schedule->reason }}</td>
                             <td>
-                                {{ $schedule->schoolYear ? $schedule->schoolYear->year : 'N/A' }} - 
-                                {{ $schedule->semester ? $schedule->semester->name : 'N/A' }}
-                            </td>
+                                {{ optional($schedule->schoolYear)->year ?? 'N/A' }} - 
+                                {{ optional($schedule->semester)->name ?? 'N/A' }}
+                            </td>                            
                             <td>{{ $schedule->copies }}</td>
                             <td class="status-cell">
                                 <span class="badge bg-{{ $schedule->status == 'approved' ? 'success' : ($schedule->status == 'rejected' ? 'danger' : 'warning') }}">
