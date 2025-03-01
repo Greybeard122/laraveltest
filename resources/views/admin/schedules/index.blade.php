@@ -9,6 +9,10 @@
         </a>
     </div>
 
+    <div class="alert alert-info mb-4">
+        <i class="fas fa-info-circle me-2"></i> All schedule requests are kept on this page for 7 days to allow status changes. Older requests are saved on the Report Page.
+    </div>
+
     <!-- Filter Form -->
     <div class="card mb-4 bg-white bg-opacity-30 backdrop-blur-sm shadow-lg rounded-lg filter-box">
         <div class="card-body">
@@ -45,9 +49,7 @@
         </div>
     </div>
 
-    <div class="alert alert-info mb-4">
-        <i class="fas fa-info-circle me-2"></i> All schedule requests are kept on this page for 7 days to allow status changes. Older requests are saved on the Report Page.
-    </div>
+    
 
     @if(session('success'))
         <div class="alert alert-success fade show">
@@ -66,7 +68,6 @@
                         <th><a href="{{ route('admin.schedules.index', array_merge(request()->all(), ['sort' => 'preferred_date', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc'])) }}">Date <i class="fas fa-sort"></i></a></th>
                         <th><a href="{{ route('admin.schedules.index', array_merge(request()->all(), ['sort' => 'preferred_time', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc'])) }}">Time <i class="fas fa-sort"></i></a></th>
                         <th>Reason</th>
-                        <th>School Year & Semester</th>
                         <th>Copies</th>
                         <th>Status</th>
                         <th>Actions</th>
@@ -93,11 +94,7 @@
                             </td>
                             <td>{{ \Carbon\Carbon::parse($schedule->preferred_date)->format('M d, Y') }}</td>
                             <td>{{ $schedule->preferred_time }}</td>
-                            <td>{{ $schedule->reason }}</td>
-                            <td>
-                                {{ optional($schedule->schoolYear)->year ?? 'N/A' }} - 
-                                {{ $schedule->semester_name ?? 'N/A' }}
-                            </td>                         
+                            <td>{{ $schedule->reason }}</td>                        
                             <td>{{ $schedule->copies }}</td>
                             <td class="status-cell">
                                 <span class="badge bg-{{ $schedule->status == 'approved' ? 'success' : ($schedule->status == 'rejected' ? 'danger' : 'warning') }}">

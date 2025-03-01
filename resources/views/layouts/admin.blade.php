@@ -40,7 +40,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{{ route('admin.schedules.index') }}">
-                            Schedules
+                            Requests
                         </a>
                     </li>
                     <li class="nav-item">
