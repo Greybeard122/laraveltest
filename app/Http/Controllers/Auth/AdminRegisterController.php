@@ -36,7 +36,7 @@ class AdminRegisterController extends Controller
             'faculty_id' => $request->faculty_id,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'is_admin' => 1, // Assuming this column is used for non-role-based admin check
+            'is_admin' => 1, 
         ]);
 
         // Assign the 'admin' role to the new user

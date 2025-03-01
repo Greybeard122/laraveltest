@@ -1,92 +1,231 @@
+/* === GENERAL STYLES === */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7fafc;
+    color: #4a5568;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* === TABLE STYLES === */
+.table {
+    width: 100%;
+    margin-bottom: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table th {
+    background-color: #f8fafc;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.table th a {
+    color: #4a5568;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: color 0.2s;
+}
+
+.table th a:hover {
+    color: #2d3748;
+}
+
+.table th, .table td {
+    padding: 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.table tr:hover {
+    background-color: rgba(247, 250, 252, 0.5);
+}
+
+.table td {
+    white-space: normal;
+    word-wrap: break-word;
+    max-width: 200px;
+    text-align: left;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #4a5568;
+}
+
+.table td:nth-child(5) {
+    max-width: 250px;
+}
+
+/* === STATUS CELL STYLING === */
 .status-cell {
     text-align: center;
-    vertical-align: middle;
-    white-space: nowrap;
 }
-/* === RESPONSIVE ADJUSTMENTS === */
-@media (max-width: 992px) {
-    .schedule-table-responsive {
-        max-width: 100%;
-        overflow-x: auto;
-    }
+
+.badge {
+    padding: 0.35em 0.65em;
+    font-size: 0.75em;
+    font-weight: 600;
+    border-radius: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
 }
-/* === FILTER BOX FIX === */
+
+.bg-success {
+    background-color: #10b981 !important;
+}
+
+.bg-danger {
+    background-color: #ef4444 !important;
+}
+
+.bg-warning {
+    background-color: #f59e0b !important;
+}
+
+/* === FILTER BOX === */
 .filter-box {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 0.5rem;
+    background: white;
+    border-radius: 0.75rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     margin-bottom: 1.5rem;
-    transition: box-shadow 0.3s;
     border: 1px solid #e2e8f0;
+    transition: box-shadow 0.3s;
 }
 
 .filter-box:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
 }
 
-.filter-box .card-body {
-    padding: 1.25rem;
-}
-
 .filter-box label {
     font-weight: 600;
-    color: #4a5568;
+    color: #4b5563;
     margin-bottom: 0.5rem;
-    display: block;
+    font-size: 0.875rem;
 }
 
-.filter-box select {
-    width: 100%;
-    border-radius: 0.375rem;
-    border: 1px solid #e2e8f0;
-    padding: 0.625rem;
-    background-color: white;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.filter-box select:focus {
-    border-color: #4299e1;
-    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
-    outline: none;
-}
-
-.filter-box .filter-buttons {
+/* === BUTTON STYLES === */
+.button-container {
     display: flex;
+    justify-content: flex-start;
     gap: 0.5rem;
 }
 
-.filter-box button {
+.button-container .btn {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.8125rem;
+    border-radius: 0.375rem;
     font-weight: 500;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.2s;
 }
 
-.filter-box button i {
-    margin-right: 0.5rem;
+.button-container .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-/* === SCHEDULE & REPORTS TABLE STYLING === */
-.schedule-table-container {
-    background-color: white;
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+
+/* === MAIN CONTAINER === */
+.container {
+    padding: 1.5rem;
+    max-width: 1280px;
+}
+
+/* === RESPONSIVE IMPROVEMENTS === */
+@media (max-width: 768px) {
+    .d-flex.justify-content-between.align-items-center {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 1rem;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+
+    .table th, .table td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    .button-container {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .button-container .btn {
+        width: 100%;
+    }
+
+    .filter-box .col-md-3 {
+        margin-bottom: 1rem;
+    }
+}
+
+/* === CARD STYLES === */
+.card {
+    border: none;
+    border-radius: 0.75rem;
     overflow: hidden;
-    margin-bottom: 1.5rem;
-    border: 1px solid #e2e8f0;
+    transition: box-shadow 0.3s, transform 0.2s;
 }
 
+.card:hover {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* === SIDEBAR === */
+.sidebar {
+    width: 260px;
+    background-color: #2d3748;
+    transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.collapsed {
+    transform: translateX(-100%);
+}
+
+/* === NAVBAR === */
+.navbar {
+    background-color: #2d3748;
+    padding: 12px;
+    color: white;
+}
+
+/* === RESPONSIVE SIDEBAR === */
+@media (max-width: 992px) {
+    .sidebar {
+        transform: translateX(-100%);
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .close-sidebar {
+        display: flex;
+    }
+}
+
+/* === RESPONSIVE TABLE FIX === */
 .schedule-table-responsive {
     overflow-x: auto;
     max-height: 70vh;
 }
 
-.schedule-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-}
-
+/* === TABLE STYLES FIX === */
 .schedule-table th {
     position: sticky;
     top: 0;
@@ -107,10 +246,6 @@
     justify-content: space-between;
 }
 
-.schedule-table th a:hover {
-    color: #2d3748;
-}
-
 .schedule-table td {
     padding: 0.875rem 0.75rem;
     border-bottom: 1px solid #edf2f7;
@@ -121,20 +256,7 @@
     background-color: #f7fafc;
 }
 
-/* Student name links */
-.schedule-table a.student-link {
-    color: #3182ce;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s;
-}
-
-.schedule-table a.student-link:hover {
-    color: #2c5282;
-    text-decoration: underline;
-}
-
-/* Status colors */
+/* === STATUS COLORS === */
 .status-pending {
     font-weight: 600;
     color: #dd6b20;
@@ -162,365 +284,16 @@
     display: inline-block;
 }
 
-.status-completed {
-    font-weight: 600;
-    color: #2b6cb0;
-    background-color: #ebf8ff;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    display: inline-block;
-}
-
-/* Better action buttons */
-.button-container {
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-}
-
-.button-container .btn {
-    padding: 0.375rem 0.75rem;
-    display: inline-flex;
-    align-items: center;
-    border-radius: 0.375rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    transition: all 0.2s;
-}
-
-.button-container .btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.button-container .btn i {
-    margin-right: 0.375rem;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 992px) {
-    .schedule-table-responsive {
-        max-width: 100%;
-        overflow-x: auto;
-    }
-}
-
-/* === GENERAL STYLES === */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f7fafc;
-    color: #4a5568;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-}
-
-/* === BUTTON STYLES === */
-.btn {
-    border-radius: 0.5rem;
-    padding: 0.75rem 1.25rem;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    cursor: pointer;
-}
-
-.btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.btn:active {
-    transform: translateY(0);
-}
-
-.reset-btn {
-    background-color: #6b7280 !important;
-    color: white !important;
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
-    font-weight: bold;
-    transition: background-color 0.2s;
-}
-
-.reset-btn:hover {
-    background-color: #4b5563 !important;
-}
-
-/* === SIDEBAR STYLES === */
-.sidebar {
-    width: 260px;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: #2d3748;
-    transition: transform 0.3s ease-in-out;
-    z-index: 1000;
-    overflow-y: auto;
-    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Sidebar Collapsed */
-.sidebar.collapsed {
-    transform: translateX(-100%);
-}
-
-/* Sidebar Navigation Links */
-.sidebar .nav-link {
-    color: rgba(255, 255, 255, 0.8);
-    font-weight: 500;
-    font-size: 0.95rem;
-    padding: 0.875rem 1.5rem;
-    border-radius: 0.5rem;
-    margin: 0.25rem 0.75rem;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-}
-
-.sidebar .nav-link:hover {
-    background-color: rgba(74, 144, 226, 0.8);
-    color: white;
-    transform: translateX(4px);
-}
-
-/* Logout Button */
-.sidebar button.nav-link {
-    width: 100%;
-    text-align: left;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-/* Sidebar Logo */
-.sidebar-logo img {
-    max-height: 50px;
-    width: auto;
-    transition: transform 0.2s ease;
-}
-
-.sidebar-logo img:hover {
-    transform: scale(1.05);
-}
-
-/* Close Sidebar Button */
-.close-sidebar {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    color: white;
-    cursor: pointer;
-    display: none;
-}
-
-.close-sidebar:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-/* === CONTENT AREA === */
-.content-area {
-    margin-left: 260px;
-    transition: margin 0.3s ease-in-out;
-    min-height: 100vh;
-    background-color: #f7fafc;
-    padding-bottom: 2rem;
-    width: calc(100% - 260px);
-    max-width: 100%;
-}
-
-/* Adjust Content When Sidebar is Collapsed */
-.sidebar.collapsed + .content-area {
-    margin-left: 0;
-    width: 100%;
-}
-
-/* === NAVBAR === */
-.navbar {
-    background-color: #2d3748;
-    padding: 12px;
-    color: white;
-}
-
-.navbar .nav-link {
-    color: white;
-    padding: 8px 16px;
-    transition: background 0.3s;
-}
-
-.navbar .nav-link:hover {
-    background-color: #4a5568;
-    border-radius: 5px;
-}
-
-/* === TABLE STYLES === */
-.table {
-    margin-bottom: 0;
-}
-
-.table th {
-    background-color: rgba(247, 250, 252, 0.8);
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
-}
-
-.table th, .table td {
-    padding: 0.75rem 1rem;
-    vertical-align: middle;
-    text-align: center;
-}
-
-/* Prevent breaking words */
-.table td {
-    white-space: normal; 
-    word-wrap: break-word; 
-    vertical-align: middle;
-    text-align: left; 
-    max-width: 200px; 
-}
-/* Specifically for the reason column which has longer text */
-.table td:nth-child(5) {
-    max-width: 250px; /* Adjust this value based on your needs */
-}
-
-/* === FILTER BOX === */
-.filter-box {
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 0.5rem;
-    padding: 1rem;
-}
-
-.filter-box label {
-    font-weight: 500;
-    margin-bottom: 0.4rem;
-    font-size: 0.9rem;
-}
-
-.filter-box select {
-    border-radius: 0.5rem;
-    border: 2px solid #e2e8f0;
-    padding: 0.75rem;
-}
-
-/* === PAGINATION === */
-.pagination {
-    display: flex;
-    justify-content: center;
-    gap: 0.2rem;
-    padding: 1rem 0;
-}
-
-.pagination .page-item .page-link {
-    border-radius: 0.375rem;
-    padding: 0.5rem 1rem;
-    transition: all 0.2s ease;
-}
-
-.pagination .page-item .page-link:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-/* === RESPONSIVE DESIGN === */
+/* === ADJUSTMENTS FOR SMALLER SCREENS === */
 @media (max-width: 768px) {
     .button-container {
         flex-direction: column;
     }
-    
-    .page-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-    
-    .filter-box .row {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .filter-box .col-md-3 {
-        width: 100%;
-    }
 
-
-    .sidebar {
-        transform: translateX(-100%);
-        width: 100%;
-        max-width: 280px;
-    }
-
-    .sidebar.active {
-        transform: translateX(0);
-    }
-
-    .close-sidebar {
-        display: flex;
-    }
-
-    /* Adjust Navbar */
-    .navbar {
-        height: 48px;
-        padding: 0.5rem;
-    }
-
-    .navbar .title-container {
-        font-size: 1rem;
-    }
-
-    .hamburger-btn {
-        display: flex;
-        background: transparent;
-        border: none;
-        padding: 0.75rem;
-        width: 48px;
-        height: 48px;
-        cursor: pointer;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .hamburger-btn:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    /* Adjust Table */
-    .table-responsive {
-        overflow-x: auto;
-    }
-
-    .table td, .table th {
-        padding: 0.5rem;
-        font-size: 0.9rem;
-    }
-
-    /* Adjust Pagination */
-    .pagination .page-item .page-link {
-        font-size: 12px;
-        padding: 6px 8px;
-    }
-
-    /* Adjust Sidebar Navigation */
-    .sidebar .nav-link {
-        padding: 0.625rem 1rem;
-    }
-
-    /* Adjust Filter Box */
     .filter-box .row {
         display: flex;
         flex-wrap: wrap;
         gap: 12px;
-    }
-
-    .filter-box .col-md-3 {
-        flex: 1;
-        min-width: 200px;
     }
 
     .filter-box .btn {
