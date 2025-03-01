@@ -14,6 +14,10 @@
         <div class="card-body">
             <form class="row g-3" method="GET" action="{{ route('admin.schedules.index') }}">
                 <div class="col-md-3">
+                    <label>Search by Name</label>
+                    <input type="text" class="form-control" name="search" placeholder="Enter student name" value="{{ request('search') }}">
+                </div>
+                <div class="col-md-3">
                     <label>File Type</label>
                     <select class="form-control" name="file_id">
                         <option value="">All Files</option>
@@ -32,6 +36,14 @@
                         <option value="approved" {{ request('status') == 'approved' ? 'selected' : '' }}>Approved</option>
                         <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
                     </select>
+                </div>
+                <div class="col-md-3">
+                    <label>From Date</label>
+                    <input type="date" class="form-control" name="date_from" value="{{ request('date_from') }}">
+                </div>
+                <div class="col-md-3">
+                    <label>To Date</label>
+                    <input type="date" class="form-control" name="date_to" value="{{ request('date_to') }}">
                 </div>
                 <div class="col-md-3 d-flex align-items-end">
                     <button type="submit" class="btn btn-primary flex-grow-1">
@@ -97,8 +109,11 @@
                             <td>{{ $schedule->reason }}</td>
                             <td>{{ optional($schedule->schoolYear)->year ?? 'N/A' }} - {{ optional($schedule->semester)->name ?? 'N/A' }}</td>
                             <td>{{ $schedule->copies }}</td>
-                            <td class="status-{{ $schedule->status }}">{{ ucfirst($schedule->status) }}</td>
                             <td>
+                                <span class="badge bg-{{ $schedule->status == 'approved' ? 'success' : ($schedule->status == 'rejected' ? 'danger' : 'warning') }}">
+                                    {{ ucfirst($schedule->status) }}
+                                </span>
+                            </td>                            <td>
                                 <div class="button-container">
                                     <form action="{{ route('schedules.approve', $schedule->id) }}" method="POST" class="inline">
                                         @csrf
