@@ -25,7 +25,7 @@ class ScheduleController extends Controller
     ->when($request->semester_id, fn($query) => $query->where('semester_id', $request->semester_id))
     ->orderBy('preferred_date', 'desc')
     ->paginate(10);
-    
+
     return view('admin.schedules.index', compact('schedules', 'files', 'schoolYears', 'semesters'));
 }
 
