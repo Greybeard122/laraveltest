@@ -30,10 +30,6 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
 {
-    // Ensure Laravel recognizes the student session
-    Auth::guard('student')->user(); 
-    session()->regenerate(); // Fixes session persistence issue
-
     // Ensure the student is authenticated using the correct guard
     $student = Auth::guard('student')->user();
     if (!$student) {
@@ -66,11 +62,21 @@ class ScheduleController extends Controller
         return back()->withErrors(['manual_school_year' => 'School year and semester are required for COR/COG requests.']);
     }
 
-    // Explicitly set student_id
-    $validated['student_id'] = $student->id;
-
-    // Save the request with the correct student ID
-    Schedule::create($validated);
+    // Manually attach student_id before saving
+    $schedule = new Schedule();
+    $schedule->student_id = $student->id; // ✅ Force student ID
+    $schedule->file_id = $request->file_id;
+    $schedule->preferred_date = $request->preferred_date;
+    $schedule->preferred_time = $request->preferred_time;
+    $schedule->reason = $request->reason;
+    $schedule->manual_school_year = $request->manual_school_year;
+    $schedule->manual_semester = $request->manual_semester;
+    $schedule->copies = $request->copies;
+    $schedule->school_year_id = $request->school_year_id;
+    $schedule->semester_id = $request->semester_id;
+    $schedule->status = 'Pending';
+    
+    $schedule->save(); // ✅ Ensures `student_id` is always set
 
     return redirect()->route('student.dashboard')->with('success', 'Schedule request submitted successfully.');
 }
