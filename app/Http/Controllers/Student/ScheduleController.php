@@ -64,7 +64,7 @@ class ScheduleController extends Controller
 
     // Manually attach student_id before saving
     $schedule = new Schedule();
-    $schedule->student_id = $student->id; // ✅ Force student ID
+    $schedule->student_id = $student->id; 
     $schedule->file_id = $request->file_id;
     $schedule->preferred_date = $request->preferred_date;
     $schedule->preferred_time = $request->preferred_time;
@@ -76,9 +76,10 @@ class ScheduleController extends Controller
     $schedule->semester_id = $request->semester_id;
     $schedule->status = 'Pending';
     
-    $schedule->save(); // ✅ Ensures `student_id` is always set
+    $schedule->save(); // 
 
-    return redirect()->route('student.dashboard')->with('success', 'Schedule request submitted successfully.');
+    return redirect()->route('student.dashboard')->with('message', 'Schedule request submitted successfully.');
+    
 }
 
 }
