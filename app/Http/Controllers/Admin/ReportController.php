@@ -23,37 +23,26 @@ class ReportController extends Controller
         ->join('semesters', 'schedules.semester_id', '=', 'semesters.id')
         ->select('schedules.*', 'semesters.name as semester_name');
 
-    // Apply filters
-    if ($request->file_id) {
-        $query->where('schedules.file_id', $request->file_id);
+    //  Search Student Name
+    if ($request->search) {
+        $query->whereHas('student', function ($q) use ($request) {
+            $q->where('first_name', 'like', "%{$request->search}%")
+              ->orWhere('last_name', 'like', "%{$request->search}%");
+        });
     }
-    
-    if ($request->school_year_id) {
-        $query->where('schedules.school_year_id', $request->school_year_id);
-    }
-    
-    if ($request->semester_id) {
-        $query->where('schedules.semester_id', $request->semester_id);
-    }
-    
-    // Date range filter
-    if ($request->start_date) {
-        $query->whereDate('schedules.preferred_date', '>=', $request->start_date);
-    }
-    
-    if ($request->end_date) {
-        $query->whereDate('schedules.preferred_date', '<=', $request->end_date);
-    }
-    
-    // Sorting
-    $sort = $request->sort ?? 'preferred_date';
-    $direction = $request->direction ?? 'desc';
-    $query->orderBy("schedules.{$sort}", $direction);
-    
-    $schedules = $query->paginate(10)->withQueryString();
+
+    // Apply Filters
+    $query->when($request->file_id, fn($q) => $q->where('schedules.file_id', $request->file_id))
+          ->when($request->school_year_id, fn($q) => $q->where('schedules.school_year_id', $request->school_year_id))
+          ->when($request->semester_id, fn($q) => $q->where('schedules.semester_id', $request->semester_id))
+          ->when($request->status, fn($q) => $q->where('schedules.status', $request->status));
+
+    // Sorting & Pagination
+    $schedules = $query->orderBy('schedules.preferred_date', 'desc')->paginate(10)->withQueryString();
 
     return view('admin.reports.index', compact('schedules', 'files', 'schoolYears', 'semesters'));
 }
+
 public function studentReport(Request $request, $id)
     {
         $student = Student::findOrFail($id);

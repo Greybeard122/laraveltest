@@ -9,10 +9,90 @@
         </a>
     </div>
 
-    <!-- Reports Table -->
+    <!--  Filter Form -->
+    <div class="filter-box bg-white bg-opacity-30 backdrop-blur-sm shadow-lg rounded-lg p-4 mb-4">
+        <form method="GET" action="{{ route('admin.reports.index') }}" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <div>
+                <label class="block text-gray-700 font-bold mb-1">Search Student</label>
+                <input type="text" name="search" class="form-control" placeholder="Enter student name" value="{{ request('search') }}">
+            </div>
+            
+            <div>
+                <label class="block text-gray-700 font-bold mb-1">File Type</label>
+                <select name="file_id" class="form-control">
+                    <option value="">All Files</option>
+                    @foreach($files as $file)
+                        <option value="{{ $file->id }}" {{ request('file_id') == $file->id ? 'selected' : '' }}>
+                            {{ $file->file_name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-bold mb-1">School Year</label>
+                <select name="school_year_id" class="form-control">
+                    <option value="">All Years</option>
+                    @foreach($schoolYears as $year)
+                        <option value="{{ $year->id }}" {{ request('school_year_id') == $year->id ? 'selected' : '' }}>
+                            {{ $year->year }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-bold mb-1">Semester</label>
+                <select name="semester_id" class="form-control">
+                    <option value="">All Semesters</option>
+                    @foreach($semesters as $semester)
+                        <option value="{{ $semester->id }}" {{ request('semester_id') == $semester->id ? 'selected' : '' }}>
+                            {{ $semester->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-bold mb-1">Start Date</label>
+                <input type="date" name="start_date" class="form-control" value="{{ request('start_date') }}">
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-bold mb-1">End Date</label>
+                <input type="date" name="end_date" class="form-control" value="{{ request('end_date') }}">
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-bold mb-1">Status</label>
+                <select name="status" class="form-control">
+                    <option value="">All Status</option>
+                    <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                    <option value="approved" {{ request('status') == 'approved' ? 'selected' : '' }}>Approved</option>
+                    <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                </select>
+            </div>
+
+            <div class="flex gap-2">
+                <button type="submit" class="btn btn-primary mt-6">
+                    <i class="fas fa-filter"></i> Apply Filters
+                </button>
+                <a href="{{ route('admin.reports.index') }}" class="btn btn-secondary mt-6">
+                    <i class="fas fa-undo"></i> Clear
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <!--  Print Button -->
+    <button onclick="printReport()" class="btn btn-success mb-4">
+        <i class="fas fa-print"></i> Print Report
+    </button>
+
+    <!--  Reports Table -->
     <div class="schedule-table-container">
         <div class="schedule-table-responsive">
-            <table class="schedule-table">
+            <table class="schedule-table" id="reportTable">
                 <thead>
                     <tr>
                         <th>Student</th>
@@ -27,35 +107,38 @@
                 <tbody>
                     @foreach($schedules as $schedule)
                         <tr>
-                            <td>
-                                {{ $schedule->student->first_name ?? 'N/A' }} {{ $schedule->student->last_name ?? '' }}
-                            </td>
-
-                            <!-- Show Manual SY/Sem if COR/COG -->
-                            <td>
-                                @if(in_array(optional($schedule->file)->file_name, ['COR', 'COG']))
-                                    {{ $schedule->manual_school_year ?? 'N/A' }} - {{ $schedule->manual_semester ?? 'N/A' }}
-                                @else
-                                    {{ optional($schedule->file)->file_name ?? 'N/A' }}
-                                @endif
-                            </td>
-
+                            <td>{{ $schedule->student->first_name ?? 'N/A' }} {{ $schedule->student->last_name ?? '' }}</td>
+                            <td>{{ optional($schedule->file)->file_name ?? 'N/A' }}</td>
                             <td>{{ \Carbon\Carbon::parse($schedule->preferred_date)->format('M d, Y') }}</td>
                             <td>{{ $schedule->preferred_time }}</td>
                             <td>{{ $schedule->reason }}</td>
-
-                            <!-- School Year & Semester -->
-                            <td>
-                                {{ optional($schedule->schoolYear)->year ?? 'N/A' }} - 
-                                {{ $schedule->semester_name ?? 'N/A' }}
-                            </td> 
-                            <td>{{ $schedule->copies }}</td>    
-                            
+                            <td>{{ optional($schedule->schoolYear)->year ?? 'N/A' }} - {{ $schedule->semester_name ?? 'N/A' }}</td> 
+                            <td>{{ $schedule->copies }}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
+
+        <!--  Pagination -->
+        @if ($schedules->hasPages())
+            <div class="pagination-container">
+                {{ $schedules->links('pagination::bootstrap-4') }}
+            </div>
+        @endif
     </div>
 </div>
+
+<!--  Print Function -->
+<script>
+    function printReport() {
+        var printContents = document.getElementById('reportTable').outerHTML;
+        var originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = "<h2>Schedule Report</h2>" + printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+        location.reload();
+    }
+</script>
 @endsection
