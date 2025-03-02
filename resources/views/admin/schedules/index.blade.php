@@ -124,6 +124,11 @@
                 </tbody>
             </table>
         </div>
+        @if ($schedules->hasPages())
+        <div class="pagination-container">
+            {{ $schedules->links('pagination::bootstrap-4') }}
+        </div>
+    @endif
     </div>
 </div>
 

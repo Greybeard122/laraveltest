@@ -22,6 +22,51 @@
     --border-radius-md: 0.5rem;
     --border-radius-lg: 0.75rem;
   }
+/* Custom Pagination Styles */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+.pagination li {
+  margin: 0 5px;
+}
+
+.pagination a,
+.pagination span {
+  display: inline-block;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #4a5568;
+  background-color: #f1f5f9;
+  border-radius: 6px;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.pagination a:hover {
+  background-color: #e2e8f0;
+  transform: translateY(-2px);
+}
+
+.pagination .active span {
+  background-color: #3b82f6;
+  color: white;
+  font-weight: bold;
+}
+
+.pagination .disabled span {
+  color: #9ca3af;
+  background-color: #f3f4f6;
+  cursor: not-allowed;
+}
+
   /* === FORM CONTAINER === */
 .form-container {
   background: rgba(255, 255, 255, 0.95); /* Slight transparency */
