@@ -23,6 +23,10 @@ class ScheduleController extends Controller
         ->select('schedules.*', 'semesters.name as semester_name')
         ->when($request->file_id, fn($query) => $query->where('schedules.file_id', $request->file_id))
         ->when($request->status, fn($query) => $query->where('schedules.status', $request->status))
+        ->where(function ($query) {
+            $query->where('status', 'Pending')
+                  ->orWhere('updated_at', '>=', now()->subDays(7));
+        })
         ->when($request->school_year_id, fn($query) => $query->where('schedules.school_year_id', $request->school_year_id))
         ->when($request->semester_id, fn($query) => $query->where('schedules.semester_id', $request->semester_id))
         ->orderBy('schedules.preferred_date', 'desc')
