@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Student;
 
-
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use App\Models\File;
 use App\Models\Schedule;
@@ -27,43 +27,35 @@ class ScheduleController extends Controller
 public function store(Request $request)
 {
     $validated = $request->validate([
+        'preferred_date' => ['required', 'date', 'after:today', function ($attribute, $value, $fail) {
+            $dayOfWeek = \Carbon\Carbon::parse($value)->dayOfWeek;
+            if ($dayOfWeek == \Carbon\Carbon::SATURDAY || $dayOfWeek == \Carbon\Carbon::SUNDAY) {
+                $fail('Scheduling on weekends is not allowed. Please choose a weekday.');
+            }
+        }],
         'file_id' => 'nullable|exists:files,id',
-        'preferred_date' => 'required|date|after:today',
         'preferred_time' => 'required',
         'reason' => 'required|string|max:255',
         'manual_school_year' => 'nullable|string|max:255',
         'manual_semester' => 'nullable|string|max:255',
         'copies' => 'required|integer|min:1',
-        'school_year_id' => 'nullable|exists:school_years,id',  
-        'semester_id' => 'required|exists:semesters,id', 
+        'school_year_id' => 'nullable|exists:school_years,id',
+        'semester_id' => 'required|exists:semesters,id',
     ]);
-    
 
     // Fetch the file name
-    $file = File::find($request->file_id);
+    $file = \App\Models\File::find($request->file_id);
 
     // Ensure manual school year and semester are provided if COR/COG is selected
     if (in_array(optional($file)->file_name, ['COR', 'COG']) && (!$request->manual_school_year || !$request->manual_semester)) {
-        return back()->withErrors(['manual_school_year' => 'School year and semester are required for COR/COG.']);
+        return back()->withErrors(['manual_school_year' => 'School year and semester are required for COR/COG requests.']);
     }
 
-    Schedule::create([
-        'student_id' => Auth::id(),
-        'file_id' => $validated['file_id'],
-        'preferred_date' => $validated['preferred_date'],
-        'preferred_time' => $validated['preferred_time'],
-        'reason' => $validated['reason'],
-        'manual_school_year' => $validated['manual_school_year'],
-        'manual_semester' => $validated['manual_semester'],
-        'copies' => $validated['copies'],
-        'school_year_id' => $request->school_year_id, 
-        'semester_id' => $request->semester_id,       
-        'status' => 'pending'
-    ]);
-    
+    // Create the schedule record
+    \App\Models\Schedule::create($validated);
 
-    return redirect()->route('student.dashboard')
-        ->with('success', 'Schedule request submitted successfully.');
+    return back()->with('success', 'Schedule request submitted successfully.');
 }
+
 
 }

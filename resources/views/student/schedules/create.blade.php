@@ -112,5 +112,12 @@
             }
         });
     });
+    document.getElementById('preferred_date').addEventListener('input', function() {
+        let date = new Date(this.value);
+        if (date.getDay() === 6 || date.getDay() === 0) {  // 6 = Saturday, 0 = Sunday
+            alert("Scheduling on weekends is not allowed. Please select a weekday.");
+            this.value = "";
+        }
+    });
 </script>
 @endsection
