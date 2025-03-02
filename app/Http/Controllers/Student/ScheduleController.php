@@ -66,24 +66,13 @@ class ScheduleController extends Controller
         return back()->withErrors(['manual_school_year' => 'School year and semester are required for COR/COG requests.']);
     }
 
+    // Explicitly set student_id
+    $validated['student_id'] = $student->id;
+
     // Save the request with the correct student ID
-    Schedule::create([
-        'student_id' => $student->id, // Attach authenticated student
-        'file_id' => $request->file_id,
-        'preferred_date' => $request->preferred_date,
-        'preferred_time' => $request->preferred_time,
-        'reason' => $request->reason,
-        'manual_school_year' => $request->manual_school_year,
-        'manual_semester' => $request->manual_semester,
-        'copies' => $request->copies,
-        'school_year_id' => $request->school_year_id,
-        'semester_id' => $request->semester_id,
-        'status' => 'Pending',
-    ]);
+    Schedule::create($validated);
 
     return redirect()->route('student.dashboard')->with('success', 'Schedule request submitted successfully.');
 }
-
-
 
 }
