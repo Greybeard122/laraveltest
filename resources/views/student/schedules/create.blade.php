@@ -33,7 +33,7 @@
             <!-- Preferred Date -->
             <div>
                 <label class="block text-gray-700 font-bold mb-1">Preferred Date</label>
-                <input type="date" name="preferred_date" class="form-control" min="{{ date('Y-m-d') }}" required>
+                <input type="date" id="preferred_date" name="preferred_date" class="form-control" min="{{ date('Y-m-d') }}" required>
             </div>
 
             <!-- Preferred Time -->
@@ -91,33 +91,45 @@
         const schoolYearDropdown = document.getElementById('school_year');
         const semesterDropdown = document.getElementById('semester');
         const semesters = @json($semesters); 
+        const preferredDateInput = document.getElementById('preferred_date');
 
-        fileDropdown.addEventListener('change', function () {
-            const selectedFileName = fileDropdown.options[fileDropdown.selectedIndex].text;
-            manualFields.style.display = (selectedFileName === 'COR' || selectedFileName === 'COG') ? 'block' : 'none';
-        });
+        // Show manual school year & semester fields for COR/COG selection
+        if (fileDropdown) {
+            fileDropdown.addEventListener('change', function () {
+                const selectedFileName = fileDropdown.options[fileDropdown.selectedIndex].text;
+                manualFields.style.display = (selectedFileName === 'COR' || selectedFileName === 'COG') ? 'block' : 'none';
+            });
+        }
 
-        schoolYearDropdown.addEventListener('change', function () {
-            const selectedYearId = this.value;
-            semesterDropdown.innerHTML = '<option value="">-- Select a Semester --</option>';
-            
-            if (selectedYearId) {
-                semesters.filter(sem => sem.school_year_id == selectedYearId)
-                         .forEach(sem => {
-                            let option = document.createElement('option');
-                            option.value = sem.id;
-                            option.textContent = sem.name;
-                            semesterDropdown.appendChild(option);
-                        });
-            }
-        });
-    });
-    document.getElementById('preferred_date').addEventListener('input', function() {
-        let date = new Date(this.value);
-        if (date.getDay() === 6 || date.getDay() === 0) {  // 6 = Saturday, 0 = Sunday
-            alert("Scheduling on weekends is not allowed. Please select a weekday.");
-            this.value = "";
+        // Populate semesters based on selected school year
+        if (schoolYearDropdown && semesterDropdown) {
+            schoolYearDropdown.addEventListener('change', function () {
+                const selectedYearId = this.value;
+                semesterDropdown.innerHTML = '<option value="">-- Select a Semester --</option>';
+                
+                if (selectedYearId) {
+                    semesters.filter(sem => sem.school_year_id == selectedYearId)
+                            .forEach(sem => {
+                                let option = document.createElement('option');
+                                option.value = sem.id;
+                                option.textContent = sem.name;
+                                semesterDropdown.appendChild(option);
+                            });
+                }
+            });
+        }
+
+        // Prevent selecting weekends in the date picker
+        if (preferredDateInput) {
+            preferredDateInput.addEventListener('input', function () {
+                let date = new Date(this.value);
+                if (date.getDay() === 6 || date.getDay() === 0) {  // 6 = Saturday, 0 = Sunday
+                    alert("Scheduling on weekends is not allowed. Please select a weekday.");
+                    this.value = "";
+                }
+            });
         }
     });
 </script>
+
 @endsection
