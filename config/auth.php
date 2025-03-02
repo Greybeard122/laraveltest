@@ -14,9 +14,10 @@ return [
     */
 
     'defaults' => [
-        'guard' => env('AUTH_GUARD', 'web'),
-        'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
-    ],
+    'guard' => 'student', // Default guard set to 'student'
+    'passwords' => 'students', // Use student password broker
+],
+
 
     /*
     |--------------------------------------------------------------------------

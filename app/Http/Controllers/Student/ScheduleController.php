@@ -79,4 +79,5 @@ class ScheduleController extends Controller
 
     return redirect()->route('student.dashboard')->with('success', 'Schedule request submitted successfully.');
 }
+
 }
