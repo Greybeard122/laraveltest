@@ -7,10 +7,11 @@ use Illuminate\Notifications\Notifiable;
 use App\Models\Schedule;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Spatie\Permission\Traits\HasRoles;
 
 class Student extends Authenticatable implements CanResetPasswordContract
 {
-    use HasFactory, Notifiable, CanResetPassword;
+    use HasFactory, Notifiable, CanResetPassword, HasRoles;
     
     /**
      * The attributes that are mass assignable.

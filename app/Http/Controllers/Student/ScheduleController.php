@@ -30,6 +30,10 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
 {
+    // Ensure Laravel recognizes the student session
+    Auth::guard('student')->user(); 
+    session()->regenerate(); // Fixes session persistence issue
+
     // Ensure the student is authenticated using the correct guard
     $student = Auth::guard('student')->user();
     if (!$student) {
@@ -79,5 +83,7 @@ class ScheduleController extends Controller
 
     return redirect()->route('student.dashboard')->with('success', 'Schedule request submitted successfully.');
 }
+
+
 
 }
