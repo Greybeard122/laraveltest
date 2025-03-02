@@ -26,9 +26,9 @@ class Schedule extends Model
     
 
     public function student()
-    {
-        return $this->belongsTo(Student::class);
-    }
+{
+    return $this->belongsTo(\App\Models\Student::class, 'student_id');
+}
 
     public function file()
     {
