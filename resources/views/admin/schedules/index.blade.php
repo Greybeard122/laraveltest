@@ -16,10 +16,10 @@
 
     <!-- Filter Form -->
     <div class="filter-box">
-        <h3 class="text-lg font-semibold mb-4">Schedule Filters</h3>
-        <form method="GET" action="{{ route('admin.schedules.index') }}" class="filter-form">
-            <div class="filter-item">
-                <label class="block text-gray-700 font-bold mb-2">File Type</label>
+        <h3 class="text-lg font-semibold mb-2">Schedule Filters</h3>
+        <form method="GET" action="{{ route('admin.schedules.index') }}" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div>
+                <label class="block text-gray-700 font-bold mb-1">File Type</label>
                 <select name="file_id" class="form-control">
                     <option value="">All Files</option>
                     @foreach($files as $file)
@@ -30,8 +30,8 @@
                 </select>
             </div>
 
-            <div class="filter-item">
-                <label class="block text-gray-700 font-bold mb-2">Status</label>
+            <div>
+                <label class="block text-gray-700 font-bold mb-1">Status</label>
                 <select name="status" class="form-control">
                     <option value="">All Status</option>
                     <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
@@ -40,7 +40,7 @@
                 </select>
             </div>
 
-            <div class="filter-actions">
+            <div class="flex items-end gap-2">
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-filter"></i> Apply Filters
                 </button>
@@ -134,55 +134,61 @@
         @endif
     </div>
 </div>
+
 <style>
-    /* Improved Filter Box */
-    .filter-box {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 2rem;
-        background: rgba(255, 255, 255, 0.95);
-        border-radius: 12px;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        margin-bottom: 2.5rem;
+    @media (min-width: 1024px) { 
+    .container {
+        max-width: 1200px; 
     }
 
-    /* Filter Form Layout */
-    .filter-form {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(250px, 1fr));
-        gap: 2rem;
+    .d-flex {
+        display: flex;
+        justify-content: space-between;
         align-items: center;
     }
 
-    .filter-actions {
+    .filter-box {
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .table th, .table td {
+        padding: 1rem 1.5rem;
+        text-align: center;
+    }
+
+    .button-container {
+        justify-content: center;
+    }
+
+    .pagination-container {
+        padding: 1rem 0;
         display: flex;
-        gap: 1rem;
-        justify-content: flex-end;
+        justify-content: center;
     }
-
-    /* Button Improvements */
-    .btn {
-        padding: 0.75rem 1.5rem;
+}
+    /* Improved Filter Box */
+    .filter-box {
+        background: rgba(255, 255, 255, 0.9);
         border-radius: 8px;
-        font-weight: 600;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
-    /* Stack Filters on Smaller Screens */
-    @media (max-width: 1024px) {
-        .filter-form {
-            grid-template-columns: repeat(2, minmax(250px, 1fr));
-        }
+    /* Form Controls */
+    .form-control {
+        width: 100%;
+        padding: 0.75rem;
+        border-radius: 6px;
+        border: 1px solid #cbd5e1;
+        transition: border 0.2s;
     }
 
-    @media (max-width: 768px) {
-        .filter-form {
-            grid-template-columns: 1fr;
-        }
-
-        .filter-actions {
-            width: 100%;
-            justify-content: center;
-        }
+    .form-control:focus {
+        border-color: #6366f1;
+        outline: none;
+        box-shadow: 0 0 6px rgba(99, 102, 241, 0.3);
     }
 
     /* Status Badges */
@@ -190,15 +196,24 @@
         text-align: center;
     }
     .badge {
-        padding: 0.5em 0.85em;
-        font-size: 0.9em;
-        font-weight: 700;
-        border-radius: 0.3rem;
+        padding: 0.35em 0.65em;
+        font-size: 0.75em;
+        font-weight: 600;
+        border-radius: 0.25rem;
         text-transform: uppercase;
     }
     .bg-success { background-color: #10b981; color: white; }
     .bg-danger { background-color: #ef4444; color: white; }
     .bg-warning { background-color: #f59e0b; color: white; }
-</style>
 
+    /* Button Styling */
+    .btn {
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-weight: 500;
+    }
+</style>
 @endsection
+
+
+
