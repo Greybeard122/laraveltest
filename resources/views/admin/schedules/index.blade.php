@@ -134,30 +134,24 @@
         @endif
     </div>
 </div>
-
-<!-- Inline Styles -->
 <style>
     /* Improved Filter Box */
     .filter-box {
-        padding: 1.75rem;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 2rem;
         background: rgba(255, 255, 255, 0.95);
-        border-radius: 10px;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-        margin-bottom: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        margin-bottom: 2.5rem;
     }
 
     /* Filter Form Layout */
     .filter-form {
-        display: flex;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(250px, 1fr));
         gap: 2rem;
         align-items: center;
-        justify-content: space-between;
-    }
-
-    .filter-item {
-        flex: 1;
-        min-width: 270px;
     }
 
     .filter-actions {
@@ -168,22 +162,26 @@
 
     /* Button Improvements */
     .btn {
-        padding: 0.6rem 1.2rem;
-        border-radius: 6px;
-        font-weight: 500;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
     }
 
     /* Stack Filters on Smaller Screens */
+    @media (max-width: 1024px) {
+        .filter-form {
+            grid-template-columns: repeat(2, minmax(250px, 1fr));
+        }
+    }
+
     @media (max-width: 768px) {
         .filter-form {
-            flex-direction: column;
-            align-items: stretch;
-            gap: 1rem;
+            grid-template-columns: 1fr;
         }
 
-        .filter-item,
         .filter-actions {
             width: 100%;
+            justify-content: center;
         }
     }
 
@@ -192,10 +190,10 @@
         text-align: center;
     }
     .badge {
-        padding: 0.4em 0.75em;
-        font-size: 0.8em;
-        font-weight: 600;
-        border-radius: 0.25rem;
+        padding: 0.5em 0.85em;
+        font-size: 0.9em;
+        font-weight: 700;
+        border-radius: 0.3rem;
         text-transform: uppercase;
     }
     .bg-success { background-color: #10b981; color: white; }
