@@ -17,7 +17,7 @@
 
     <!-- Filters -->
     <div class="card bg-white bg-opacity-50 backdrop-blur-sm shadow-lg rounded-lg p-6 mb-6">
-        <form method="GET" action="{{ route('admin.reports.student', $student->id) }}" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <form method="GET" action="{{ route('admin.reports.student', $student->id) }}" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
             <!-- School Year Filter -->
             <div>
                 <label class="block text-gray-700 font-bold mb-1">School Year</label>
@@ -45,12 +45,12 @@
                 </select>
             </div>
 
-            <!-- Submit & Reset -->
-            <div class="button-group">
-                <button type="submit" class="filter-btn">
+            <!-- Filter & Reset Buttons -->
+            <div class="flex gap-2">
+                <button type="submit" class="filter-btn w-full">
                     Filter
                 </button>
-                <a href="{{ route('admin.reports.student', $student->id) }}" class="reset-btn">
+                <a href="{{ route('admin.reports.student', $student->id) }}" class="reset-btn w-full">
                     Reset
                 </a>
             </div>
@@ -90,54 +90,44 @@
 </div>
 
 <style>
-    /* Button Container */
-    .button-group {
-        display: flex;
-        gap: 0.75rem; 
-        align-items: center;
+    /* Ensure filters and buttons are aligned */
+    form.grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        align-items: end;
+    }
+
+    /* Button Styles */
+    .filter-btn, .reset-btn {
+        display: inline-block;
+        padding: 0.5rem 1.25rem;
+        border-radius: 6px;
+        font-weight: 600;
+        text-align: center;
+        transition: all 0.2s ease-in-out;
     }
 
     /* Filter Button */
     .filter-btn {
-        background-color: #0284c7; 
+        background-color: #0284c7;
         color: white;
-        font-weight: bold;
-        padding: 0.5rem 1rem;
-        border-radius: 0.5rem;
-        transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
     }
-    
+
     .filter-btn:hover {
-        background-color: #0369a1; 
+        background-color: #0369a1;
+        transform: translateY(-2px);
     }
 
     /* Reset Button */
     .reset-btn {
         background-color: #6b7280;
         color: white;
-        font-weight: bold;
-        padding: 0.5rem 1rem;
-        border-radius: 0.5rem;
-        transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
     }
 
     .reset-btn:hover {
-        background-color: #4b5563; 
-        transform: scale(1.05);
+        background-color: #4b5563;
+        transform: translateY(-2px);
     }
-
-    /* Status Badges */
-    .badge {
-        padding: 0.35em 0.65em;
-        font-size: 0.75em;
-        font-weight: 600;
-        border-radius: 0.25rem;
-        text-transform: uppercase;
-    }
-
-    .bg-success { background-color: #10b981; color: white; }
-    .bg-danger { background-color: #ef4444; color: white; }
-    .bg-warning { background-color: #f59e0b; color: white; }
 
     /* Table Column Spacing */
     .table th, .table td {
