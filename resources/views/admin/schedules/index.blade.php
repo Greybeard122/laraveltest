@@ -105,19 +105,19 @@
                                 </span>
                             </td>
                             <td>
-                                <div class="button-container d-flex gap-2">
-                                    <form action="{{ route('schedules.approve', $schedule->id) }}" method="POST">
+                                <div class="action-buttons">
+                                    <form action="{{ route('schedules.approve', $schedule->id) }}" method="POST" class="inline">
                                         @csrf
                                         @method('PATCH')
-                                        <button type="submit" class="btn btn-success btn-sm">
-                                            <i class="fas fa-check"></i> Approve
+                                        <button type="submit" class="btn-action btn-approve">
+                                            Approve
                                         </button>
                                     </form>
-                                    <form action="{{ route('schedules.reject', $schedule->id) }}" method="POST">
+                                    <form action="{{ route('schedules.reject', $schedule->id) }}" method="POST" class="inline">
                                         @csrf
                                         @method('PATCH')
-                                        <button type="submit" class="btn btn-danger btn-sm">
-                                            <i class="fas fa-times"></i> Reject
+                                        <button type="submit" class="btn-action btn-reject">
+                                            Reject
                                         </button>
                                     </form>
                                 </div>
@@ -181,11 +181,49 @@
         border-radius: 6px;
         font-weight: 500;
     }
+    
+    /* Action Buttons Styling */
+    .action-buttons {
+        display: flex;
+        gap: 0.5rem;
+    }
+    
+    .btn-action {
+        padding: 0.5rem 1rem;
+        border-radius: 0.375rem;
+        font-weight: 500;
+        border: none;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        min-width: 90px;
+        text-align: center;
+    }
+    
+    .btn-approve {
+        background-color: #10b981;
+    }
+    
+    .btn-approve:hover {
+        background-color: #059669;
+    }
+    
+    .btn-reject {
+        background-color: #ef4444;
+    }
+    
+    .btn-reject:hover {
+        background-color: #dc2626;
+    }
 
     /* Additional button spacing for small screens */
     @media (max-width: 1023px) {
         .btn {
             width: 100%;
+        }
+        
+        .action-buttons {
+            flex-direction: column;
         }
     }
 </style>
