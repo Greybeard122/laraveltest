@@ -318,11 +318,18 @@
     }
 
     /* Action Button Improvements */
-    .button-container .btn {
-        transition: all 0.2s ease;
-        min-width: 100px;
-        padding: 0.4rem 1rem;
-    }
+    .button-container {
+    display: flex;
+    gap: 8px; /* Space between buttons */
+    justify-content: center; /* Center align buttons */
+    flex-wrap: wrap; /* Ensure wrapping on smaller screens */
+}
+
+.button-container .btn {
+    min-width: 100px; /* Ensures buttons have enough width */
+    padding: 0.4rem 1rem;
+}
+
 
     .button-container .btn:hover {
         transform: translateY(-2px);
