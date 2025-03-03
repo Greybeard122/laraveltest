@@ -136,65 +136,67 @@
 </div>
 
 <style>
-    /* Column Separators */
-    .border-right {
-        border-right: 1px solid #e2e8f0;
-    }
-
-    /* Student Name Hover Effect */
-    .student-link {
-        color: #4f46e5;
-        font-weight: 600;
-        transition: color 0.3s ease-in-out;
-    }
-
-    .student-link:hover {
-        color: #4338ca;
-        text-decoration: underline;
-    }
-
-    /* Improved Table Styling */
-    .table-bordered th, .table-bordered td {
-        padding: 12px;
+    /* Enhanced Filter Box */
+    .filter-box {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        margin-bottom: 1.5rem;
+        padding: 1.5rem;
+        transition: box-shadow 0.3s ease;
         border: 1px solid #e2e8f0;
     }
 
-    .table-striped tbody tr:nth-of-type(odd) {
-        background-color: rgba(0, 0, 0, 0.03);
+    .filter-box:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
     }
 
-    .hover\:bg-gray-100:hover {
-        background-color: #f3f4f6 !important;
+    .filter-box h3 {
+        margin-bottom: 1rem;
+        color: #4a5568;
+        border-bottom: 2px solid #805ad5;
+        padding-bottom: 0.5rem;
+        display: inline-block;
     }
 
-    /* Status Badges */
-    .status-cell {
-        text-align: center;
+    .filter-box .form-control {
+        border: 1px solid #e2e8f0;
+        padding: 0.625rem 0.75rem;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
     }
 
-    .badge {
-        padding: 0.4em 0.8em;
-        font-size: 0.8em;
-        font-weight: 600;
-        border-radius: 4px;
-        text-transform: uppercase;
+    .filter-box .form-control:focus {
+        border-color: #805ad5;
+        box-shadow: 0 0 0 3px rgba(128, 90, 213, 0.25);
     }
 
-    .badge-pending { background-color: #f59e0b; color: white; }
-    .badge-approved { background-color: #10b981; color: white; }
-    .badge-rejected { background-color: #ef4444; color: white; }
-
-    /* Buttons */
-    .btn {
-        padding: 0.5rem 1rem;
-        border-radius: 6px;
-        font-weight: 500;
-        transition: all 0.2s;
+    .filter-box .btn-primary {
+        background-color: #805ad5;
+        border: none;
     }
 
-    .btn:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    .filter-box .btn-primary:hover {
+        background-color: #6b46c1;
+        transform: translateY(-2px);
+    }
+
+    .filter-box .btn-secondary {
+        background-color: #e2e8f0;
+        color: #4a5568;
+    }
+
+    .filter-box .btn-secondary:hover {
+        background-color: #cbd5e0;
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+        .filter-box form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
     }
 </style>
 @endsection
