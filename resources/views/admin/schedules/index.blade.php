@@ -158,6 +158,36 @@
         outline: none;
         box-shadow: 0 0 6px rgba(99, 102, 241, 0.3);
     }
+    
+    /* Filter Buttons Styling */
+    .filter-btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        font-weight: 500;
+        border: none;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        text-align: center;
+        display: inline-block;
+        min-width: 120px;
+    }
+    
+    .apply-btn {
+        background-color: #1e88e5;
+    }
+    
+    .apply-btn:hover {
+        background-color: #1976d2;
+    }
+    
+    .clear-btn {
+        background-color: #616161;
+    }
+    
+    .clear-btn:hover {
+        background-color: #555555;
+    }
 
     /* Status Badges */
     .status-cell {
@@ -183,7 +213,7 @@
 
     /* Additional button spacing for small screens */
     @media (max-width: 1023px) {
-        .btn {
+        .filter-btn {
             width: 100%;
         }
     }
