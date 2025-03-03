@@ -320,7 +320,8 @@
     /* Action Button Improvements */
     .button-container .btn {
         transition: all 0.2s ease;
-        min-width: 90px;
+        min-width: 100px;
+        padding: 0.4rem 1rem;
     }
 
     .button-container .btn:hover {
