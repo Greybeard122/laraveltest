@@ -210,7 +210,7 @@
         border-radius: 6px;
         font-weight: 500;
     }
-    <style>
+   
     /* Table Column Dividers for Schedules Table Only */
     .schedule-table th, .schedule-table td {
         border-right: 1px solid var(--border-color);
@@ -220,7 +220,7 @@
     .schedule-table th:last-child, .schedule-table td:last-child {
         border-right: none;
     }
-</style>
+
 
 
     /* Additional button spacing for small screens */
