@@ -135,19 +135,27 @@
     </div>
 </div>
 
-<!-- Inline Styles -->
+
 <style>
+    /* Filter Box Improvements */
+    .filter-box {
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1.5rem;
+    }
     /* Filter Section: Single-line on large screens */
     .filter-form {
         display: flex;
         flex-wrap: wrap;
-        gap: 1rem;
+        gap: 1.5rem;
         align-items: center;
     }
 
     .filter-item {
         flex: 1;
-        min-width: 200px; /* Ensures responsiveness */
+        min-width: 250px;
     }
 
     .filter-actions {
@@ -160,6 +168,7 @@
         .filter-form {
             flex-direction: column;
             align-items: stretch;
+            gap: 1rem;
         }
 
         .filter-item,
