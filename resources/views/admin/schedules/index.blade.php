@@ -180,9 +180,6 @@
     }
 
     /* Status Badges */
-    .status-cell {
-        text-align: center;
-    }
     .badge {
         padding: 0.35em 0.65em;
         font-size: 0.75em;

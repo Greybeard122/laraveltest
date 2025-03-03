@@ -21,7 +21,7 @@
             <!-- School Year Filter -->
             <div>
                 <label class="block text-gray-700 font-bold mb-1">School Year</label>
-                <select name="school_year_id" class="w-full border-2 border-gray-300 rounded-lg p-2">
+                <select name="school_year_id" id="school_year_select" class="w-full border-2 border-gray-300 rounded-lg p-2">
                     <option value="">All School Years</option>
                     @foreach($schoolYears as $year)
                         <option value="{{ $year->id }}" {{ request('school_year_id') == $year->id ? 'selected' : '' }}>
@@ -31,14 +31,15 @@
                 </select>
             </div>
 
-            <!-- Semester Filter -->
+            <!-- Semester Filter (Dependent on School Year) -->
             <div>
                 <label class="block text-gray-700 font-bold mb-1">Semester</label>
-                <select name="semester_id" class="w-full border-2 border-gray-300 rounded-lg p-2">
+                <select name="semester_id" id="semester_select" class="w-full border-2 border-gray-300 rounded-lg p-2">
                     <option value="">All Semesters</option>
                     @foreach($semesters as $semester)
-                        <option value="{{ $semester->id }}" {{ request('semester_id') == $semester->id ? 'selected' : '' }}>
-                            {{ $semester->name }}
+                        <option value="{{ $semester->id }}" data-year="{{ $semester->school_year_id }}" 
+                            {{ request('semester_id') == $semester->id ? 'selected' : '' }}>
+                            {{ str_replace('Semester', '', $semester->name) }}
                         </option>
                     @endforeach
                 </select>
@@ -64,8 +65,8 @@
                     <tr>
                         <th>File Name</th>
                         <th>Request Count</th>
-                        <th>Semester</th>
                         <th>School Year</th>
+                        <th>Semester</th>
                         <th>Status</th>
                         <th>Date Requested</th>
                     </tr>
@@ -75,8 +76,8 @@
                         <tr>
                             <td>{{ optional($schedule->file)->file_name ?? 'N/A' }}</td>
                             <td class="text-center font-bold">{{ $schedule->request_count }}</td>
-                            <td>{{ optional($schedule->semester)->name ?? 'N/A' }}</td>
                             <td>{{ optional($schedule->schoolYear)->year ?? 'N/A' }}</td>
+                            <td>{{ str_replace('Semester', '', optional($schedule->semester)->name ?? 'N/A') }}</td>
                             <td class="capitalize">{{ ucfirst($schedule->status) }}</td>
                             <td>{{ \Carbon\Carbon::parse($schedule->latest_request)->format('M d, Y') }}</td>
                         </tr>
@@ -87,17 +88,18 @@
         {{ $studentSchedules->links() }}
     </div>
 </div>
+
 <style>
     /* Button Container */
     .button-group {
         display: flex;
-        gap: 0.75rem; /* Adjust spacing between buttons */
+        gap: 0.75rem; 
         align-items: center;
     }
 
     /* Filter Button */
     .filter-btn {
-        background-color: #0284c7; /* Tailwind's bg-sky-600 */
+        background-color: #0284c7; 
         color: white;
         font-weight: bold;
         padding: 0.5rem 1rem;
@@ -106,13 +108,12 @@
     }
     
     .filter-btn:hover {
-        background-color: #0369a1; /* Tailwind's bg-sky-700 */
-        transform: scale(1.05);
+        background-color: #0369a1; 
     }
 
     /* Reset Button */
     .reset-btn {
-        background-color: #6b7280; /* Tailwind's bg-gray-500 */
+        background-color: #6b7280;
         color: white;
         font-weight: bold;
         padding: 0.5rem 1rem;
@@ -121,8 +122,57 @@
     }
 
     .reset-btn:hover {
-        background-color: #4b5563; /* Tailwind's bg-gray-600 */
+        background-color: #4b5563; 
         transform: scale(1.05);
     }
+
+    /* Status Badges */
+    .badge {
+        padding: 0.35em 0.65em;
+        font-size: 0.75em;
+        font-weight: 600;
+        border-radius: 0.25rem;
+        text-transform: uppercase;
+    }
+
+    .bg-success { background-color: #10b981; color: white; }
+    .bg-danger { background-color: #ef4444; color: white; }
+    .bg-warning { background-color: #f59e0b; color: white; }
+
+    /* Table Column Spacing */
+    .table th, .table td {
+        padding: 12px 16px; /* Increased padding for spacing */
+    }
+
+    /* Table Row Spacing */
+    .table tr {
+        border-bottom: 1px solid var(--border-color);
+    }
 </style>
+
+<!-- JavaScript for Dynamic Semester Filtering -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const schoolYearSelect = document.getElementById("school_year_select");
+        const semesterSelect = document.getElementById("semester_select");
+
+        function updateSemesters() {
+            const selectedYear = schoolYearSelect.value;
+            const options = semesterSelect.querySelectorAll("option");
+
+            options.forEach(option => {
+                if (option.value === "") return; // Keep "All Semesters" option visible
+
+                if (!selectedYear || option.getAttribute("data-year") === selectedYear) {
+                    option.style.display = "block";
+                } else {
+                    option.style.display = "none";
+                }
+            });
+        }
+
+        schoolYearSelect.addEventListener("change", updateSemesters);
+        updateSemesters(); // Initialize on page load
+    });
+</script>
 @endsection
