@@ -58,7 +58,7 @@
     @endif
 
     <!-- Schedules Table -->
-    <div class="card bg-white bg-opacity-30 backdrop-blur-sm shadow-lg rounded-lg">
+    <div class="card bg-white bg-opacity-50 backdrop-blur-sm shadow-lg rounded-lg p-4">
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
                 <thead class="bg-gray-200 text-gray-700">
@@ -79,7 +79,7 @@
                             <td class="border-right">
                                 @if($schedule->student)
                                     <a href="{{ route('admin.reports.student', $schedule->student->id) }}" 
-                                       class="text-purple-600 hover:text-purple-800 underline transition">
+                                       class="student-link">
                                         {{ $schedule->student->first_name }} {{ $schedule->student->last_name }}
                                     </a>
                                 @else
@@ -88,7 +88,6 @@
                             </td>
                             <td class="border-right">
                                 {{ optional($schedule->file)->file_name ?? 'N/A' }}
-                                
                                 @if(in_array(optional($schedule->file)->file_name, ['COR', 'COG']) && $schedule->manual_school_year && $schedule->manual_semester)
                                     <br>
                                     <small class="text-gray-500 text-sm">
@@ -101,7 +100,7 @@
                             <td class="border-right">{{ $schedule->reason }}</td>                        
                             <td class="border-right">{{ $schedule->copies }}</td>
                             <td class="status-cell border-right">
-                                <span class="badge bg-{{ $schedule->status == 'approved' ? 'success' : ($schedule->status == 'rejected' ? 'danger' : 'warning') }}">
+                                <span class="badge badge-{{ $schedule->status }}">
                                     {{ ucfirst($schedule->status) }}
                                 </span>
                             </td>
@@ -142,19 +141,22 @@
         border-right: 1px solid #e2e8f0;
     }
 
-    /* Hover Effect for Student Names */
-    .text-purple-600 {
+    /* Student Name Hover Effect */
+    .student-link {
+        color: #4f46e5;
         font-weight: 600;
         transition: color 0.3s ease-in-out;
     }
 
-    .text-purple-600:hover {
-        color: #6b46c1;
+    .student-link:hover {
+        color: #4338ca;
+        text-decoration: underline;
     }
 
     /* Improved Table Styling */
     .table-bordered th, .table-bordered td {
-        padding: 10px;
+        padding: 12px;
+        border: 1px solid #e2e8f0;
     }
 
     .table-striped tbody tr:nth-of-type(odd) {
@@ -171,16 +173,28 @@
     }
 
     .badge {
-        padding: 0.35em 0.65em;
-        font-size: 0.75em;
+        padding: 0.4em 0.8em;
+        font-size: 0.8em;
         font-weight: 600;
-        border-radius: 0.25rem;
+        border-radius: 4px;
         text-transform: uppercase;
     }
 
-    .bg-success { background-color: #10b981; color: white; }
-    .bg-danger { background-color: #ef4444; color: white; }
-    .bg-warning { background-color: #f59e0b; color: white; }
+    .badge-pending { background-color: #f59e0b; color: white; }
+    .badge-approved { background-color: #10b981; color: white; }
+    .badge-rejected { background-color: #ef4444; color: white; }
 
+    /* Buttons */
+    .btn {
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-weight: 500;
+        transition: all 0.2s;
+    }
+
+    .btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 </style>
 @endsection
