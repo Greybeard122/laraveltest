@@ -14,11 +14,11 @@
         <i class="fas fa-info-circle me-2"></i> All schedule requests are kept on this page for 7 days to allow status changes. Older requests are saved on the Report Page.
     </div>
 
-    <!-- Filter Form -->
+    <!-- Filter Form - Restructured for single line on large screens -->
     <div class="filter-box">
         <h3 class="text-lg font-semibold mb-2">Schedule Filters</h3>
-        <form method="GET" action="{{ route('admin.schedules.index') }}" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            <div>
+        <form method="GET" action="{{ route('admin.schedules.index') }}" class="flex flex-col lg:flex-row lg:items-end lg:space-x-4 space-y-4 lg:space-y-0">
+            <div class="lg:w-1/4">
                 <label class="block text-gray-700 font-bold mb-1">File Type</label>
                 <select name="file_id" class="form-control">
                     <option value="">All Files</option>
@@ -30,7 +30,7 @@
                 </select>
             </div>
 
-            <div>
+            <div class="lg:w-1/4">
                 <label class="block text-gray-700 font-bold mb-1">Status</label>
                 <select name="status" class="form-control">
                     <option value="">All Status</option>
@@ -40,11 +40,11 @@
                 </select>
             </div>
 
-            <div class="flex items-end gap-2">
-                <button type="submit" class="btn btn-primary">
+            <div class="flex lg:w-1/2 space-x-2">
+                <button type="submit" class="btn btn-primary flex-grow-0">
                     <i class="fas fa-filter"></i> Apply Filters
                 </button>
-                <a href="{{ route('admin.schedules.index') }}" class="btn btn-secondary">
+                <a href="{{ route('admin.schedules.index') }}" class="btn btn-secondary flex-grow-0">
                     <i class="fas fa-undo"></i> Clear
                 </a>
             </div>
@@ -190,6 +190,3 @@
     }
 </style>
 @endsection
-
-
-
