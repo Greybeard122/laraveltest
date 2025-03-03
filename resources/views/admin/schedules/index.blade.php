@@ -135,6 +135,21 @@
 </div>
 
 <style>
+      .table td,
+    .table th {
+        position: relative;
+    }
+    
+    .table td:not(:last-child)::after,
+    .table th:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 25%;
+        height: 50%;
+        width: 1px;
+        background-color: var(--border-color);
+    }
     /* Improved Filter Box */
     .filter-box {
         background: rgba(255, 255, 255, 0.9);
@@ -215,6 +230,11 @@
     @media (max-width: 1023px) {
         .filter-btn {
             width: 100%;
+        }
+        @media (max-width: 768px) {
+        .table td:not(:last-child)::after,
+        .table th:not(:last-child)::after {
+            display: none;
         }
     }
 </style>
