@@ -144,7 +144,7 @@
 
 <style>
     /* filter buttons */
-.filter-buttons {
+
     .filter-buttons {
     display: flex;
     gap: 0.5rem;
