@@ -196,6 +196,19 @@
         width: 1px;
         background-color: var(--border-color);
     }
+        /* Student Name Hover Effect */
+    .schedule-table td a {
+        color: #1e40af; /* Deep blue */
+        font-weight: 600;
+        text-decoration: none;
+        transition: color 0.3s, text-shadow 0.3s;
+    }
+
+    .schedule-table td a:hover {
+        color: #3b82f6; /* Brighter blue */
+        text-shadow: 0 1px 3px rgba(59, 130, 246, 0.5);
+    }
+
     
     /* Ensure responsive behavior is maintained */
     @media (max-width: 768px) {
