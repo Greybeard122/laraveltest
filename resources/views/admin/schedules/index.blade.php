@@ -78,13 +78,14 @@
                         <tr>
                             <td>
                                 @if($schedule->student)
-                                    <a href="{{ route('admin.reports.student', $schedule->student->id) }}" class="text-blue-600 hover:text-blue-800 hover:underline">
+                                    <a href="{{ route('admin.reports.student', $schedule->student->id) }}" class="student-link">
                                         {{ $schedule->student->first_name }} {{ $schedule->student->last_name }}
                                     </a>
                                 @else
                                     N/A
                                 @endif
                             </td>
+                            
                             <td>
                                 {{ optional($schedule->file)->file_name ?? 'N/A' }}
                                 
@@ -136,6 +137,24 @@
 </div>
 
 <style>
+    /* Student Name Hover Effect */
+.student-link {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 4px;
+    background-color: transparent;
+    transition: background-color 0.3s, transform 0.2s, color 0.3s;
+    font-weight: 600;
+    text-decoration: none;
+    color: #1e40af; /* Deep blue */
+}
+
+.student-link:hover {
+    background-color: rgba(59, 130, 246, 0.15); /* Light blue background */
+    color: #1e3a8a; /* Darker blue */
+    transform: translateY(-2px);
+    text-shadow: 0 1px 3px rgba(59, 130, 246, 0.4);
+}
     /* Improved Filter Box */
     .filter-box {
         background: rgba(255, 255, 255, 0.9);
@@ -196,19 +215,7 @@
         width: 1px;
         background-color: var(--border-color);
     }
-        /* Student Name Hover Effect */
-    .schedule-table td a {
-        color: #1e40af; /* Deep blue */
-        font-weight: 600;
-        text-decoration: none;
-        transition: color 0.3s, text-shadow 0.3s;
-    }
-
-    .schedule-table td a:hover {
-        color: #3b82f6; /* Brighter blue */
-        text-shadow: 0 1px 3px rgba(59, 130, 246, 0.5);
-    }
-
+    
     
     /* Ensure responsive behavior is maintained */
     @media (max-width: 768px) {
