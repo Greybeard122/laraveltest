@@ -16,10 +16,10 @@
 
     <!-- Filter Form -->
     <div class="filter-box">
-        <h3 class="text-lg font-semibold mb-2">Schedule Filters</h3>
+        <h3 class="text-lg font-semibold mb-4">Schedule Filters</h3>
         <form method="GET" action="{{ route('admin.schedules.index') }}" class="filter-form">
             <div class="filter-item">
-                <label class="block text-gray-700 font-bold mb-1">File Type</label>
+                <label class="block text-gray-700 font-bold mb-2">File Type</label>
                 <select name="file_id" class="form-control">
                     <option value="">All Files</option>
                     @foreach($files as $file)
@@ -31,7 +31,7 @@
             </div>
 
             <div class="filter-item">
-                <label class="block text-gray-700 font-bold mb-1">Status</label>
+                <label class="block text-gray-700 font-bold mb-2">Status</label>
                 <select name="status" class="form-control">
                     <option value="">All Status</option>
                     <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
@@ -135,35 +135,45 @@
     </div>
 </div>
 
-
+<!-- Inline Styles -->
 <style>
-    /* Filter Box Improvements */
+    /* Improved Filter Box */
     .filter-box {
-        padding: 1.5rem;
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-bottom: 1.5rem;
+        padding: 1.75rem;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 10px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2rem;
     }
-    /* Filter Section: Single-line on large screens */
+
+    /* Filter Form Layout */
     .filter-form {
         display: flex;
         flex-wrap: wrap;
-        gap: 1.5rem;
+        gap: 2rem;
         align-items: center;
+        justify-content: space-between;
     }
 
     .filter-item {
         flex: 1;
-        min-width: 250px;
+        min-width: 270px;
     }
 
     .filter-actions {
         display: flex;
-        gap: 0.5rem;
+        gap: 1rem;
+        justify-content: flex-end;
     }
 
-    /* Stack filters on smaller screens */
+    /* Button Improvements */
+    .btn {
+        padding: 0.6rem 1.2rem;
+        border-radius: 6px;
+        font-weight: 500;
+    }
+
+    /* Stack Filters on Smaller Screens */
     @media (max-width: 768px) {
         .filter-form {
             flex-direction: column;
@@ -177,20 +187,13 @@
         }
     }
 
-    /* Improved Button Styling */
-    .btn {
-        padding: 0.5rem 1rem;
-        border-radius: 6px;
-        font-weight: 500;
-    }
-
     /* Status Badges */
     .status-cell {
         text-align: center;
     }
     .badge {
-        padding: 0.35em 0.65em;
-        font-size: 0.75em;
+        padding: 0.4em 0.75em;
+        font-size: 0.8em;
         font-weight: 600;
         border-radius: 0.25rem;
         text-transform: uppercase;
