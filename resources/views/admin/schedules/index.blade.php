@@ -14,11 +14,11 @@
         <i class="fas fa-info-circle me-2"></i> All schedule requests are kept on this page for 7 days to allow status changes. Older requests are saved on the Report Page.
     </div>
 
-    <!-- Filter Form - Restructured for single line on large screens -->
+    <!-- Filter Form - Restructured for single line on large screens with fixed button styling -->
     <div class="filter-box">
         <h3 class="text-lg font-semibold mb-2">Schedule Filters</h3>
         <form method="GET" action="{{ route('admin.schedules.index') }}" class="flex flex-col lg:flex-row lg:items-end lg:space-x-4 space-y-4 lg:space-y-0">
-            <div class="lg:w-1/4">
+            <div class="lg:w-1/3">
                 <label class="block text-gray-700 font-bold mb-1">File Type</label>
                 <select name="file_id" class="form-control">
                     <option value="">All Files</option>
@@ -30,7 +30,7 @@
                 </select>
             </div>
 
-            <div class="lg:w-1/4">
+            <div class="lg:w-1/3">
                 <label class="block text-gray-700 font-bold mb-1">Status</label>
                 <select name="status" class="form-control">
                     <option value="">All Status</option>
@@ -40,12 +40,12 @@
                 </select>
             </div>
 
-            <div class="flex lg:w-1/2 space-x-2">
-                <button type="submit" class="btn btn-primary flex-grow-0">
-                    <i class="fas fa-filter"></i> Apply Filters
+            <div class="flex lg:w-1/3 space-x-2">
+                <button type="submit" class="filter-btn apply-btn">
+                    Apply Filters
                 </button>
-                <a href="{{ route('admin.schedules.index') }}" class="btn btn-secondary flex-grow-0">
-                    <i class="fas fa-undo"></i> Clear
+                <a href="{{ route('admin.schedules.index') }}" class="filter-btn clear-btn">
+                    Clear
                 </a>
             </div>
         </form>
@@ -105,19 +105,19 @@
                                 </span>
                             </td>
                             <td>
-                                <div class="action-buttons">
-                                    <form action="{{ route('schedules.approve', $schedule->id) }}" method="POST" class="inline">
+                                <div class="button-container d-flex gap-2">
+                                    <form action="{{ route('schedules.approve', $schedule->id) }}" method="POST">
                                         @csrf
                                         @method('PATCH')
-                                        <button type="submit" class="btn-action btn-approve">
-                                            Approve
+                                        <button type="submit" class="btn btn-success btn-sm">
+                                            <i class="fas fa-check"></i> Approve
                                         </button>
                                     </form>
-                                    <form action="{{ route('schedules.reject', $schedule->id) }}" method="POST" class="inline">
+                                    <form action="{{ route('schedules.reject', $schedule->id) }}" method="POST">
                                         @csrf
                                         @method('PATCH')
-                                        <button type="submit" class="btn-action btn-reject">
-                                            Reject
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            <i class="fas fa-times"></i> Reject
                                         </button>
                                     </form>
                                 </div>
@@ -159,6 +159,36 @@
         outline: none;
         box-shadow: 0 0 6px rgba(99, 102, 241, 0.3);
     }
+    
+    /* Filter Buttons Styling */
+    .filter-btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        font-weight: 500;
+        border: none;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        text-align: center;
+        display: inline-block;
+        min-width: 120px;
+    }
+    
+    .apply-btn {
+        background-color: #1e88e5;
+    }
+    
+    .apply-btn:hover {
+        background-color: #1976d2;
+    }
+    
+    .clear-btn {
+        background-color: #616161;
+    }
+    
+    .clear-btn:hover {
+        background-color: #555555;
+    }
 
     /* Status Badges */
     .status-cell {
@@ -181,49 +211,11 @@
         border-radius: 6px;
         font-weight: 500;
     }
-    
-    /* Action Buttons Styling */
-    .action-buttons {
-        display: flex;
-        gap: 0.5rem;
-    }
-    
-    .btn-action {
-        padding: 0.5rem 1rem;
-        border-radius: 0.375rem;
-        font-weight: 500;
-        border: none;
-        color: white;
-        cursor: pointer;
-        transition: background-color 0.2s;
-        min-width: 90px;
-        text-align: center;
-    }
-    
-    .btn-approve {
-        background-color: #10b981;
-    }
-    
-    .btn-approve:hover {
-        background-color: #059669;
-    }
-    
-    .btn-reject {
-        background-color: #ef4444;
-    }
-    
-    .btn-reject:hover {
-        background-color: #dc2626;
-    }
 
     /* Additional button spacing for small screens */
     @media (max-width: 1023px) {
-        .btn {
+        .filter-btn {
             width: 100%;
-        }
-        
-        .action-buttons {
-            flex-direction: column;
         }
     }
 </style>
