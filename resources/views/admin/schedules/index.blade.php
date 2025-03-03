@@ -139,6 +139,13 @@
 <style>
     
     /* Student Name Hover Effect */
+     /* Ensure buttons align properly in filters */
+     .filter-buttons {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        justify-content: flex-start;
+    }
 .student-link {
     display: inline-block;
     padding: 6px 10px;
