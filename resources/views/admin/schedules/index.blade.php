@@ -15,40 +15,41 @@
     </div>
 
     <!-- Filter Form -->
-<div class="filter-box bg-white bg-opacity-30 backdrop-blur-sm shadow-lg rounded-lg p-4 mb-4">
-    <form method="GET" action="{{ route('admin.schedules.index') }}" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div>
-            <label class="block text-gray-700 font-bold mb-1">File Type</label>
-            <select name="file_id" class="form-control">
-                <option value="">All Files</option>
-                @foreach($files as $file)
-                    <option value="{{ $file->id }}" {{ request('file_id') == $file->id ? 'selected' : '' }}>
-                        {{ $file->file_name }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
+    <div class="filter-box">
+        <h3 class="text-lg font-semibold mb-2">Schedule Filters</h3>
+        <form method="GET" action="{{ route('admin.schedules.index') }}" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div>
+                <label class="block text-gray-700 font-bold mb-1">File Type</label>
+                <select name="file_id" class="form-control">
+                    <option value="">All Files</option>
+                    @foreach($files as $file)
+                        <option value="{{ $file->id }}" {{ request('file_id') == $file->id ? 'selected' : '' }}>
+                            {{ $file->file_name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
 
-        <div>
-            <label class="block text-gray-700 font-bold mb-1">Status</label>
-            <select name="status" class="form-control">
-                <option value="">All Status</option>
-                <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
-                <option value="approved" {{ request('status') == 'approved' ? 'selected' : '' }}>Approved</option>
-                <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
-            </select>
-        </div>
+            <div>
+                <label class="block text-gray-700 font-bold mb-1">Status</label>
+                <select name="status" class="form-control">
+                    <option value="">All Status</option>
+                    <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                    <option value="approved" {{ request('status') == 'approved' ? 'selected' : '' }}>Approved</option>
+                    <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                </select>
+            </div>
 
-        <div class="flex items-end gap-2">
-            <button type="submit" class="btn btn-primary mt-6">
-                <i class="fas fa-filter"></i> Apply Filters
-            </button>
-            <a href="{{ route('admin.schedules.index') }}" class="btn btn-secondary mt-6">
-                <i class="fas fa-undo"></i> Clear
-            </a>
-        </div>
-    </form>
-</div>
+            <div class="flex items-end gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-filter"></i> Apply Filters
+                </button>
+                <a href="{{ route('admin.schedules.index') }}" class="btn btn-secondary">
+                    <i class="fas fa-undo"></i> Clear
+                </a>
+            </div>
+        </form>
+    </div>
 
     @if(session('success'))
         <div class="alert alert-success fade show">
@@ -158,36 +159,6 @@
         outline: none;
         box-shadow: 0 0 6px rgba(99, 102, 241, 0.3);
     }
-    
-    /* Filter Buttons Styling */
-    .filter-btn {
-        padding: 0.75rem 1.5rem;
-        border-radius: 6px;
-        font-weight: 500;
-        border: none;
-        color: white;
-        cursor: pointer;
-        transition: background-color 0.2s;
-        text-align: center;
-        display: inline-block;
-        min-width: 120px;
-    }
-    
-    .apply-btn {
-        background-color: #1e88e5;
-    }
-    
-    .apply-btn:hover {
-        background-color: #1976d2;
-    }
-    
-    .clear-btn {
-        background-color: #616161;
-    }
-    
-    .clear-btn:hover {
-        background-color: #555555;
-    }
 
     /* Status Badges */
     .status-cell {
@@ -210,24 +181,31 @@
         border-radius: 6px;
         font-weight: 500;
     }
-   
-    /* Table Column Dividers for Schedules Table Only */
-    .schedule-table th, .schedule-table td {
-        border-right: 1px solid var(--border-color);
+    .table td,
+    .table th {
+        position: relative;
     }
-
-    /* Remove last column divider */
-    .schedule-table th:last-child, .schedule-table td:last-child {
-        border-right: none;
+    
+    .table td:not(:last-child)::after,
+    .table th:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 25%;
+        height: 50%;
+        width: 1px;
+        background-color: var(--border-color);
     }
-
-
-
-    /* Additional button spacing for small screens */
-    @media (max-width: 1023px) {
-        .filter-btn {
-            width: 100%;
+    
+    /* Ensure responsive behavior is maintained */
+    @media (max-width: 768px) {
+        .table td:not(:last-child)::after,
+        .table th:not(:last-child)::after {
+            display: none;
         }
     }
 </style>
 @endsection
+
+
+
