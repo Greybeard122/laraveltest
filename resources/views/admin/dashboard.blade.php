@@ -8,16 +8,15 @@
         </div>
         <!-- Overview Cards (Consistent Style) -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            <a href="{{ route('admin.schedules.pending') }}" 
-               class="group rounded-xl bg-white bg-opacity-50 backdrop-blur-sm p-6 shadow-md transition-all hover:bg-white/30">
-                <h5 class="text-lg  text-black drop-shadow-md">
-                    Pending Requests
-                </h5>
-                <h2 class="text-4xl font-bold text-black drop-shadow-lg mt-2">
-                    {{ $pendingRequests }}
-                </h2>
+            <a href="{{ route('admin.schedules.index') }}" 
+                class="group rounded-xl bg-white bg-opacity-50 backdrop-blur-sm p-6 shadow-md transition-all hover:bg-white/30">
+                    <h5 class="text-lg text-black drop-shadow-md">
+                        Pending Requests
+                    </h5>
+                    <h2 class="text-4xl font-bold text-black drop-shadow-lg mt-2">
+                        View Pending Requests
+                    </h2>
             </a>
-
             <a href="{{ route('admin.schedules.today') }}" 
                class="group rounded-xl bg-white bg-opacity-50 backdrop-blur-sm p-6 shadow-md transition-all hover:bg-white/30">
                 <h5 class="text-lg  text-black drop-shadow-md">

@@ -58,112 +58,103 @@
     @endif
 
     <!-- Schedules Table -->
-    <div class="card bg-white bg-opacity-30 backdrop-blur-sm shadow-lg rounded-lg">
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Student</th>
-                        <th>File</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Reason</th>
-                        <th>Copies</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($schedules as $schedule)
+    @if($schedules->isEmpty())
+        <p class="text-gray-600 text-center mt-4">No schedule requests available.</p>
+    @else
+        <div class="card bg-white bg-opacity-30 backdrop-blur-sm shadow-lg rounded-lg">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead class="bg-gray-200">
                         <tr>
-                            <td>
-                                @if($schedule->student)
-                                    <a href="{{ route('admin.reports.student', $schedule->student->id) }}" class="text-blue-600 hover:text-blue-800 hover:underline">
-                                        {{ $schedule->student->first_name }} {{ $schedule->student->last_name }}
-                                    </a>
-                                @else
-                                    N/A
-                                @endif
-                            </td>
-                            <td>
-                                {{ optional($schedule->file)->file_name ?? 'N/A' }}
-                                
-                                @if(in_array(optional($schedule->file)->file_name, ['COR', 'COG']) && $schedule->manual_school_year && $schedule->manual_semester)
-                                    <br>
-                                    <small class="text-gray-500 text-sm">
-                                        {{ $schedule->manual_school_year }} - {{ $schedule->manual_semester }}
-                                    </small>
-                                @endif
-                            </td>                            
-                            <td>{{ \Carbon\Carbon::parse($schedule->preferred_date)->format('M d, Y') }}</td>
-                            <td>{{ $schedule->preferred_time }}</td>
-                            <td>{{ $schedule->reason }}</td>                        
-                            <td>{{ $schedule->copies }}</td>
-                            <td class="status-cell">
-                                <span class="badge bg-{{ $schedule->status == 'approved' ? 'success' : ($schedule->status == 'rejected' ? 'danger' : 'warning') }}">
-                                    {{ ucfirst($schedule->status) }}
-                                </span>
-                            </td>
-                            <td>
-                                <div class="button-container d-flex gap-2">
-                                    <form action="{{ route('schedules.approve', $schedule->id) }}" method="POST">
-                                        @csrf
-                                        @method('PATCH')
+                            <th>Student</th>
+                            <th>File</th>
+                            <th>Preferred Date</th>
+                            <th>Time</th>
+                            <th>Reason</th>
+                            <th>Copies</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($schedules as $schedule)
+                            <tr>
+                                <td>
+                                    @if($schedule->student)
+                                        <a href="{{ route('admin.reports.student', $schedule->student->id) }}" class="text-blue-600 hover:text-blue-800 hover:underline">
+                                            {{ $schedule->student->first_name }} {{ $schedule->student->last_name }}
+                                        </a>
+                                    @else
+                                        N/A
+                                    @endif
+                                </td>
+                                <td>
+                                    {{ optional($schedule->file)->file_name ?? 'N/A' }}
+                                    
+                                    @if(in_array(optional($schedule->file)->file_name, ['COR', 'COG']) && $schedule->manual_school_year && $schedule->manual_semester)
+                                        <br>
+                                        <small class="text-gray-500 text-sm">
+                                            {{ $schedule->manual_school_year }} - {{ $schedule->manual_semester }}
+                                        </small>
+                                    @endif
+                                </td>                            
+                                <td>{{ \Carbon\Carbon::parse($schedule->preferred_date)->format('M d, Y') }}</td>
+                                <td>{{ ucfirst($schedule->preferred_time) }}</td>
+                                <td>{{ $schedule->reason }}</td>                        
+                                <td>{{ $schedule->copies }}</td>
+                                <td class="status-cell">
+                                    <span class="badge bg-{{ $schedule->status == 'approved' ? 'success' : ($schedule->status == 'rejected' ? 'danger' : 'warning') }}">
+                                        {{ ucfirst($schedule->status) }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <form action="{{ route('schedules.approve', $schedule->id) }}" method="POST" class="d-inline">
+                                        @csrf @method('PATCH')
                                         <button type="submit" class="btn btn-success btn-sm">
                                             <i class="fas fa-check"></i> Approve
                                         </button>
                                     </form>
-                                    <form action="{{ route('schedules.reject', $schedule->id) }}" method="POST">
-                                        @csrf
-                                        @method('PATCH')
+                                    <form action="{{ route('schedules.reject', $schedule->id) }}" method="POST" class="d-inline">
+                                        @csrf @method('PATCH')
                                         <button type="submit" class="btn btn-danger btn-sm">
                                             <i class="fas fa-times"></i> Reject
                                         </button>
                                     </form>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-        @if ($schedules->hasPages())
-            <div class="pagination-container">
-                {{ $schedules->links('pagination::bootstrap-4') }}
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
-        @endif
-    </div>
+            @if ($schedules->hasPages())
+                <div class="pagination-container">
+                    {{ $schedules->links('pagination::bootstrap-4') }}
+                </div>
+            @endif
+        </div>
+    @endif
 </div>
 
 <style>
-    /* Improved Filter Box */
-    .filter-box {
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 8px;
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Form Controls */
-    .form-control {
+    /* Improved Table Styling */
+    .table {
+        border-collapse: collapse;
         width: 100%;
-        padding: 0.75rem;
-        border-radius: 6px;
-        border: 1px solid #cbd5e1;
-        transition: border 0.2s;
     }
 
-    .form-control:focus {
-        border-color: #6366f1;
-        outline: none;
-        box-shadow: 0 0 6px rgba(99, 102, 241, 0.3);
+    .table-bordered th, .table-bordered td {
+        border: 1px solid #e2e8f0;
+        padding: 10px;
     }
 
-    /* Status Badges */
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: rgba(0, 0, 0, 0.03);
+    }
+
     .status-cell {
         text-align: center;
     }
+
     .badge {
         padding: 0.35em 0.65em;
         font-size: 0.75em;
@@ -171,15 +162,21 @@
         border-radius: 0.25rem;
         text-transform: uppercase;
     }
+
     .bg-success { background-color: #10b981; color: white; }
     .bg-danger { background-color: #ef4444; color: white; }
     .bg-warning { background-color: #f59e0b; color: white; }
 
-    /* Button Styling */
     .btn {
-        padding: 0.5rem 1rem;
+        padding: 0.375rem 0.75rem;
         border-radius: 6px;
         font-weight: 500;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 </style>
 @endsection
