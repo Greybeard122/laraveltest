@@ -137,13 +137,7 @@
 </div>
 
 <style>
-    .filter-buttons {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-    justify-content: flex-start;
-}
-
+    
     /* Student Name Hover Effect */
 .student-link {
     display: inline-block;
