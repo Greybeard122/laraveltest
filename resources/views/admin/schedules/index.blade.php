@@ -134,9 +134,8 @@
         @endif
     </div>
 </div>
-
 <style>
-    @media (min-width: 1024px) { 
+@media (min-width: 1024px) { 
     .container {
         max-width: 1200px; 
     }
@@ -147,11 +146,34 @@
         align-items: center;
     }
 
+    /* Filter Box Styling */
     .filter-box {
         padding: 2rem;
         margin-bottom: 2rem;
     }
 
+    /* Make filters a single row on large screens */
+    .filter-form {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.5rem;
+        flex-wrap: nowrap;
+    }
+
+    .filter-form div {
+        flex: 1;
+        min-width: 250px;
+    }
+
+    .filter-actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-shrink: 0;
+    }
+
+    /* Ensure table columns have proper spacing */
     .table th, .table td {
         padding: 1rem 1.5rem;
         text-align: center;
@@ -167,51 +189,19 @@
         justify-content: center;
     }
 }
-    /* Improved Filter Box */
-    .filter-box {
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 8px;
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+/* Stack filters on smaller screens */
+@media (max-width: 1023px) {
+    .filter-form {
+        flex-direction: column;
+        gap: 1rem;
     }
 
-    /* Form Controls */
-    .form-control {
+    .filter-actions {
+        justify-content: center;
         width: 100%;
-        padding: 0.75rem;
-        border-radius: 6px;
-        border: 1px solid #cbd5e1;
-        transition: border 0.2s;
     }
-
-    .form-control:focus {
-        border-color: #6366f1;
-        outline: none;
-        box-shadow: 0 0 6px rgba(99, 102, 241, 0.3);
-    }
-
-    /* Status Badges */
-    .status-cell {
-        text-align: center;
-    }
-    .badge {
-        padding: 0.35em 0.65em;
-        font-size: 0.75em;
-        font-weight: 600;
-        border-radius: 0.25rem;
-        text-transform: uppercase;
-    }
-    .bg-success { background-color: #10b981; color: white; }
-    .bg-danger { background-color: #ef4444; color: white; }
-    .bg-warning { background-color: #f59e0b; color: white; }
-
-    /* Button Styling */
-    .btn {
-        padding: 0.5rem 1rem;
-        border-radius: 6px;
-        font-weight: 500;
-    }
+}
 </style>
 @endsection
 
