@@ -45,15 +45,14 @@
         </div>
 
         <!-- Filter & Reset Buttons -->
-        <div class="filter-buttons">
-            <button type="submit" class="btn btn-primary">
+        <div class="filter-buttons h-full">
+            <button type="submit" class="btn btn-primary h-full">
                 <i class="fas fa-filter"></i> Apply Filters
             </button>
-            <a href="{{ route('admin.schedules.index') }}" class="btn btn-secondary">
+            <a href="{{ route('admin.schedules.index') }}" class="btn btn-secondary h-full">
                 <i class="fas fa-undo"></i> Clear
             </a>
         </div>  
-
     </form>
 </div>
 
@@ -146,10 +145,11 @@
 <style>
     /* filter buttons */
 .filter-buttons {
+    .filter-buttons {
     display: flex;
     gap: 0.5rem;
-    align-items: center;
-    justify-content: flex-start;
+    align-items: stretch; 
+    height: 100%;
 }
 
     /* Student Name Hover Effect */
