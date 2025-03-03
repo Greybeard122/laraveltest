@@ -147,15 +147,14 @@
     .filter-buttons {
     display: flex;
     gap: 0.5rem;
-    align-items: stretch;
+    align-items: flex-end; 
 }
 
 .filter-buttons .btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
-    min-height: 42px; 
+    height: 42px; 
 }
 
     /* Student Name Hover Effect */
