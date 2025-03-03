@@ -60,32 +60,33 @@
     <!-- Schedules Table -->
     <div class="card bg-white bg-opacity-30 backdrop-blur-sm shadow-lg rounded-lg">
         <div class="table-responsive">
-            <table class="table">
-                <thead>
+            <table class="table table-bordered table-striped">
+                <thead class="bg-gray-200 text-gray-700">
                     <tr>
-                        <th>Student</th>
-                        <th>File</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Reason</th>
-                        <th>Copies</th>
-                        <th>Status</th>
+                        <th class="border-right">Student</th>
+                        <th class="border-right">File</th>
+                        <th class="border-right">Date</th>
+                        <th class="border-right">Time</th>
+                        <th class="border-right">Reason</th>
+                        <th class="border-right">Copies</th>
+                        <th class="border-right">Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($schedules as $schedule)
-                        <tr>
-                            <td>
+                        <tr class="hover:bg-gray-100 transition">
+                            <td class="border-right">
                                 @if($schedule->student)
-                                    <a href="{{ route('admin.reports.student', $schedule->student->id) }}" class="text-blue-600 hover:text-blue-800 hover:underline">
+                                    <a href="{{ route('admin.reports.student', $schedule->student->id) }}" 
+                                       class="text-purple-600 hover:text-purple-800 underline transition">
                                         {{ $schedule->student->first_name }} {{ $schedule->student->last_name }}
                                     </a>
                                 @else
                                     N/A
                                 @endif
                             </td>
-                            <td>
+                            <td class="border-right">
                                 {{ optional($schedule->file)->file_name ?? 'N/A' }}
                                 
                                 @if(in_array(optional($schedule->file)->file_name, ['COR', 'COG']) && $schedule->manual_school_year && $schedule->manual_semester)
@@ -95,11 +96,11 @@
                                     </small>
                                 @endif
                             </td>                            
-                            <td>{{ \Carbon\Carbon::parse($schedule->preferred_date)->format('M d, Y') }}</td>
-                            <td>{{ $schedule->preferred_time }}</td>
-                            <td>{{ $schedule->reason }}</td>                        
-                            <td>{{ $schedule->copies }}</td>
-                            <td class="status-cell">
+                            <td class="border-right">{{ \Carbon\Carbon::parse($schedule->preferred_date)->format('M d, Y') }}</td>
+                            <td class="border-right">{{ ucfirst($schedule->preferred_time) }}</td>
+                            <td class="border-right">{{ $schedule->reason }}</td>                        
+                            <td class="border-right">{{ $schedule->copies }}</td>
+                            <td class="status-cell border-right">
                                 <span class="badge bg-{{ $schedule->status == 'approved' ? 'success' : ($schedule->status == 'rejected' ? 'danger' : 'warning') }}">
                                     {{ ucfirst($schedule->status) }}
                                 </span>
@@ -136,34 +137,39 @@
 </div>
 
 <style>
-    /* Improved Filter Box */
-    .filter-box {
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 8px;
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Column Separators */
+    .border-right {
+        border-right: 1px solid #e2e8f0;
     }
 
-    /* Form Controls */
-    .form-control {
-        width: 100%;
-        padding: 0.75rem;
-        border-radius: 6px;
-        border: 1px solid #cbd5e1;
-        transition: border 0.2s;
+    /* Hover Effect for Student Names */
+    .text-purple-600 {
+        font-weight: 600;
+        transition: color 0.3s ease-in-out;
     }
 
-    .form-control:focus {
-        border-color: #6366f1;
-        outline: none;
-        box-shadow: 0 0 6px rgba(99, 102, 241, 0.3);
+    .text-purple-600:hover {
+        color: #6b46c1;
+    }
+
+    /* Improved Table Styling */
+    .table-bordered th, .table-bordered td {
+        padding: 10px;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: rgba(0, 0, 0, 0.03);
+    }
+
+    .hover\:bg-gray-100:hover {
+        background-color: #f3f4f6 !important;
     }
 
     /* Status Badges */
     .status-cell {
         text-align: center;
     }
+
     .badge {
         padding: 0.35em 0.65em;
         font-size: 0.75em;
@@ -171,15 +177,10 @@
         border-radius: 0.25rem;
         text-transform: uppercase;
     }
+
     .bg-success { background-color: #10b981; color: white; }
     .bg-danger { background-color: #ef4444; color: white; }
     .bg-warning { background-color: #f59e0b; color: white; }
 
-    /* Button Styling */
-    .btn {
-        padding: 0.5rem 1rem;
-        border-radius: 6px;
-        font-weight: 500;
-    }
 </style>
 @endsection
