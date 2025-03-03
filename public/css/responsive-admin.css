@@ -22,7 +22,43 @@
   --border-radius-md: 0.5rem;
   --border-radius-lg: 0.75rem;
 }
+/* Student Name Hover Effect */
+.student-link {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 4px;
+  background-color: transparent;
+  transition: background-color 0.3s, transform 0.2s, color 0.3s;
+  font-weight: 600;
+  text-decoration: none;
+  color: #1e40af; /* Deep blue */
+}
 
+.student-link:hover {
+  background-color: rgba(59, 130, 246, 0.15); /* Light blue background */
+  color: #1e3a8a; /* Darker blue */
+  transform: translateY(-2px);
+  text-shadow: 0 1px 3px rgba(59, 130, 246, 0.4);
+}
+
+/* archived/report page link */
+.archived-link {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 4px;
+  background-color: transparent;
+  transition: background-color 0.3s, transform 0.2s, color 0.3s;
+  font-weight: 600;
+  text-decoration: none;
+  color: #1e40af; /* Deep blue */
+}
+
+.archived-link:hover {
+  background-color: rgba(59, 130, 246, 0.15); /* Light blue background */
+  color: #1e3a8a; /* Darker blue */
+  transform: translateY(-2px);
+  text-shadow: 0 1px 3px rgba(59, 130, 246, 0.4);
+}
 
 /* Custom Pagination Styles */
 .pagination-container {
