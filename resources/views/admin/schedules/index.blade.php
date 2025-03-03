@@ -15,41 +15,48 @@
     </div>
 
     <!-- Filter Form -->
-    <div class="filter-box">
-        <h3 class="text-lg font-semibold mb-2">Schedule Filters</h3>
-        <form method="GET" action="{{ route('admin.schedules.index') }}" 
+<div class="filter-box">
+    <h3 class="text-lg font-semibold mb-2">Schedule Filters</h3>
+    <form method="GET" action="{{ route('admin.schedules.index') }}" 
         class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 items-end gap-4">
-  
-                <label class="block text-gray-700 font-bold mb-1">File Type</label>
-                <select name="file_id" class="form-control">
-                    <option value="">All Files</option>
-                    @foreach($files as $file)
-                        <option value="{{ $file->id }}" {{ request('file_id') == $file->id ? 'selected' : '' }}>
-                            {{ $file->file_name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
 
-            <div>
-                <label class="block text-gray-700 font-bold mb-1">Status</label>
-                <select name="status" class="form-control">
-                    <option value="">All Status</option>
-                    <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
-                    <option value="approved" {{ request('status') == 'approved' ? 'selected' : '' }}>Approved</option>
-                    <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
-                </select>
-            </div>
-            <div class="filter-buttons">
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-filter"></i> Apply Filters
-                </button>
-                <a href="{{ route('admin.schedules.index') }}" class="btn btn-secondary">
-                    <i class="fas fa-undo"></i> Clear
-                </a>
-            </div>            
-        </form>
-    </div>
+        <!-- File Type Filter -->
+        <div>
+            <label class="block text-gray-700 font-bold mb-1">File Type</label>
+            <select name="file_id" class="form-control">
+                <option value="">All Files</option>
+                @foreach($files as $file)
+                    <option value="{{ $file->id }}" {{ request('file_id') == $file->id ? 'selected' : '' }}>
+                        {{ $file->file_name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
+        <!-- Status Filter -->
+        <div>
+            <label class="block text-gray-700 font-bold mb-1">Status</label>
+            <select name="status" class="form-control">
+                <option value="">All Status</option>
+                <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                <option value="approved" {{ request('status') == 'approved' ? 'selected' : '' }}>Approved</option>
+                <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
+            </select>
+        </div>
+
+        <!-- Filter & Reset Buttons -->
+        <div class="filter-buttons">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-filter"></i> Apply Filters
+            </button>
+            <a href="{{ route('admin.schedules.index') }}" class="btn btn-secondary">
+                <i class="fas fa-undo"></i> Clear
+            </a>
+        </div>  
+
+    </form>
+</div>
+
 
     @if(session('success'))
         <div class="alert alert-success fade show">
@@ -137,15 +144,16 @@
 </div>
 
 <style>
-    
+    /* filter buttons */
+.filter-buttons {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: flex-start;
+}
+
     /* Student Name Hover Effect */
-     /* Ensure buttons align properly in filters */
-     .filter-buttons {
-        display: flex;
-        gap: 0.5rem;
-        align-items: center;
-        justify-content: flex-start;
-    }
+    
 .student-link {
     display: inline-block;
     padding: 6px 10px;
