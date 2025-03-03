@@ -58,36 +58,36 @@
     @endif
 
     <!-- Schedules Table -->
-    <div class="card bg-white bg-opacity-50 backdrop-blur-sm shadow-lg rounded-lg p-4">
+    <div class="card bg-white bg-opacity-30 backdrop-blur-sm shadow-lg rounded-lg">
         <div class="table-responsive">
-            <table class="table table-bordered table-striped">
-                <thead class="bg-gray-200 text-gray-700">
+            <table class="table">
+                <thead>
                     <tr>
-                        <th class="border-right">Student</th>
-                        <th class="border-right">File</th>
-                        <th class="border-right">Date</th>
-                        <th class="border-right">Time</th>
-                        <th class="border-right">Reason</th>
-                        <th class="border-right">Copies</th>
-                        <th class="border-right">Status</th>
+                        <th>Student</th>
+                        <th>File</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Reason</th>
+                        <th>Copies</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($schedules as $schedule)
-                        <tr class="hover:bg-gray-100 transition">
-                            <td class="border-right">
+                        <tr>
+                            <td>
                                 @if($schedule->student)
-                                    <a href="{{ route('admin.reports.student', $schedule->student->id) }}" 
-                                       class="student-link">
+                                    <a href="{{ route('admin.reports.student', $schedule->student->id) }}" class="text-blue-600 hover:text-blue-800 hover:underline">
                                         {{ $schedule->student->first_name }} {{ $schedule->student->last_name }}
                                     </a>
                                 @else
                                     N/A
                                 @endif
                             </td>
-                            <td class="border-right">
+                            <td>
                                 {{ optional($schedule->file)->file_name ?? 'N/A' }}
+                                
                                 @if(in_array(optional($schedule->file)->file_name, ['COR', 'COG']) && $schedule->manual_school_year && $schedule->manual_semester)
                                     <br>
                                     <small class="text-gray-500 text-sm">
@@ -95,12 +95,12 @@
                                     </small>
                                 @endif
                             </td>                            
-                            <td class="border-right">{{ \Carbon\Carbon::parse($schedule->preferred_date)->format('M d, Y') }}</td>
-                            <td class="border-right">{{ ucfirst($schedule->preferred_time) }}</td>
-                            <td class="border-right">{{ $schedule->reason }}</td>                        
-                            <td class="border-right">{{ $schedule->copies }}</td>
-                            <td class="status-cell border-right">
-                                <span class="badge badge-{{ $schedule->status }}">
+                            <td>{{ \Carbon\Carbon::parse($schedule->preferred_date)->format('M d, Y') }}</td>
+                            <td>{{ $schedule->preferred_time }}</td>
+                            <td>{{ $schedule->reason }}</td>                        
+                            <td>{{ $schedule->copies }}</td>
+                            <td class="status-cell">
+                                <span class="badge bg-{{ $schedule->status == 'approved' ? 'success' : ($schedule->status == 'rejected' ? 'danger' : 'warning') }}">
                                     {{ ucfirst($schedule->status) }}
                                 </span>
                             </td>
@@ -136,65 +136,50 @@
 </div>
 
 <style>
-    /* Column Separators */
-    .border-right {
-        border-right: 1px solid #e2e8f0;
+    /* Improved Filter Box */
+    .filter-box {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
-    /* Student Name Hover Effect */
-    .student-link {
-        color: #4f46e5;
-        font-weight: 600;
-        transition: color 0.3s ease-in-out;
+    /* Form Controls */
+    .form-control {
+        width: 100%;
+        padding: 0.75rem;
+        border-radius: 6px;
+        border: 1px solid #cbd5e1;
+        transition: border 0.2s;
     }
 
-    .student-link:hover {
-        color: #4338ca;
-        text-decoration: underline;
-    }
-
-    /* Improved Table Styling */
-    .table-bordered th, .table-bordered td {
-        padding: 12px;
-        border: 1px solid #e2e8f0;
-    }
-
-    .table-striped tbody tr:nth-of-type(odd) {
-        background-color: rgba(0, 0, 0, 0.03);
-    }
-
-    .hover\:bg-gray-100:hover {
-        background-color: #f3f4f6 !important;
+    .form-control:focus {
+        border-color: #6366f1;
+        outline: none;
+        box-shadow: 0 0 6px rgba(99, 102, 241, 0.3);
     }
 
     /* Status Badges */
     .status-cell {
         text-align: center;
     }
-
     .badge {
-        padding: 0.4em 0.8em;
-        font-size: 0.8em;
+        padding: 0.35em 0.65em;
+        font-size: 0.75em;
         font-weight: 600;
-        border-radius: 4px;
+        border-radius: 0.25rem;
         text-transform: uppercase;
     }
+    .bg-success { background-color: #10b981; color: white; }
+    .bg-danger { background-color: #ef4444; color: white; }
+    .bg-warning { background-color: #f59e0b; color: white; }
 
-    .badge-pending { background-color: #f59e0b; color: white; }
-    .badge-approved { background-color: #10b981; color: white; }
-    .badge-rejected { background-color: #ef4444; color: white; }
-
-    /* Buttons */
+    /* Button Styling */
     .btn {
         padding: 0.5rem 1rem;
         border-radius: 6px;
         font-weight: 500;
-        transition: all 0.2s;
-    }
-
-    .btn:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 </style>
 @endsection
