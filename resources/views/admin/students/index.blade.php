@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+
 @section('content')
 <div class="container">
     <h2>Students</h2>
@@ -16,12 +17,8 @@
                     Student Number 
                     <span class="sort-icon"></span>
                 </th>
-                <th class="sortable" data-column="first_name">
-                    First Name
-                    <span class="sort-icon"></span>
-                </th>
-                <th class="sortable" data-column="last_name">
-                    Last Name
+                <th class="sortable" data-column="student_name">
+                    Student Name
                     <span class="sort-icon"></span>
                 </th>
                 <th class="sortable" data-column="email">
@@ -45,12 +42,7 @@
                     <td>{{ $student->student_id ?? 'N/A' }}</td>
                     <td>
                         <a href="{{ route('admin.reports.student', $student->id) }}" class="student-link">
-                            {{ $student->first_name }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{{ route('admin.reports.student', $student->id) }}" class="student-link">
-                            {{ $student->last_name }}
+                            {{ $student->last_name }}, {{ $student->first_name }} {{ $student->middle_name ?? '' }}
                         </a>
                     </td>
                     <td>{{ $student->email }}</td>
@@ -60,7 +52,7 @@
                         <a href="{{ route('admin.students.edit', $student->id) }}" class="btn btn-warning btn-sm">Edit</a>
                         <button class="btn btn-danger btn-sm delete-student" 
                             data-id="{{ $student->id }}"  
-                            data-student-name="{{ $student->first_name }} {{ $student->last_name }}">
+                            data-student-name="{{ $student->last_name }}, {{ $student->first_name }}">
                             Delete
                         </button>
                     </td>
@@ -68,6 +60,7 @@
             @endforeach
         </tbody>
     </table>
+
     <!-- Pagination -->
     <div class="d-flex justify-content-center">
         {{ $students->links() }}
@@ -198,4 +191,5 @@ $(document).ready(function() {
 });
 </script>
 @endpush
+
 @endsection
