@@ -28,7 +28,7 @@
   top: 50%;
   left: calc(var(--sidebar-width) - 35px); /* Adjust button position */
   transform: translateY(-50%);
-  background: var(--primary-color); /* Primary button color */
+  background: var(--primary-color); 
   border: none;
   font-size: 1.5rem;
   color: white;
@@ -42,25 +42,22 @@
   transition: left 0.3s ease-in-out, background 0.3s, box-shadow 0.3s;
   box-shadow: var(--shadow-md);
 }
-
+/*  Collapsed Sidebar - Move Button */
+.sidebar.collapsed .toggle-sidebar-btn {
+  left: 45px; 
+}
 /* Hover Effect */
 .toggle-sidebar-btn:hover {
   background: var(--primary-hover);
   box-shadow: var(--shadow-lg);
 }
 
-/*  Collapsed Sidebar - Move Button */
-.sidebar.collapsed .toggle-sidebar-btn {
-  left: 45px; 
-}
-
-
-.sidebar.collapsed .toggle-sidebar-btn::before {
-  content: '→'; 
-}
 .toggle-sidebar-btn::before {
-  content: '←'; 
+  content: '←'; /* Default */
   font-size: 1.2rem;
+}
+.sidebar.collapsed .toggle-sidebar-btn::before {
+  content: '→'; /* Change to right arrow */
 }
 
 /* Sidebar Logo Styling */
@@ -123,25 +120,8 @@
   font-size: 1.2rem;
   margin-bottom: 1rem;
 }
-
 .sidebar.collapsed .sidebar-title {
   display: none;
-}
-
-
-
-
-
-
-
-.sidebar-title {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-}
-
-
-.sidebar.collapsed .nav-text {
-  display: none; 
 }
 /* Move Icons Out */
 .sidebar.collapsed .nav-link i {
@@ -150,16 +130,10 @@
   min-width: unset;
   text-align: center;
 }
-.sidebar.collapsed .sidebar-title {
-  display: none;
-}
 .sidebar.collapsed .nav-link {
   justify-content: center;
   padding-left: 0;
 }
-
-
-
 
 /* Student Name Hover Effect */
 .student-link {
