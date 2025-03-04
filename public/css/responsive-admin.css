@@ -27,30 +27,14 @@
   width: var(--sidebar-width);
   transition: width 0.3s ease-in-out;
   overflow: hidden;
-  /* .sidebar {
-    width: var(--sidebar-width);
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: var(--sidebar-bg);
-    transition: transform 0.3s ease-in-out;
-    z-index: 1000;
-    overflow: hidden;
-    white-space: nowrap;
-    /* box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1); */
-  } 
+  position: relative;
+}
+
 /* Sidebar Collapsed */
 .sidebar.collapsed {
   width: 80px;
 }
-/* Icons Stay Centered */
-.sidebar .nav-link i {
-  font-size: 1.3rem;
-  min-width: 40px;
-  text-align: center;
-  transition: padding-left 0.3s ease-in-out;
-}
+
 /* Sidebar Navigation */
 .sidebar .nav-link {
   display: flex;
@@ -62,6 +46,14 @@
   color: white;
   text-decoration: none;
 }
+
+/* Ensure Icons Stay Centered */
+.sidebar .nav-link i {
+  font-size: 1.3rem;
+  min-width: 40px;
+  text-align: center;
+}
+
 /* Hide Text When Collapsed */
 .sidebar.collapsed .nav-text {
   display: none;
@@ -130,7 +122,6 @@
 }
 /* Move Icons Out */
 .sidebar.collapsed .nav-link i {
-  padding-left: 5px;
   margin-right: 0; /* Ensures icons don't shift */
   min-width: 60px;
 }
@@ -368,9 +359,32 @@ body {
 }
 
 /* === SIDEBAR STYLES === */
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--sidebar-bg);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+  overflow: hidden;
+  white-space: nowrap;
+  /* box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1); */
+}
 
 .sidebar.collapsed {
   width: 80px;
+}
+
+.sidebar .nav-link {
+  display: flex;
+  align-items: center;
+  padding: 12px 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease-in-out;
+  color: white;
+  text-decoration: none;
 }
 
 .sidebar .nav-link:hover {
@@ -378,6 +392,13 @@ body {
   color: white;
   transform: translateX(4px);
 }
+/* Icons */
+.sidebar .nav-link i {
+  font-size: 1.3rem;
+  min-width: 40px;
+  text-align: center;
+}
+
 .close-sidebar {
   display: none;
   position: absolute;
