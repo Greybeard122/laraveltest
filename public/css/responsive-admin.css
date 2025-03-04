@@ -22,6 +22,47 @@
   --border-radius-md: 0.5rem;
   --border-radius-lg: 0.75rem;
 }
+/* Sidebar Toggle Button */
+.toggle-sidebar-btn {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--sidebar-width) - 30px); /* Position it properly */
+  transform: translateY(-50%);
+  background: var(--primary-color); /* Make it stand out */
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+  border-radius: 50%; /* Make it circular */
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: left 0.3s ease-in-out, background 0.3s;
+  box-shadow: var(--shadow-md);
+}
+
+/* Hover Effect */
+.toggle-sidebar-btn:hover {
+  background: var(--primary-hover);
+  box-shadow: var(--shadow-lg);
+}
+
+/*  Collapsed Sidebar - Move Button */
+.sidebar.collapsed .toggle-sidebar-btn {
+  left: 50px; /* Keep it within the collapsed sidebar */
+}
+
+/*  Change Arrow Direction */
+.toggle-sidebar-btn::before {
+  content: '←'; /* Default: Left Arrow */
+}
+
+.sidebar.collapsed .toggle-sidebar-btn::before {
+  content: '→'; /* Change to Right Arrow when collapsed */
+}
+
 /* Sidebar Logo Styling */
 .sidebar-logo {
   display: flex;
@@ -32,7 +73,7 @@
 
 /* Default Logo Size */
 .sidebar-logo img {
-  width: 120px;  /* Adjust size as needed */
+  width: 100px;  /* Adjust size as needed */
   height: auto;
   transition: width 0.3s ease-in-out;
 }
