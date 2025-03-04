@@ -38,13 +38,12 @@
 /* Sidebar Navigation */
 .sidebar .nav-link {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 15px;
-  font-size: 1rem;
-  transition: all 0.3s ease-in-out;
-  color: white;
-  text-decoration: none;
+    align-items: center;
+    padding: 12px 15px;  
+    font-size: 1rem;
+    transition: all 0.3s ease-in-out;
+    color: white;
+    text-decoration: none;
 }
 
 /* Ensure Icons Stay Centered */
@@ -123,14 +122,16 @@
 /* Move Icons Out */
 .sidebar.collapsed .nav-link i {
   padding-left: 0; 
-  margin-right: 0; /* Ensures icons don't shift */
-  min-width: 60px;
+  margin-right: 0; 
+  min-width: unset;
+  text-align: center;
 }
 .sidebar.collapsed .sidebar-title {
   display: none;
 }
 .sidebar.collapsed .nav-link {
   justify-content: center;
+  padding-left: 0;
 }
 /* When Sidebar is Collapsed, Move Arrow */
 .sidebar.collapsed .toggle-sidebar-btn {
@@ -376,16 +377,6 @@ body {
 
 .sidebar.collapsed {
   width: 80px;
-}
-
-.sidebar .nav-link {
-  display: flex;
-  align-items: center;
-  padding: 12px 10px;
-  font-size: 1rem;
-  transition: all 0.3s ease-in-out;
-  color: white;
-  text-decoration: none;
 }
 
 .sidebar .nav-link:hover {
