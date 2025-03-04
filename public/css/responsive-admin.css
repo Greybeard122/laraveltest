@@ -22,6 +22,25 @@
   --border-radius-md: 0.5rem;
   --border-radius-lg: 0.75rem;
 }
+/* Sidebar Logo Styling */
+.sidebar-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+
+/* Default Logo Size */
+.sidebar-logo img {
+  width: 120px;  /* Adjust size as needed */
+  height: auto;
+  transition: width 0.3s ease-in-out;
+}
+
+/* Smaller Logo When Sidebar is Collapsed */
+.sidebar.collapsed .sidebar-logo img {
+  width: 50px; /* Adjust for collapsed sidebar */
+}
 /* Sidebar Full Width */
 .sidebar {
   width: var(--sidebar-width);
