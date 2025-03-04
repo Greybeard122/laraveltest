@@ -22,11 +22,16 @@
   --border-radius-md: 0.5rem;
   --border-radius-lg: 0.75rem;
 }
+.sidebar-title {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
 /* Adjust Toggle Button Position */
+/* Toggle Button */
 .toggle-sidebar-btn {
   position: absolute;
   top: 50%;
-  left: calc(var(--sidebar-width) - 20px); 
+  left: calc(var(--sidebar-width) - 25px);
   transform: translateY(-50%);
   background: transparent;
   border: none;
@@ -35,6 +40,7 @@
   cursor: pointer;
   transition: left 0.3s ease-in-out;
 }
+
 
 .sidebar.collapsed .nav-text {
   display: none; 
@@ -52,7 +58,7 @@
 }
 /* When Sidebar is Collapsed, Move Arrow */
 .sidebar.collapsed .toggle-sidebar-btn {
-  left: 60px; 
+  left: 30px;
 }
 .sidebar.collapsed .toggle-sidebar-btn::before {
   content: '→'; 
@@ -288,7 +294,8 @@ body {
   transition: transform 0.3s ease-in-out;
   z-index: 1000;
   overflow: hidden;
-  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+  /* box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1); */
 }
 
 .sidebar.collapsed {
@@ -298,16 +305,10 @@ body {
 .sidebar .nav-link {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 15px;
-  color: rgba(255, 255, 255, 0.8);
-  font-weight: 500;
+  padding: 12px 10px;
   font-size: 1rem;
-  padding: 0.875rem 1.5rem;
-  border-radius: var(--border-radius-md);
-  margin: 0.25rem 0.75rem;
-  transition: all 0.3s ease;
-  white-space: nowrap;
+  transition: all 0.3s ease-in-out;
+  color: white;
   text-decoration: none;
 }
 
