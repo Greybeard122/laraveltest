@@ -76,9 +76,9 @@
             <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
                 <div class="container d-flex align-items-center justify-content-between">
                     <!-- Hamburger Button -->
-                    <button class="hamburger-btn" id="hamburgerBtn">
-                        @include('components.icons.hamburger')
-                    </button>
+                    <button class="toggle-sidebar-btn" id="toggleSidebarBtn">
+                        &#8592; <!-- Left Arrow by Default -->
+                    </button>                    
         
                     <!-- Title (Centered) -->
                     <div class="title-container text-white mx-auto">

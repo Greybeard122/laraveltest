@@ -22,6 +22,33 @@
   --border-radius-md: 0.5rem;
   --border-radius-lg: 0.75rem;
 }
+/* Sidebar Toggle Button */
+.toggle-sidebar-btn {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--sidebar-width) - 20px); /* Position in the middle */
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+  transition: left 0.3s ease-in-out;
+}
+
+/* When Sidebar is Collapsed, Move Arrow */
+.sidebar.collapsed .toggle-sidebar-btn {
+  left: 60px; /* Adjusted for small sidebar */
+}
+
+/* Change Arrow Direction */
+.sidebar.collapsed .toggle-sidebar-btn::before {
+  content: '→'; /* Right Arrow */
+}
+
+.toggle-sidebar-btn::before {
+  content: '←'; /* Left Arrow by Default */
+}
 /* Student Name Hover Effect */
 .student-link {
   display: inline-block;
@@ -223,7 +250,7 @@ body {
 }
 
 .sidebar.collapsed + .content-area {
-  margin-left: 0;
+  margin-left: 80px;
   width: 100%;
 }
 
@@ -253,7 +280,7 @@ body {
 }
 
 .sidebar.collapsed {
-  transform: translateX(-100%);
+  width: 80px;
 }
 
 .sidebar .nav-link {
