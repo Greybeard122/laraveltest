@@ -22,6 +22,81 @@
   --border-radius-md: 0.5rem;
   --border-radius-lg: 0.75rem;
 }
+/* Sidebar Full Width */
+.sidebar {
+  width: var(--sidebar-width);
+  transition: width 0.3s ease-in-out;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Sidebar Collapsed */
+.sidebar.collapsed {
+  width: 80px;
+}
+
+/* Sidebar Navigation */
+.sidebar .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 15px;
+  font-size: 1rem;
+  transition: all 0.3s ease-in-out;
+  color: white;
+  text-decoration: none;
+}
+
+/* Ensure Icons Stay Centered */
+.sidebar .nav-link i {
+  font-size: 1.3rem;
+  min-width: 40px;
+  text-align: center;
+}
+
+/* Hide Text When Collapsed */
+.sidebar.collapsed .nav-text {
+  display: none;
+}
+
+/* Adjust Sidebar Title */
+.sidebar-title {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.sidebar.collapsed .sidebar-title {
+  display: none;
+}
+
+/* 🔹 Fix Toggle Button Position */
+.toggle-sidebar-btn {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--sidebar-width) - 10px);
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+  transition: left 0.3s ease-in-out;
+}
+
+/* When Collapsed, Move Button to the Middle */
+.sidebar.collapsed .toggle-sidebar-btn {
+  left: 70px;
+}
+
+/* Change Arrow Direction */
+.sidebar.collapsed .toggle-sidebar-btn::before {
+  content: '→';
+}
+
+.toggle-sidebar-btn::before {
+  content: '←';
+}
+
 .sidebar-title {
   font-size: 1.2rem;
   margin-bottom: 1rem;
