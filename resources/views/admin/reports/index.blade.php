@@ -9,7 +9,7 @@
         </a>
     </div>
 
-    <!--  Filter Form -->
+    <!-- Filter Form -->
     <div class="filter-box bg-white bg-opacity-30 backdrop-blur-sm shadow-lg rounded-lg p-4 mb-4">
         <form method="GET" action="{{ route('admin.reports.index') }}" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <div>
@@ -53,26 +53,6 @@
                 </select>
             </div>
 
-            <div>
-                <label class="block text-gray-700 font-bold mb-1">Start Date</label>
-                <input type="date" name="start_date" class="form-control" value="{{ request('start_date') }}">
-            </div>
-
-            <div>
-                <label class="block text-gray-700 font-bold mb-1">End Date</label>
-                <input type="date" name="end_date" class="form-control" value="{{ request('end_date') }}">
-            </div>
-
-            <div>
-                <label class="block text-gray-700 font-bold mb-1">Status</label>
-                <select name="status" class="form-control">
-                    <option value="">All Status</option>
-                    <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
-                    <option value="approved" {{ request('status') == 'approved' ? 'selected' : '' }}>Approved</option>
-                    <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
-                </select>
-            </div>
-
             <div class="flex gap-2">
                 <button type="submit" class="btn btn-primary mt-6">
                     <i class="fas fa-filter"></i> Apply Filters
@@ -84,15 +64,15 @@
         </form>
     </div>
 
-    <!--  Print Button -->
+    <!-- Print Button -->
     <button onclick="printReport()" class="btn btn-success mb-4">
         <i class="fas fa-print"></i> Print Report
     </button>
 
-    <!--  Reports Table -->
-    <div class="schedule-table-container">
+    <!-- Reports Table with White Background -->
+    <div class="schedule-table-container bg-white bg-opacity-30 backdrop-blur-sm shadow-lg rounded-lg p-4">
         <div class="schedule-table-responsive">
-            <table class="schedule-table" id="reportTable">
+            <table class="schedule-table w-full" id="reportTable">
                 <thead>
                     <tr>
                         <th>Student</th>
@@ -117,7 +97,8 @@
                                         {{ $schedule->manual_school_year }} - {{ $schedule->manual_semester }}
                                     </small>
                                 @endif
-                            </td>                                <td>{{ \Carbon\Carbon::parse($schedule->preferred_date)->format('M d, Y') }}</td>
+                            </td> 
+                            <td>{{ \Carbon\Carbon::parse($schedule->preferred_date)->format('M d, Y') }}</td>
                             <td>{{ $schedule->preferred_time }}</td>
                             <td>{{ $schedule->reason }}</td>
                             <td>{{ optional($schedule->schoolYear)->year ?? 'N/A' }} - {{ $schedule->semester_name ?? 'N/A' }}</td> 
@@ -128,7 +109,7 @@
             </table>
         </div>
 
-        <!--  Pagination -->
+        <!-- Pagination -->
         @if ($schedules->hasPages())
             <div class="pagination-container">
                 {{ $schedules->links('pagination::bootstrap-4') }}
@@ -137,7 +118,7 @@
     </div>
 </div>
 
-<!--  Print Function -->
+<!-- Print Function -->
 <script>
     function printReport() {
         var printContents = document.getElementById('reportTable').outerHTML;
