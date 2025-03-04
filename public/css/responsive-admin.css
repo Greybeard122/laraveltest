@@ -122,6 +122,7 @@
 }
 /* Move Icons Out */
 .sidebar.collapsed .nav-link i {
+  padding-left: 0; 
   margin-right: 0; /* Ensures icons don't shift */
   min-width: 60px;
 }
