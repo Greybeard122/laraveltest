@@ -69,7 +69,7 @@
         <i class="fas fa-print"></i> Print Report
     </button>
 
-    <!-- Reports Table with White Background -->
+    <!-- Reports Table -->
     <div class="schedule-table-container bg-white bg-opacity-30 backdrop-blur-sm shadow-lg rounded-lg p-4">
         <div class="schedule-table-responsive">
             <table class="schedule-table w-full" id="reportTable">

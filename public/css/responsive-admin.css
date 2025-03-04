@@ -461,8 +461,8 @@ select.form-control {
 
 /* === TABLE STYLES === */
 .schedule-table-responsive {
-  overflow-x: auto;
-  max-height: 70vh;
+  overflow-y: hidden;
+  
   border-radius: var(--border-radius-sm);
   box-shadow: var(--shadow-sm);
 }
