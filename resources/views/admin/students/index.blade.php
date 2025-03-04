@@ -43,8 +43,16 @@
             @foreach ($students as $student)
                 <tr>
                     <td>{{ $student->student_id ?? 'N/A' }}</td>
-                    <td>{{ $student->first_name }}</td>
-                    <td>{{ $student->last_name }}</td>
+                    <td>
+                        <a href="{{ route('admin.reports.student', $student->id) }}" class="student-link">
+                            {{ $student->first_name }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ route('admin.reports.student', $student->id) }}" class="student-link">
+                            {{ $student->last_name }}
+                        </a>
+                    </td>
                     <td>{{ $student->email }}</td>
                     <td>{{ $student->course }}</td>
                     <td>{{ $student->contact_number }}</td>
@@ -68,6 +76,26 @@
 
 @push('styles')
 <style>
+/* Student Name Hover Effect */
+.student-link {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 4px;
+    background-color: transparent;
+    transition: background-color 0.3s, transform 0.2s, color 0.3s;
+    font-weight: 600;
+    text-decoration: none;
+    color: #1e40af; /* Deep blue */
+}
+
+.student-link:hover {
+    background-color: rgba(59, 130, 246, 0.15); /* Light blue background */
+    color: #1e3a8a; /* Darker blue */
+    transform: translateY(-2px);
+    text-shadow: 0 1px 3px rgba(59, 130, 246, 0.4);
+}
+
+/* Sorting Icons */
 .sortable {
     cursor: pointer;
     position: relative;
