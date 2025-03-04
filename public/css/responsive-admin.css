@@ -468,7 +468,7 @@ select.form-control {
 }
 .schedule-table-container {
   width: 100%;
-  overflow-x: auto;
+  overflow-x: hidden;
   margin-bottom: 2rem;
   border-radius: var(--border-radius-sm);
   box-shadow: var(--shadow-md);
@@ -686,13 +686,23 @@ select.form-control {
   background-color: #a0aec0;
 }
 
+/* Print Button Enhancement */
 .btn-success {
-  background-color: var(--success-color);
+  background-color: #10b981;
   color: white;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s;
 }
 
 .btn-success:hover {
-  background-color: #0e9f6e;
+  background-color: #059669;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .button-container {
   display: flex;

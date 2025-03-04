@@ -100,7 +100,7 @@
                         <th>Date</th>
                         <th>Time</th>
                         <th>Reason</th>
-                        <th>School Year & Semester</th>
+                        <th>Term Requested</th>
                         <th>Copies</th>
                     </tr>
                 </thead>
