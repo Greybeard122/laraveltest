@@ -106,36 +106,17 @@
         document.addEventListener('DOMContentLoaded', function() {
     const sidebar = document.getElementById('sidebar');
     const contentArea = document.getElementById('contentArea');
-    const hamburgerBtn = document.getElementById('hamburgerBtn');
-    const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+    const toggleSidebarBtn = document.getElementById('toggleSidebarBtn');
 
     function toggleSidebar() {
-        sidebar.classList.toggle('collapsed'); 
-        contentArea.classList.toggle('full-width'); // Adjust content
+        sidebar.classList.toggle('collapsed');
+        contentArea.classList.toggle('full-width');
+
+        // Update Arrow Direction
+        toggleSidebarBtn.innerHTML = sidebar.classList.contains('collapsed') ? '&#8594;' : '&#8592;';
     }
 
-    hamburgerBtn.addEventListener('click', toggleSidebar);
-    closeSidebarBtn.addEventListener('click', toggleSidebar);
-
-    // Close sidebar when clicking outside on mobile
-    document.addEventListener('click', function(event) {
-        const isMobile = window.innerWidth <= 768;
-        if (isMobile && !sidebar.contains(event.target) && event.target !== hamburgerBtn) {
-            sidebar.classList.add('collapsed');
-            contentArea.classList.add('full-width');
-        }
-    });
-
-    // Ensure sidebar is collapsed on smaller screens
-    window.addEventListener('resize', function() {
-        if (window.innerWidth <= 768) {
-            sidebar.classList.add('collapsed');
-            contentArea.classList.add('full-width');
-        } else {
-            sidebar.classList.remove('collapsed');
-            contentArea.classList.remove('full-width');
-        }
-    });
+    toggleSidebarBtn.addEventListener('click', toggleSidebar);
 });
 
         let logoutTimer;
