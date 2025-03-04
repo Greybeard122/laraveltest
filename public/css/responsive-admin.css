@@ -26,40 +26,93 @@
 .toggle-sidebar-btn {
   position: absolute;
   top: 50%;
-  left: calc(var(--sidebar-width) - 35px); /* Adjust button position */
+  left: calc(var(--sidebar-width) - 35px);
   transform: translateY(-50%);
   background: var(--primary-color); 
   border: none;
   font-size: 1.5rem;
   color: white;
   cursor: pointer;
-  border-radius: 50%; /* Always circular */
-  width: 40px; /* Adjust size */
+  border-radius: 50%;
+  width: 40px;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: left 0.3s ease-in-out, background 0.3s, box-shadow 0.3s;
+  transition: left 0.3s ease-in-out, background 0.3s, box-shadow 0.3s, transform 0.2s;
   box-shadow: var(--shadow-md);
 }
 /*  Collapsed Sidebar - Move Button */
 .sidebar.collapsed .toggle-sidebar-btn {
   left: 45px; 
 }
-/* Hover Effect */
+/* Hover effects */
 .toggle-sidebar-btn:hover {
   background: var(--primary-hover);
   box-shadow: var(--shadow-lg);
+  transform: translateY(-50%) scale(1.05);
 }
 
 .toggle-sidebar-btn::before {
-  content: '←'; /* Default */
-  font-size: 1.2rem;
+  content: none;
 }
-.sidebar.collapsed .toggle-sidebar-btn::before {
-  content: '→'; /* Change to right arrow */
+.toggle-sidebar-btn .arrow {
+  width: 12px;
+  height: 2px;
+  background-color: white;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+.toggle-sidebar-btn .arrow::before,
+.toggle-sidebar-btn .arrow::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 2px;
+  background-color: white;
+  transition: transform 0.3s ease;
 }
 
+.toggle-sidebar-btn .arrow::before,
+.toggle-sidebar-btn .arrow::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 2px;
+  background-color: white;
+  transition: transform 0.3s ease;
+}
+
+.toggle-sidebar-btn .arrow::before {
+  top: -4px;
+  right: 0;
+  transform-origin: top right;
+  transform: rotate(-45deg);
+}
+
+.toggle-sidebar-btn .arrow::after {
+  bottom: -4px;
+  right: 0;
+  transform-origin: bottom right;
+  transform: rotate(45deg);
+}
+
+/* Collapsed state arrow */
+.sidebar.collapsed .toggle-sidebar-btn .arrow {
+  transform: rotate(180deg);
+}
+
+.sidebar.collapsed .toggle-sidebar-btn .arrow::before {
+  top: -4px;
+  right: 0;
+  transform: rotate(45deg);
+}
+
+.sidebar.collapsed .toggle-sidebar-btn .arrow::after {
+  bottom: -4px;
+  right: 0;
+  transform: rotate(-45deg);
+}
 /* Sidebar Logo Styling */
 .sidebar-logo {
   display: flex;
