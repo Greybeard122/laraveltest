@@ -22,11 +22,11 @@
   --border-radius-md: 0.5rem;
   --border-radius-lg: 0.75rem;
 }
-/* Sidebar Toggle Button */
+/* Adjust Toggle Button Position */
 .toggle-sidebar-btn {
   position: absolute;
   top: 50%;
-  left: calc(var(--sidebar-width) - 20px); /* Position in the middle */
+  left: calc(var(--sidebar-width) - 20px); 
   transform: translateY(-50%);
   background: transparent;
   border: none;
@@ -36,18 +36,24 @@
   transition: left 0.3s ease-in-out;
 }
 
+.sidebar.collapsed .nav-text {
+  display: none; /* Hide text when sidebar is collapsed */
+}
+.sidebar.collapsed .nav-link {
+  justify-content: center;
+}
 /* When Sidebar is Collapsed, Move Arrow */
 .sidebar.collapsed .toggle-sidebar-btn {
-  left: 60px; /* Adjusted for small sidebar */
+  left: 60px; 
 }
 
 /* Change Arrow Direction */
 .sidebar.collapsed .toggle-sidebar-btn::before {
-  content: '→'; /* Right Arrow */
+  content: '→'; 
 }
 
 .toggle-sidebar-btn::before {
-  content: '←'; /* Left Arrow by Default */
+  content: '←'; 
 }
 /* Student Name Hover Effect */
 .student-link {
@@ -284,15 +290,18 @@ body {
 }
 
 .sidebar .nav-link {
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
   color: rgba(255, 255, 255, 0.8);
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: 1rem;
   padding: 0.875rem 1.5rem;
   border-radius: var(--border-radius-md);
   margin: 0.25rem 0.75rem;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   white-space: nowrap;
-  display: block;
+  display: flex;
   text-decoration: none;
 }
 
@@ -300,6 +309,11 @@ body {
   background-color: rgba(74, 144, 226, 0.8);
   color: white;
   transform: translateX(4px);
+}
+/* Icons */
+.sidebar .nav-link i {
+  font-size: 1.2rem; /* Adjust icon size */
+  min-width: 25px; /* Ensures alignment */
 }
 
 .close-sidebar {
