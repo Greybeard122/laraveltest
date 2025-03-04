@@ -17,59 +17,58 @@
     <div class="d-flex">
         <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
-            <button class="close-sidebar" id="closeSidebarBtn">
-                ×
-            </button>
-            
+            <button class="toggle-sidebar-btn" id="toggleSidebarBtn">&#8592;</button> 
+        
             <!-- PRMSU Logo -->
             <div class="sidebar-logo text-center p-3">
                 <img src="{{ asset('images/PRMSU.png') }}" alt="PRMSU Logo">
             </div>
-
+        
             <div class="p-3">
-                <h3 class="text-white">Admin Dashboard</h3>
+                <h3 class="sidebar-title text-white">Admin Dashboard</h3>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('admin.dashboard') }}">
-                            Dashboard
+                        <a class="nav-link" href="{{ route('admin.dashboard') }}">
+                            <i class="fas fa-tachometer-alt"></i> <span class="nav-text">Dashboard</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('admin.register') }}">
-                            Admins
+                        <a class="nav-link" href="{{ route('admin.register') }}">
+                            <i class="fas fa-user-shield"></i> <span class="nav-text">Admins</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('admin.schedules.index') }}">
-                            Requests
+                        <a class="nav-link" href="{{ route('admin.schedules.index') }}">
+                            <i class="fas fa-calendar-check"></i> <span class="nav-text">Requests</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('admin.reports.index') }}">
-                            Reports
+                        <a class="nav-link" href="{{ route('admin.reports.index') }}">
+                            <i class="fas fa-file-alt"></i> <span class="nav-text">Reports</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('admin.students.index') }}">
-                            Students
+                        <a class="nav-link" href="{{ route('admin.students.index') }}">
+                            <i class="fas fa-users"></i> <span class="nav-text">Students</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('admin.files.index') }}">
-                            Files
+                        <a class="nav-link" href="{{ route('admin.files.index') }}">
+                            <i class="fas fa-folder"></i> <span class="nav-text">Files</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
-                            <button type="submit" class="nav-link text-white border-0 bg-transparent w-100 text-start">
-                                Logout
+                            <button type="submit" class="nav-link border-0 bg-transparent w-100 text-start">
+                                <i class="fas fa-sign-out-alt"></i> <span class="nav-text">Logout</span>
                             </button>
                         </form>
                     </li>
                 </ul>
             </div>
         </div>
+        
 
         <!-- Main Content Area -->
         <div class="content-area" id="contentArea">
