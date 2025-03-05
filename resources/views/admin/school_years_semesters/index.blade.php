@@ -67,12 +67,12 @@
                             @if($year->semesters->count() > 0)
                                 <ul class="list-unstyled">
                                     @foreach($year->semesters as $semester)
-                                        <li class="d-flex justify-content-between align-items-center">
-                                            <span>{{ $semester->name }}</span>
-                                            <form action="{{ route('admin.semesters.destroy', $semester->id) }}" method="POST" class="ml-2">
+                                        <li class="d-flex align-items-center pb-2">
+                                            <span class="mr-2">{{ $semester->name }}</span>
+                                            <form action="{{ route('admin.semesters.destroy', $semester->id) }}" method="POST" class="m-0">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                                <button type="submit" class="btn btn-sm btn-danger p-1">Delete</button>
                                             </form>
                                         </li>
                                     @endforeach
