@@ -156,7 +156,9 @@
   color: white;
   text-decoration: none;
   position: relative;
+  border-radius: 6px;
   z-index: 1000;
+  margin: 4px 8px;
 }
 
 /* Ensure Icons Stay Centered */
@@ -169,7 +171,12 @@
   justify-content: center;
   margin-right: 10px; 
 }
-
+.sidebar.collapsed .nav-link i {
+  padding-left: 0; 
+  margin-right: 0; 
+  min-width: unset;
+  text-align: center;
+}
 /* Hide Text When Collapsed */
 .sidebar.collapsed .nav-text {
   display: none;
@@ -183,16 +190,11 @@
 .sidebar.collapsed .sidebar-title {
   display: none;
 }
-/* Move Icons Out */
-.sidebar.collapsed .nav-link i {
-  padding-left: 0; 
-  margin-right: 0; 
-  min-width: unset;
-  text-align: center;
-}
+
 .sidebar.collapsed .nav-link {
   justify-content: center;
   padding: 12px 0;
+  margin: 4px 0;
 }
 
 /* Student Name Hover Effect */
@@ -431,7 +433,7 @@ body {
 }
 
 .sidebar .nav-link:hover {
-  background-color: rgba(74, 144, 226, 0.8);
+  background-color: rgba(255, 255, 255, 0.15);
   color: white;
   transform: translateX(4px);
 }
@@ -470,14 +472,17 @@ body {
   color: white;
   padding: 8px 16px;
   text-decoration: none;
-  transition: background 0.3s, transform 0.2s;
+  transition: all 0.3s ease-in-out;
   font-weight: 500;
   border-radius: var(--border-radius-sm);
+  display: inline-block;
+  position: relative;
 }
 
 .navbar .nav-link:hover {
-  background-color: #4a5568;
+  background-color: rgba(255, 255, 255, 0.15);
   transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .navbar .nav-brand {
