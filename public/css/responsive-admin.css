@@ -24,9 +24,9 @@
 }
 /* Sidebar Toggle Button */
 .toggle-sidebar-btn {
-  position: absolute;
+  position: fixed; /* Change from absolute to fixed */
   top: 50%;
-  left: calc(var(--sidebar-width) - 35px);
+  left: calc(var(--sidebar-width) - 20px);
   transform: translateY(-50%);
   background: var(--primary-color); 
   border: none;
@@ -41,10 +41,11 @@
   justify-content: center;
   transition: left 0.3s ease-in-out, background 0.3s, box-shadow 0.3s, transform 0.2s;
   box-shadow: var(--shadow-md);
+  z-index: 1100; 
 }
 /*  Collapsed Sidebar - Move Button */
 .sidebar.collapsed .toggle-sidebar-btn {
-  left: 45px; 
+  left: 60px; 
 }
 /* Hover effects */
 .toggle-sidebar-btn:hover {
@@ -148,12 +149,14 @@
 /* Sidebar Navigation */
 .sidebar .nav-link {
   display: flex;
-    align-items: center;
-    padding: 12px 15px;  
-    font-size: 1rem;
-    transition: all 0.3s ease-in-out;
-    color: white;
-    text-decoration: none;
+  align-items: center;
+  padding: 12px 15px;  
+  font-size: 1rem;
+  transition: all 0.3s ease-in-out;
+  color: white;
+  text-decoration: none;
+  position: relative;
+  z-index: 1000;
 }
 
 /* Ensure Icons Stay Centered */
