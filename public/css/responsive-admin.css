@@ -151,23 +151,21 @@
   display: flex;
   align-items: center;
   padding: 12px 15px;  
+  font-size: 1rem;
   transition: all 0.3s ease-in-out;
   color: white;
   text-decoration: none;
   position: relative;
   z-index: 1000;
-  font-size: 1.3rem;
-  min-width: 40px;
 }
+
+/* Ensure Icons Stay Centered */
 .sidebar .nav-link i {
   font-size: 1.3rem;
   min-width: 40px;
   text-align: center;
-  position: absolute; /* Position absolutely within relative parent */
-  left: 15px; /* Align with padding */
-  top: 50%;
-  transform: translateY(-50%);
 }
+
 /* Hide Text When Collapsed */
 .sidebar.collapsed .nav-text {
   display: none;
@@ -184,11 +182,9 @@
 /* Move Icons Out */
 .sidebar.collapsed .nav-link i {
   padding-left: 0; 
-  margin: 0; 
+  margin-right: 0; 
   min-width: unset;
   text-align: center;
-  transform: none;
-  position: static;
 }
 .sidebar.collapsed .nav-link {
   justify-content: center;
@@ -435,7 +431,12 @@ body {
   color: white;
   transform: translateX(4px);
 }
-
+/* Icons */
+.sidebar .nav-link i {
+  font-size: 1.3rem;
+  min-width: 40px;
+  text-align: center;
+}
 
 .close-sidebar {
   display: none;
