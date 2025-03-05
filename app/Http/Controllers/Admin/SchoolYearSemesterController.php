@@ -43,4 +43,23 @@ class SchoolYearSemesterController extends Controller
 
         return back()->with('success', 'Semester added successfully.');
     }
+
+     // Delete a School Year (and its Semesters)
+     public function destroySchoolYear($id)
+     {
+         $schoolYear = SchoolYear::findOrFail($id);
+         $schoolYear->semesters()->delete(); // Delete related semesters
+         $schoolYear->delete();
+ 
+         return back()->with('success', 'School Year and its Semesters deleted successfully.');
+     }
+ 
+     // Delete a Semester
+     public function destroySemester($id)
+     {
+         $semester = Semester::findOrFail($id);
+         $semester->delete();
+ 
+         return back()->with('success', 'Semester deleted successfully.');
+     }
 }

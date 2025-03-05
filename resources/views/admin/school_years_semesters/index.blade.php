@@ -56,6 +56,7 @@
                 <tr>
                     <th>School Year</th>
                     <th>Semesters</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -64,10 +65,28 @@
                         <td>{{ $year->year }}</td>
                         <td>
                             @if($year->semesters->count() > 0)
-                                {{ $year->semesters->pluck('name')->join(', ') }}
+                                <ul>
+                                    @foreach($year->semesters as $semester)
+                                        <li>
+                                            {{ $semester->name }}
+                                            <form action="{{ route('admin.semesters.destroy', $semester->id) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                            </form>
+                                        </li>
+                                    @endforeach
+                                </ul>
                             @else
                                 <span class="text-muted">No Semesters Added</span>
                             @endif
+                        </td>
+                        <td>
+                            <form action="{{ route('admin.school-years.destroy', $year->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger">Delete School Year</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
