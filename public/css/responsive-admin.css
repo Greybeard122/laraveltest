@@ -164,12 +164,14 @@
 /* Ensure Icons Stay Centered */
 .sidebar .nav-link i {
   font-size: 1.3rem;
-  min-width: 40px;
+  width: 40px;
   text-align: center;
-  display: inline-flex; 
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-right: 10px; 
+  margin-right: 10px;
+  color: rgba(255, 255, 255, 0.7); /* Match text color */
+  transition: color 0.3s ease-in-out;
 }
 .sidebar.collapsed .nav-link i {
   padding-left: 0; 
@@ -177,12 +179,10 @@
   min-width: unset;
   text-align: center;
 }
-/* Hide Text When Collapsed */
+
 .sidebar.collapsed .nav-text {
   display: none;
 }
-
-/* Adjust Sidebar Title */
 .sidebar-title {
   font-size: 1.2rem;
   margin-bottom: 1rem;
@@ -437,6 +437,9 @@ body {
   color: white;
   transform: translateX(4px);
 }
+.sidebar .nav-link:hover i {
+  color: white; 
+}
 .close-sidebar {
   display: none;
   position: absolute;
@@ -480,9 +483,15 @@ body {
 }
 
 .navbar .nav-link:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;  
+  font-size: 1rem;
+  transition: all 0.3s ease-in-out;
+  color: rgba(255, 255, 255, 0.7); 
+  text-decoration: none;
+  border-radius: 6px;
+  margin: 4px 8px;
 }
 
 .navbar .nav-brand {
