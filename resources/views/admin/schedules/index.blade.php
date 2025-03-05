@@ -143,6 +143,40 @@
 </div>
 
 <style>
+.button-container {
+    display: flex;
+    gap: 0.25rem; /* Reduced gap */
+    align-items: center;
+}
+
+.button-container form {
+    margin: 0; /* Remove default form margins */
+}
+
+.button-container .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem 0.5rem; /* Reduced padding */
+    font-size: 0.75rem; /* Smaller font size */
+    line-height: 1.2;
+    gap: 0.25rem; /* Small gap between icon and text */
+    height: auto; /* Allow natural height */
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+.button-container .btn i {
+    font-size: 0.75rem; /* Smaller icon size */
+    margin-right: 0.25rem; /* Slight spacing between icon and text */
+}
+
+/* Ensure buttons don't stretch table cells */
+.table td .button-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
     /* filter buttons */
     .filter-buttons {
     display: flex;
