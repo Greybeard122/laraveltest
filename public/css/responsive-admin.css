@@ -164,6 +164,10 @@
   font-size: 1.3rem;
   min-width: 40px;
   text-align: center;
+  display: inline-flex; 
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px; 
 }
 
 /* Hide Text When Collapsed */
@@ -188,7 +192,7 @@
 }
 .sidebar.collapsed .nav-link {
   justify-content: center;
-  padding-left: 0;
+  padding: 12px 0;
 }
 
 /* Student Name Hover Effect */
@@ -431,13 +435,6 @@ body {
   color: white;
   transform: translateX(4px);
 }
-/* Icons */
-.sidebar .nav-link i {
-  font-size: 1.3rem;
-  min-width: 40px;
-  text-align: center;
-}
-
 .close-sidebar {
   display: none;
   position: absolute;
