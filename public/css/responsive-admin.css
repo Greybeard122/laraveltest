@@ -22,6 +22,13 @@
   --border-radius-md: 0.5rem;
   --border-radius-lg: 0.75rem;
 }
+.sidebar-tooltip {
+  pointer-events: none;
+}
+
+.sidebar.collapsed .nav-link:hover .sidebar-tooltip {
+  pointer-events: auto;
+}
 /* Floating tooltip for collapsed sidebar */
 .sidebar.collapsed .nav-link::after {
   content: attr(data-text); /* Get text from data-text attribute */
@@ -61,12 +68,11 @@
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
 }
 /* Show tooltip only when hovered */
-.sidebar.collapsed .nav-link:hover::after {
+.sidebar.collapsed .nav-link:hover::after .sidebar-tooltip{
   opacity: 1;
   visibility: visible;
   transform: translateY(-50%) translateX(5px);
 }
-
 .sidebar .nav-link.active {
   background-color: rgba(59, 130, 246, 0.2); /* Slight blue */
   color: #38bdf8;
@@ -452,6 +458,8 @@ body {
   margin-left: var(--sidebar-width);
   transition: margin 0.3s ease-in-out;
   width: calc(100% - var(--sidebar-width));
+  position: relative;
+  z-index: 10;
 }
 
 .sidebar.collapsed + .content-area {
