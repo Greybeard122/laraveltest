@@ -68,7 +68,7 @@
                                 <ul class="list-unstyled">
                                     @foreach($year->semesters as $semester)
                                         <li class="d-flex align-items-center pb-2">
-                                            <span class="flex-grow-1 pr-3">{{ $semester->name }}</span>
+                                            <span class="flex-grow-1 pr-2">{{ $semester->name }}</span>
                                             <form action="{{ route('admin.semesters.destroy', $semester->id) }}" method="POST" class="m-0">
                                                 @csrf
                                                 @method('DELETE')
