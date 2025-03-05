@@ -62,23 +62,20 @@
   padding: 6px 10px;
   border-radius: 5px;
   white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
-  pointer-events: none;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
-}
-/* Show tooltip only when hovered */
-.sidebar.collapsed .nav-link:hover::after .sidebar-tooltip{
   opacity: 1;
   visibility: visible;
-  transform: translateY(-50%) translateX(5px);
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
 }
-.sidebar .nav-link.active {
-  background-color: rgba(59, 130, 246, 0.2); /* Slight blue */
+.sidebar .nav-link.active,
+.sidebar .nav-link:hover {
+  background-color: rgba(59, 130, 246, 0.2);
   color: #38bdf8;
+  transform: translateX(4px);
 }
-.sidebar .nav-link.active i {
+.sidebar .nav-link.active i,
+.sidebar .nav-link:hover i {
   color: #38bdf8;
 }
 .navbar .nav-link:hover, 
@@ -496,15 +493,6 @@ body {
 
 .sidebar.collapsed {
   width: 80px;
-}
-
-.sidebar .nav-link:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-  color: #38bdf8;
-  transform: translateX(4px);
-}
-.sidebar .nav-link:hover i {
-  color: #38bdf8; 
 }
 .close-sidebar {
   display: none;
