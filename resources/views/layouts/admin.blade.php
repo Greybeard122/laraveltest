@@ -58,6 +58,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" data-text="Terms" href="{{ route('admin.school-years-semesters.index') }}">
+                            <i class="fas fa-book-open"></i></i> <span class="nav-text">Terms</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
                             <button type="submit" class="nav-link border-0 bg-transparent w-100 text-start">

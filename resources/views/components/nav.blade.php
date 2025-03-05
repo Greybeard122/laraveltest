@@ -67,7 +67,7 @@
                         </li>
                         <li>
                             <a href="{{ route('admin.school-years-semesters.index') }}" class="block py-2 px-4 text-white rounded-lg transition duration-300 hover:bg-gray-700 hover:text-sky-400">
-                                School Years & Semesters
+                                Terms
                             </a>
                         </li>                        
                     @endif
@@ -107,20 +107,13 @@
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-    let currentUrl = window.location.href;
+        let currentUrl = window.location.href;
 
-    // Apply to sidebar links
-    document.querySelectorAll(".sidebar .nav-link").forEach(link => {
-        if (link.href === currentUrl) {
-            link.classList.add("active");
-        }
+        // Apply active state only to top navbar links
+        document.querySelectorAll(".navbar .nav-link").forEach(link => {
+            if (link.href === currentUrl) {
+                link.classList.add("active");
+            }
+        });
     });
-
-    // Apply to top navbar links
-    document.querySelectorAll(".navbar .nav-link").forEach(link => {
-        if (link.href === currentUrl) {
-            link.classList.add("active");
-        }
-    });
-});
 </script>
