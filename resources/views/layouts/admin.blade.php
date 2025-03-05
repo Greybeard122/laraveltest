@@ -28,12 +28,12 @@
                 <h3 class="sidebar-title text-white">Admin Dashboard</h3>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.dashboard') }}">
+                        <a class="nav-link"data-text="Dashboard" href="{{ route('admin.dashboard') }}"">
                             <i class="fas fa-tachometer-alt"></i> <span class="nav-text">Dashboard</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.register') }}">
+                        <a class="nav-link" data-text="Admins" href="{{ route('admin.register') }}">
                             <i class="fas fa-user-shield"></i> <span class="nav-text">Admins</span>
                         </a>
                     </li>
@@ -43,17 +43,17 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.reports.index') }}">
+                        <a class="nav-link" data-text="Schedules" href="{{ route('admin.reports.index') }}">
                             <i class="fas fa-file-alt"></i> <span class="nav-text">Reports</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.students.index') }}">
+                        <a class="nav-link" data-text="Students" href="{{ route('admin.students.index') }}">
                             <i class="fas fa-users"></i> <span class="nav-text">Students</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.files.index') }}">
+                        <a class="nav-link" data-text="Files" href="{{ route('admin.files.index') }}">
                             <i class="fas fa-folder"></i> <span class="nav-text">Files</span>
                         </a>
                     </li>
@@ -99,6 +99,16 @@
     
     <!-- Sidebar Toggle Script -->
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    let currentUrl = window.location.href;
+    let navLinks = document.querySelectorAll(".sidebar .nav-link");
+
+    navLinks.forEach(link => {
+        if (link.href === currentUrl) {
+            link.classList.add("active");
+        }
+    });
+});
         document.addEventListener('DOMContentLoaded', function() {
     const sidebar = document.getElementById('sidebar');
     const contentArea = document.getElementById('contentArea');
@@ -135,8 +145,8 @@
             form.appendChild(csrfToken);
 
             document.body.appendChild(form);
-            form.submit(); // Submit form to logout properly
-        }, 5 * 60 * 1000); // 5 minutes
+            form.submit(); 
+        }, 10 * 60 * 1000); 
     }
 
     document.addEventListener("mousemove", resetLogoutTimer);

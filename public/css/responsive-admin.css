@@ -22,6 +22,63 @@
   --border-radius-md: 0.5rem;
   --border-radius-lg: 0.75rem;
 }
+/* Floating tooltip for collapsed sidebar */
+.sidebar.collapsed .nav-link::after {
+  content: attr(data-text); /* Get text from data-text attribute */
+  position: absolute;
+  left: 100%; /* Place it outside the sidebar */
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 0.85rem;
+  padding: 6px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+  pointer-events: none;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+}
+/* Floating tooltip only when hovering */
+.sidebar.collapsed .nav-link:hover::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 0.85rem;
+  padding: 6px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+  pointer-events: none;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+}
+/* Show tooltip only when hovered */
+.sidebar.collapsed .nav-link:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(5px);
+}
+
+.sidebar .nav-link.active {
+  background-color: rgba(59, 130, 246, 0.2); /* Slight blue */
+  color: #38bdf8;
+}
+.sidebar .nav-link.active i {
+  color: #38bdf8;
+}
+.navbar .nav-link:hover, 
+.navbar .nav-link.active {
+  color: #38bdf8; /* Sky blue hover effect */
+  transform: scale(1.05);
+}
 /* Sidebar Toggle Button */
 .toggle-sidebar-btn {
   position: fixed; /* Change from absolute to fixed */
