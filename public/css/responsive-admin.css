@@ -434,11 +434,11 @@ body {
 
 .sidebar .nav-link:hover {
   background-color: rgba(255, 255, 255, 0.15);
-  color: white;
+  color: #38bdf8;
   transform: translateX(4px);
 }
 .sidebar .nav-link:hover i {
-  color: white; 
+  color: #38bdf8; 
 }
 .close-sidebar {
   display: none;
@@ -472,23 +472,25 @@ body {
 }
 
 .navbar .nav-link {
-  color: white;
-  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
-  transition: all 0.3s ease-in-out;
   font-weight: 500;
+  padding: 8px 16px;
   border-radius: var(--border-radius-sm);
-  display: inline-block;
-  position: relative;
+  color: white;
+  transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .navbar .nav-link:hover {
+  transform: scale(1.05);
   display: flex;
   align-items: center;
   padding: 12px 15px;  
   font-size: 1rem;
   transition: all 0.3s ease-in-out;
-  color: rgba(255, 255, 255, 0.7); 
+  color: #38bdf8; 
   text-decoration: none;
   border-radius: 6px;
   margin: 4px 8px;
