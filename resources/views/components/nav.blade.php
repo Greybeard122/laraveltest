@@ -105,3 +105,22 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    let currentUrl = window.location.href;
+
+    // Apply to sidebar links
+    document.querySelectorAll(".sidebar .nav-link").forEach(link => {
+        if (link.href === currentUrl) {
+            link.classList.add("active");
+        }
+    });
+
+    // Apply to top navbar links
+    document.querySelectorAll(".navbar .nav-link").forEach(link => {
+        if (link.href === currentUrl) {
+            link.classList.add("active");
+        }
+    });
+});
+</script>
