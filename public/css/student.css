@@ -8,53 +8,6 @@
     position: relative;
     z-index: 10;
 }
-/* Request History Card */
-.request-history-card {
-    background-color: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 0.5rem;
-    overflow: hidden;
-    border: 1px solid rgb(229 231 235);
-    transition: all 300ms ease-in-out;
-    backdrop-filter: blur(8px);
-    padding: 1.5rem;
-}
-.request-history-card:hover {
-    border-color: rgb(2 132 199);
-    transform: scale(1.05);
-}
-.request-history-link {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    font-weight: 500;
-    color: white;
-    background-color: rgb(2 132 199);
-    border-radius: 0.5rem;
-    text-align: center;
-    transition: all 300ms ease-in-out;
-}
-
-.request-history-link:hover {
-    background-color: rgb(0 107 180);
-    transform: translateY(-2px);
-}
-.schedule-list {
-    list-style: none;
-    padding: 0;
-}
-
-.schedule-item {
-    background: rgba(255, 255, 255, 0.8);
-    padding: 10px 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
 
 /* Background Overlay */
 body::before {
