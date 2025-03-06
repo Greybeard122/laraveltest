@@ -148,18 +148,6 @@
     background-color: rgba(59, 130, 246, 0.1); /* Light blue background */
     transition: background-color 0.3s ease-in-out;
 }
-/* Prevent buttons from blocking row hover */
-.table tbody tr:hover .btn {
-    background-color: inherit;
-    box-shadow: none;
-}
-.table td {
-    position: relative; /* Ensure elements inside are part of the row */
-    cursor: pointer; /* Change cursor for better feedback */
-}
-.table td .btn {
-    pointer-events: auto;
-}
 /* Ensure cursor changes when hovering over the row */
 .table tbody tr {
     transition: background-color 0.3s ease-in-out;
@@ -218,6 +206,7 @@
 .btn-danger:active {
     transform: scale(0.98);
 }
+
 /* filter buttons */
     .filter-buttons {
     display: flex;
