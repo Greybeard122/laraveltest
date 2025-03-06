@@ -39,14 +39,6 @@
                     @endif
                 </div>
             </div>
-            <!-- Completed Requests Link -->
-            <div class="schedule-card">
-                <div class="p-6">
-                    <h5 class="stat-card-title">Request History</h5>
-                    <p class="text-gray-500">View past requests that have already passed.</p>
-                    <a href="{{ route('student.history') }}" class="btn btn-primary mt-2">View History</a>
-                </div>
-            </div>
         </div>
     </div>
 </div>
