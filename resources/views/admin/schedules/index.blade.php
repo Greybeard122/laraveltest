@@ -306,9 +306,11 @@
         .table th:not(:last-child)::after {
             display: none;
         }
-    }.student-cell-highlight {
-    background-color: rgba(59, 130, 246, 0.1) !important; /* Light blue background */
-    transition: background-color 0.3s ease-in-out;
+    }.student-link-highlight {
+    background-color: rgba(59, 130, 246, 0.15) !important;
+    color: #1e3a8a !important;
+    text-shadow: 0 1px 3px rgba(59, 130, 246, 0.4) !important;
+    /* Remove the transform to avoid the element jumping */
 }
 </style>
 
@@ -321,11 +323,11 @@ document.addEventListener('DOMContentLoaded', function() {
             // Find the parent row
             const row = this.closest('tr');
             if (row) {
-                // Find the student name cell (first cell in the row)
-                const studentCell = row.querySelector('td:first-child');
-                if (studentCell) {
-                    // Add highlight class to the student cell only
-                    studentCell.classList.add('student-cell-highlight');
+                // Find the student link within this row
+                const studentLink = row.querySelector('.student-link');
+                if (studentLink) {
+                    // Add highlight class to the student link only
+                    studentLink.classList.add('student-link-highlight');
                 }
             }
         });
@@ -335,11 +337,11 @@ document.addEventListener('DOMContentLoaded', function() {
             // Find the parent row
             const row = this.closest('tr');
             if (row) {
-                // Find the student name cell
-                const studentCell = row.querySelector('td:first-child');
-                if (studentCell) {
+                // Find the student link
+                const studentLink = row.querySelector('.student-link');
+                if (studentLink) {
                     // Remove highlight class
-                    studentCell.classList.remove('student-cell-highlight');
+                    studentLink.classList.remove('student-link-highlight');
                 }
             }
         });
