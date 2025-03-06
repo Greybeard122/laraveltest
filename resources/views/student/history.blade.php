@@ -42,3 +42,4 @@
     </div>
 </div>
 @endsection
+<link href="{{ asset('css/student.css') }}" rel="stylesheet">
