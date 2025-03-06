@@ -58,7 +58,7 @@ function resetLogoutTimer() {
 
         document.body.appendChild(form);
         form.submit(); // Submit form to logout properly
-    }, 5 * 60 * 1000); // 5 minutes
+    }, 30 * 60 * 1000); // 30 minutes
 }
 
 document.addEventListener("mousemove", resetLogoutTimer);
