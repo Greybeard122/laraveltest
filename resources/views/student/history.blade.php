@@ -28,7 +28,7 @@
                                     <span class="text-gray-700">{{ ucfirst($schedule->preferred_time) }}</span> <br>
                                     <span class="text-sm text-gray-500">Status:</span>
                                     <span class="inline-block py-2 px-4 rounded-full text-sm font-semibold 
-                                        {{ $schedule->status == 'approved' ? 'bg-green-600' : 'bg-red-600' }} 
+                                        {{ $schedule->status == 'approved' ? 'bg-approved' : 'bg-rejected' }} 
                                         text-white shadow-md">
                                         {{ ucfirst($schedule->status) }}
                                     </span>

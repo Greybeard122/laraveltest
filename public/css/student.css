@@ -1,4 +1,11 @@
 /* Common Dashboard Styles */
+.bg-approved {
+    background-color: #15803d; 
+}
+
+.bg-rejected {
+    background-color: #b91c1c; 
+}
 .dashboard-container {
     max-width: 80rem;
     margin-left: auto;
@@ -82,7 +89,7 @@ body::before {
 
 /* Schedule Card */
 .schedule-card {
-    background-color: rgba(255, 255, 255, 0.95);
+    background: rgba(240, 240, 240, 0.95);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 0.5rem;
     overflow: hidden;

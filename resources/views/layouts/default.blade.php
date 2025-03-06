@@ -66,7 +66,7 @@ document.addEventListener("keypress", resetLogoutTimer);
 document.addEventListener("click", resetLogoutTimer);
 document.addEventListener("scroll", resetLogoutTimer);
 
-resetLogoutTimer(); // Start timer when page loads
+resetLogoutTimer();
 </script>
 
 </html>
