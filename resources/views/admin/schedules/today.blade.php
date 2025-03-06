@@ -22,7 +22,7 @@
                         <tr>
                             <td>{{ $schedule->student->first_name }} {{ $schedule->student->last_name }}</td>
                             <td>{{ $schedule->file->file_name }}</td>
-                            <td>{{ \Carbon\Carbon::parse($schedule->preferred_time)->format('h:i A') }}</td>
+                            <td>{{ strtoupper($schedule->preferred_time) }}</td> <!-- Shows AM or PM only -->
                             <td>
                                 <span class="badge bg-success">Approved</span>
                             </td>
