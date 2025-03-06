@@ -68,11 +68,11 @@
                                 <ul class="list-unstyled">
                                     @foreach($year->semesters as $semester)
                                     <li class="d-flex align-items-center pb-2">
-                                        <span class="flex-grow-1 pr-2">{{ $semester->name }}</span>
-                                        <form action="{{ route('admin.semesters.destroy', $semester->id) }}" method="POST" class="m-0">
+                                        <span class="flex-grow-1">{{ $semester->name }}</span>
+                                        <form action="{{ route('admin.semesters.destroy', $semester->id) }}" method="POST" class="m-0 ml-2">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger p-1 ml-3">Delete</button>
+                                            <button type="submit" class="btn btn-sm btn-danger p-1">Delete</button>
                                         </form>
                                     </li>
                                     @endforeach
