@@ -36,24 +36,32 @@ class ScheduleController extends Controller
     return view('admin.schedules.index', compact('schedules', 'files', 'schoolYears', 'semesters'));
 }
 
-    public function weeklySchedules(Request $request)
-    {
-        $selectedDay = $request->query('day');
+public function weeklySchedules(Request $request)
+{
+    $selectedDay = $request->query('day');
 
-        $query = Schedule::with(['student', 'file'])
-            ->whereBetween('preferred_date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
-            ->where('status', 'approved')
-            ->orderBy('preferred_date', 'asc')
-            ->orderBy('preferred_time', 'asc');
+    $query = Schedule::with(['student', 'file'])
+        ->whereBetween('preferred_date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+        ->where('status', 'approved') // Ensure only approved schedules are retrieved
+        ->orderBy('preferred_date', 'asc')
+        ->orderBy('preferred_time', 'asc');
 
-        if ($selectedDay) {
-            $query->whereDate('preferred_date', Carbon::parse($selectedDay));
-        }
-
-        $schedules = $query->paginate(10);
-
-        return view('admin.schedules.weekly', compact('schedules', 'selectedDay'));
+    if ($selectedDay) {
+        $query->whereDate('preferred_date', Carbon::parse($selectedDay));
     }
+
+    $schedules = $query->paginate(10);
+
+    // Count the number of approved schedules per day for the weekly summary
+    $weeklyCounts = Schedule::whereBetween('preferred_date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+        ->where('status', 'approved') // Ensure only approved schedules are counted
+        ->selectRaw('preferred_date, COUNT(*) as count')
+        ->groupBy('preferred_date')
+        ->pluck('count', 'preferred_date');
+
+    return view('admin.schedules.weekly', compact('schedules', 'selectedDay', 'weeklyCounts'));
+}
+
 
     public function getSchedulesByDateRange(Request $request)
     {

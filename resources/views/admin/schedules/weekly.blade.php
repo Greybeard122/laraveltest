@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h2 class="text-2xl font-bold mb-4">Weekly Schedule</h2>
+    <h2 class="text-2xl font-bold mb-4">Weekly Approved Schedule</h2>
 
     @if($schedules->isEmpty())
         <p class="text-gray-600">No approved appointments for this week.</p>
@@ -22,9 +22,9 @@
                     <tr>
                         <td>{{ $schedule->student->first_name }} {{ $schedule->student->last_name }}</td>
                         <td>{{ optional($schedule->file)->file_name ?? 'No File' }}</td>
-                        <td>{{ $schedule->preferred_date }}</td>
-                        <td>{{ ucfirst($schedule->preferred_time) }}</td>
-                        <td>{{ ucfirst($schedule->status) }}</td>
+                        <td>{{ \Carbon\Carbon::parse($schedule->preferred_date)->format('M d, Y') }}</td>
+                        <td>{{ strtoupper($schedule->preferred_time) }}</td> <!-- Displays AM or PM -->
+                        <td><span class="badge bg-success">Approved</span></td>
                     </tr>
                 @endforeach
             </tbody>
