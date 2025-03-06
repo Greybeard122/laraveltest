@@ -69,6 +69,7 @@ Route::middleware(['auth:web'])->prefix('admin')->group(function () {
     Route::get('/reports', [ReportController::class, 'index'])->name('admin.reports.index');
     Route::get('/reports/export-pdf', [ReportController::class, 'exportPDF'])->name('admin.reports.export');
     Route::get('/reports/student/{id}', [ReportController::class, 'studentReport'])->name('admin.reports.student');
+    
 
     // Student Management
     Route::resource('students', StudentController::class)->names([

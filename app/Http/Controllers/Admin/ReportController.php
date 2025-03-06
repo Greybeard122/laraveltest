@@ -74,4 +74,16 @@ public function studentReport(Request $request, $id)
 
         return view('admin.reports.archived', compact('archivedSchedules'));
     }
+    public function todayAppointments()
+{
+    $today = Carbon::today(); // Get the current date
+
+    $schedules = Schedule::with(['student', 'file'])
+        ->whereDate('preferred_date', $today) // Filter for today's date
+        ->where('status', 'approved') // Only approved schedules
+        ->orderBy('preferred_time', 'asc') // Sort by time
+        ->get();
+
+    return view('admin.reports.today', compact('schedules'));
+}
 }

@@ -105,16 +105,18 @@ class ScheduleController extends Controller
     }
 
     public function todaySchedules()
-    {
-        $today = Carbon::today()->toDateString();
-        
-        $schedules = Schedule::with(['student', 'file'])
-            ->whereDate('preferred_date', $today)
-            ->orderBy('preferred_time', 'asc')
-            ->paginate(10);
+{
+    $today = Carbon::today(); // Get today's date
 
-        return view('admin.schedules.today', compact('schedules'));
-    }
+    $schedules = Schedule::with(['student', 'file'])
+        ->whereDate('preferred_date', $today) 
+        ->where('status', 'approved') 
+        ->orderBy('preferred_time', 'asc') 
+        ->paginate(10);
+
+    return view('admin.schedules.today', compact('schedules'));
+}
+
 
    
 
