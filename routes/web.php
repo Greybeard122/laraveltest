@@ -118,8 +118,7 @@ Route::middleware(['auth:student'])->prefix('student')->group(function () {
     Route::get('/profile', [StudentProfileController::class, 'show'])->name('student.profile.show');
     Route::get('/profile/edit', [StudentProfileController::class, 'edit'])->name('student.profile.edit');
     Route::put('/profile', [StudentProfileController::class, 'update'])->name('student.profile.update');
-    Route::get('/student/history', [DashboardController::class, 'studentHistory'])->name('student.history');
-
+    Route::get('/student/history', [App\Http\Controllers\Student\DashboardController::class, 'studentHistory'])->name('student.history');
 });
 
 /* Route::get('/debug-log', function() {
