@@ -148,15 +148,6 @@
     background-color: rgba(59, 130, 246, 0.1); /* Light blue background */
     transition: background-color 0.3s ease-in-out;
 }
-
-/* Ensure background color stays when hovering over buttons */
-.button-container .btn:hover,
-.button-container .btn:focus,
-.button-container form:hover {
-    background-color: rgba(59, 130, 246, 0.15); /* Darker blue */
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
-}
-
 /* Ensure cursor changes when hovering over the row */
 .table tbody tr {
     transition: background-color 0.3s ease-in-out;
@@ -182,6 +173,7 @@
     gap: 0.25rem; /* Small gap between icon and text */
     height: auto; /* Allow natural height */
     white-space: nowrap; /* Prevent text wrapping */
+    transition: all 0.3s ease-in-out;
 }
 
 .button-container .btn i {
@@ -195,8 +187,26 @@
     justify-content: flex-start;
     align-items: center;
 }
+/* Accept Button - Darker Green on Hover */
+.btn-success:hover {
+    background-color: #059669; /* Darker Green */
+    box-shadow: 0 4px 8px rgba(5, 150, 105, 0.3);
+    transform: scale(1.05);
+}
 
-    /* filter buttons */
+/* Reject Button - Darker Red on Hover */
+.btn-danger:hover {
+    background-color: #dc2626; /* Darker Red */
+    box-shadow: 0 4px 8px rgba(220, 38, 38, 0.3);
+    transform: scale(1.05);
+}
+
+/* Optional - Add a smooth press effect */
+.btn-success:active,
+.btn-danger:active {
+    transform: scale(0.98);
+}
+/* filter buttons */
     .filter-buttons {
     display: flex;
     gap: 0.5rem;
