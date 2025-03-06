@@ -143,231 +143,209 @@
 </div>
 
 <style>
-    /* Apply row emphasis on hover when interacting with buttons */
-    .table tbody tr:hover {
-        background-color: transparent; /* Remove default hover */
-        transition: background-color 0.3s ease-in-out;
-    }
-    /* Ensure cursor changes when hovering over the row */
-    .table tbody tr {
-        transition: background-color 0.3s ease-in-out;
-        cursor: default;
-    }
-    .button-container {
-        display: flex;
-        gap: 0.25rem; /* Reduced gap */
-        align-items: center;
-    }
+/* Apply row emphasis on hover when interacting with buttons */
+.table tbody tr:hover {
+    background-color: rgba(59, 130, 246, 0.1); /* Light blue background */
+    transition: background-color 0.3s ease-in-out;
+}
+/* Ensure cursor changes when hovering over the row */
+.table tbody tr {
+    transition: background-color 0.3s ease-in-out;
+    cursor: pointer;
+}
+.button-container {
+    display: flex;
+    gap: 0.25rem; /* Reduced gap */
+    align-items: center;
+}
+
+.button-container form {
+    margin: 0; /* Remove default form margins */
+}
+
+.button-container .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem 0.5rem; /* Reduced padding */
+    font-size: 0.75rem; /* Smaller font size */
+    line-height: 1.2;
+    gap: 0.25rem; /* Small gap between icon and text */
+    height: auto; /* Allow natural height */
+    white-space: nowrap; /* Prevent text wrapping */
+    transition: all 0.3s ease-in-out;
+}
+
+.button-container .btn i {
+    font-size: 0.75rem; /* Smaller icon size */
+    margin-right: 0.25rem; /* Slight spacing between icon and text */
+}
+
+/* Ensure buttons don't stretch table cells */
+.table td .button-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+/* Accept Button - Darker Green on Hover */
+.btn-success:hover {
+    background-color: #059669; /* Darker Green */
+    box-shadow: 0 4px 8px rgba(5, 150, 105, 0.3);
+    transform: scale(1.05);
+}
+
+/* Reject Button - Darker Red on Hover */
+.btn-danger:hover {
+    background-color: #dc2626; /* Darker Red */
+    box-shadow: 0 4px 8px rgba(220, 38, 38, 0.3);
+    transform: scale(1.05);
+}
+
+/* Optional - Add a smooth press effect */
+.btn-success:active,
+.btn-danger:active {
+    transform: scale(0.98);
+}
+
+/* filter buttons */
+    .filter-buttons {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-end; 
+}
+
+.filter-buttons .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px; 
+}
+
+    /* Student Name Hover Effect */
     
-    .button-container form {
-        margin: 0; /* Remove default form margins */
+.student-link {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 4px;
+    background-color: transparent;
+    transition: background-color 0.3s, transform 0.2s, color 0.3s;
+    font-weight: 600;
+    text-decoration: none;
+    color: #1e40af; /* Deep blue */
+}
+
+.student-link:hover {
+    background-color: rgba(59, 130, 246, 0.15); /* Light blue background */
+    color: #1e3a8a; /* Darker blue */
+    transform: translateY(-2px);
+    text-shadow: 0 1px 3px rgba(59, 130, 246, 0.4);
+}
+    /* Improved Filter Box */
+    .filter-box {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
-    
-    .button-container .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.25rem 0.5rem; /* Reduced padding */
-        font-size: 0.75rem; /* Smaller font size */
-        line-height: 1.2;
-        gap: 0.25rem; /* Small gap between icon and text */
-        height: auto; /* Allow natural height */
-        white-space: nowrap; /* Prevent text wrapping */
-        transition: all 0.3s ease-in-out;
+
+    /* Form Controls */
+    .form-control {
+        width: 100%;
+        padding: 0.75rem;
+        border-radius: 6px;
+        border: 1px solid #cbd5e1;
+        transition: border 0.2s;
+        height: 42px;
     }
-    
-    .button-container .btn i {
-        font-size: 0.75rem; /* Smaller icon size */
-        margin-right: 0.25rem; /* Slight spacing between icon and text */
+
+    .form-control:focus {
+        border-color: #6366f1;
+        outline: none;
+        box-shadow: 0 0 6px rgba(99, 102, 241, 0.3);
     }
-    
-    /* Ensure buttons don't stretch table cells */
-    .table td .button-container {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-    }
-    /* Accept Button - Darker Green on Hover */
-    .btn-success:hover {
-        background-color: #059669; /* Darker Green */
-        box-shadow: 0 4px 8px rgba(5, 150, 105, 0.3);
-        transform: scale(1.05);
-    }
-    
-    /* Reject Button - Darker Red on Hover */
-    .btn-danger:hover {
-        background-color: #dc2626; /* Darker Red */
-        box-shadow: 0 4px 8px rgba(220, 38, 38, 0.3);
-        transform: scale(1.05);
-    }
-    
-    /* Optional - Add a smooth press effect */
-    .btn-success:active,
-    .btn-danger:active {
-        transform: scale(0.98);
-    }
-    
-    /* filter buttons */
-        .filter-buttons {
-        display: flex;
-        gap: 0.5rem;
-        align-items: flex-end; 
-    }
-    
-    .filter-buttons .btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 42px; 
-    }
-    
-        /* Student Name Hover Effect */
-        
-    .student-link {
-        display: inline-block;
-        padding: 6px 10px;
-        border-radius: 4px;
-        background-color: transparent;
-        transition: background-color 0.3s, transform 0.2s, color 0.3s;
+
+    /* Status Badges */
+    .badge {
+        padding: 0.35em 0.65em;
+        font-size: 0.75em;
         font-weight: 600;
-        text-decoration: none;
-        color: #1e40af; /* Deep blue */
+        border-radius: 0.25rem;
+        text-transform: uppercase;
+    }
+    .bg-success { background-color: #10b981; color: white; }
+    .bg-danger { background-color: #ef4444; color: white; }
+    .bg-warning { background-color: #f59e0b; color: white; }
+
+    /* Button Styling */
+    .btn {
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-weight: 500;
+    }
+    .table td,
+    .table th {
+        position: relative;
     }
     
-    .student-link:hover {
-        background-color: rgba(59, 130, 246, 0.15); /* Light blue background */
-        color: #1e3a8a; /* Darker blue */
-        transform: translateY(-2px);
-        text-shadow: 0 1px 3px rgba(59, 130, 246, 0.4);
+    .table td:not(:last-child)::after,
+    .table th:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 25%;
+        height: 50%;
+        width: 1px;
+        background-color: var(--border-color);
     }
-        /* Improved Filter Box */
-        .filter-box {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
     
-        /* Form Controls */
-        .form-control {
-            width: 100%;
-            padding: 0.75rem;
-            border-radius: 6px;
-            border: 1px solid #cbd5e1;
-            transition: border 0.2s;
-            height: 42px;
-        }
     
-        .form-control:focus {
-            border-color: #6366f1;
-            outline: none;
-            box-shadow: 0 0 6px rgba(99, 102, 241, 0.3);
-        }
-    
-        /* Status Badges */
-        .badge {
-            padding: 0.35em 0.65em;
-            font-size: 0.75em;
-            font-weight: 600;
-            border-radius: 0.25rem;
-            text-transform: uppercase;
-        }
-        .bg-success { background-color: #10b981; color: white; }
-        .bg-danger { background-color: #ef4444; color: white; }
-        .bg-warning { background-color: #f59e0b; color: white; }
-    
-        /* Button Styling */
-        .btn {
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            font-weight: 500;
-        }
-        .table td,
-        .table th {
-            position: relative;
-        }
-        
+    /* Ensure responsive behavior is maintained */
+    @media (max-width: 768px) {
         .table td:not(:last-child)::after,
         .table th:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 25%;
-            height: 50%;
-            width: 1px;
-            background-color: var(--border-color);
+            display: none;
         }
-        
-        
-        /* Ensure responsive behavior is maintained */
-        @media (max-width: 768px) {
-            .table td:not(:last-child)::after,
-            .table th:not(:last-child)::after {
-                display: none;
+    }.student-cell-highlight {
+    background-color: rgba(59, 130, 246, 0.1) !important; /* Light blue background */
+    transition: background-color 0.3s ease-in-out;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // For each approve and reject button
+    document.querySelectorAll('.btn-success, .btn-danger').forEach(button => {
+        // Add mouseenter event
+        button.addEventListener('mouseenter', function() {
+            // Find the parent row
+            const row = this.closest('tr');
+            if (row) {
+                // Find the student name cell (first cell in the row)
+                const studentCell = row.querySelector('td:first-child');
+                if (studentCell) {
+                    // Add highlight class to the student cell only
+                    studentCell.classList.add('student-cell-highlight');
+                }
             }
-        }
-    
-    /* Highlight class that will be added via JavaScript */
-    .row-highlight {
-        background-color: rgba(59, 130, 246, 0.1) !important; /* Light blue background */
-    }
-    </style>
-    
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // For each approve button
-        document.querySelectorAll('.btn-success').forEach(button => {
-            // Add mouseenter event
-            button.addEventListener('mouseenter', function() {
-                // Find the parent row and add highlight class
-                const row = this.closest('tr');
-                if (row) row.classList.add('row-highlight');
-            });
-            
-            // Add mouseleave event
-            button.addEventListener('mouseleave', function() {
-                // Find the parent row and remove highlight class
-                const row = this.closest('tr');
-                if (row) row.classList.remove('row-highlight');
-            });
         });
         
-        // For each reject button
-        document.querySelectorAll('.btn-danger').forEach(button => {
-            // Add mouseenter event
-            button.addEventListener('mouseenter', function() {
-                // Find the parent row and add highlight class
-                const row = this.closest('tr');
-                if (row) row.classList.add('row-highlight');
-            });
-            
-            // Add mouseleave event
-            button.addEventListener('mouseleave', function() {
-                // Find the parent row and remove highlight class
-                const row = this.closest('tr');
-                if (row) row.classList.remove('row-highlight');
-            });
-        });
-        
-        // For each student link
-        document.querySelectorAll('.student-link').forEach(link => {
-            // Add mouseenter event
-            link.addEventListener('mouseenter', function() {
-                // Find the parent row and add highlight class
-                const row = this.closest('tr');
-                if (row) row.classList.add('row-highlight');
-            });
-            
-            // Add mouseleave event
-            link.addEventListener('mouseleave', function() {
-                // Find the parent row and remove highlight class
-                const row = this.closest('tr');
-                if (row) row.classList.remove('row-highlight');
-            });
+        // Add mouseleave event
+        button.addEventListener('mouseleave', function() {
+            // Find the parent row
+            const row = this.closest('tr');
+            if (row) {
+                // Find the student name cell
+                const studentCell = row.querySelector('td:first-child');
+                if (studentCell) {
+                    // Remove highlight class
+                    studentCell.classList.remove('student-cell-highlight');
+                }
+            }
         });
     });
-    </script>
+});
+</script>
 @endsection
 
 
