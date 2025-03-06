@@ -143,6 +143,25 @@
 </div>
 
 <style>
+/* Apply row emphasis on hover when interacting with buttons */
+.table tbody tr:hover {
+    background-color: rgba(59, 130, 246, 0.1); /* Light blue background */
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Ensure background color stays when hovering over buttons */
+.button-container .btn:hover,
+.button-container .btn:focus,
+.button-container form:hover {
+    background-color: rgba(59, 130, 246, 0.15); /* Darker blue */
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+/* Ensure cursor changes when hovering over the row */
+.table tbody tr {
+    transition: background-color 0.3s ease-in-out;
+    cursor: pointer;
+}
 .button-container {
     display: flex;
     gap: 0.25rem; /* Reduced gap */
