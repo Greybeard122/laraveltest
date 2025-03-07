@@ -13,8 +13,8 @@
 
             <div>
                 <label class="block text-gray-700 font-bold mb-1">Student ID</label>
-                <input type="text" name="student_id" class="w-full border-2 border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-sky-500 focus:border-sky-500" required>
-            </div>
+                <input type="text" name="student_id" class="w-full border-2 border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-sky-500 focus:border-sky-500" required maxlength="8">
+            </div>            
 
             <div>
                 <label class="block text-gray-700 font-bold mb-1">First Name</label>
@@ -57,4 +57,19 @@
         </form>
     </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const studentIdInput = document.querySelector('input[name="student_id"]');
+    
+        studentIdInput.addEventListener("input", function (e) {
+            let value = this.value.replace(/\D/g, ""); // Remove non-numeric characters
+            if (value.length > 2) {
+                this.value = value.slice(0, 2) + "-" + value.slice(2, 7); // Format as XX-XXXXX
+            } else {
+                this.value = value; // Keep only numbers if length is less than 2
+            }
+        });
+    });
+    </script>
+    
 @endsection
