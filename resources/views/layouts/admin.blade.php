@@ -160,6 +160,40 @@
     document.addEventListener("scroll", resetLogoutTimer);
 
     resetLogoutTimer(); 
+
+    //sidebar
+    document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.querySelector(".sidebar");
+    const toggleButton = document.querySelector(".toggle-sidebar-btn");
+    const closeButton = document.querySelector(".close-sidebar");
+    const overlay = document.createElement("div");
+
+    overlay.classList.add("sidebar-overlay");
+    document.body.appendChild(overlay);
+
+    // Open Sidebar
+    if (toggleButton) {
+        toggleButton.addEventListener("click", function () {
+            sidebar.classList.toggle("active");
+            overlay.style.display = sidebar.classList.contains("active") ? "block" : "none";
+        });
+    }
+
+    // Close Sidebar on Close Button Click
+    if (closeButton) {
+        closeButton.addEventListener("click", function () {
+            sidebar.classList.remove("active");
+            overlay.style.display = "none";
+        });
+    }
+
+    // Close Sidebar When Clicking Outside
+    overlay.addEventListener("click", function () {
+        sidebar.classList.remove("active");
+        overlay.style.display = "none";
+    });
+});
+
     </script>
     @stack('scripts')
 </body>
