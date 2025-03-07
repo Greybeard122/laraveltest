@@ -431,18 +431,7 @@ background: #5b21b6;
 transform: translateY(-2px);
 }
 
-/* === RESPONSIVENESS === */
-@media (max-width: 768px) {
-.form-container {
-    padding: 1.5rem;
-    max-width: 90%;
-}
 
-.btn-submit {
-    font-size: 0.9rem;
-    padding: 0.65rem;
-}
-}
 
 body {
   font-family: 'Arial', sans-serif;
@@ -1022,8 +1011,21 @@ select.form-control {
     width: 100%;
   }
 }
-
+/* === RESPONSIVENESS === */
 @media (max-width: 768px) {
+  body {
+    background: url('/path-to-image/bg-login-register.jpg') no-repeat center center;
+    background-size: contain; 
+    background-attachment: scroll; 
+}
+  .form-container {
+    padding: 1.5rem;
+    max-width: 90%;
+}
+.btn-submit {
+    font-size: 0.9rem;
+    padding: 0.65rem;
+}
   .container {
     padding: 1rem;
   }
