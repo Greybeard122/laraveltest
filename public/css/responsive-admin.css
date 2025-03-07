@@ -40,7 +40,7 @@ tbody tr:hover {
   z-index: 1200;
   content: attr(data-text); /* Get text from data-text attribute */
   position: absolute;
-  left: 65px;
+  left: 100%;
   margin-left: 10px; 
   top: 50%;
   transform: translateY(-50%);
@@ -60,10 +60,10 @@ tbody tr:hover {
 .sidebar.collapsed .nav-link:hover::after {
   content: attr(data-text);
   position: absolute;
-  left: 65px;
+  left: 100%;
   margin-left: 10px; 
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%) translateX(4px);
   background: rgba(0, 0, 0, 0.8);
   color: white;
   font-size: 0.85rem;
@@ -261,6 +261,7 @@ tbody tr:hover {
 }
 
 .sidebar.collapsed .nav-link {
+  position: relative;
   justify-content: center;
   padding: 12px 0;
   margin: 4px 0;
