@@ -18,7 +18,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body class="bg-gray-100 text-gray-800 bg-cover bg-center" style="background-image: url('{{ secure_asset('images/bg-login-register.jpg') }}');">
+<body class="bg-gray-100 text-gray-800 bg-cover bg-center md:bg-fixed" 
+      style="background-image: url('{{ secure_asset('images/bg-login-register.jpg') }}');">
+
     <x-nav/>
     <x-messages/>
 

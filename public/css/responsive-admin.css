@@ -1014,10 +1014,10 @@ select.form-control {
 /* === RESPONSIVENESS === */
 @media (max-width: 768px) {
   body {
-    background: url('/path-to-image/bg-login-register.jpg') no-repeat center center;
     background-size: contain; 
+    background-position: top center; 
     background-attachment: scroll; 
-}
+  }
   .form-container {
     padding: 1.5rem;
     max-width: 90%;
