@@ -51,6 +51,10 @@
                 <input type="text" name="reason" class="form-control w-full" required>
             </div>
 
+            <div>
+                <p class="block text-gray-700 font-bold mb-1">Term Requested</p>
+            </div>
+            
             <!-- Select School Year -->
             <div>
                 <label class="block text-gray-700 font-bold mb-1">Select School Year</label>
