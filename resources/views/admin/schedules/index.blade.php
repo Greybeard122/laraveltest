@@ -167,10 +167,10 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.25rem 0.5rem; /* Reduced padding */
-    font-size: 0.75rem; /* Smaller font size */
+    padding: 0.25rem 0.5rem; 
+    font-size: 0.75rem;
     line-height: 1.2;
-    gap: 0.25rem; /* Small gap between icon and text */
+    gap: 0.25rem; 
     height: auto; /* Allow natural height */
     white-space: nowrap; /* Prevent text wrapping */
     transition: all 0.3s ease-in-out;
@@ -187,21 +187,19 @@
     justify-content: flex-start;
     align-items: center;
 }
-/* Accept Button - Darker Green on Hover */
 .btn-success:hover {
-    background-color: #059669; /* Darker Green */
+    background-color: #059669; 
     box-shadow: 0 4px 8px rgba(5, 150, 105, 0.3);
     transform: scale(1.05);
 }
 
-/* Reject Button - Darker Red on Hover */
 .btn-danger:hover {
-    background-color: #dc2626; /* Darker Red */
+    background-color: #dc2626; 
     box-shadow: 0 4px 8px rgba(220, 38, 38, 0.3);
     transform: scale(1.05);
 }
 
-/* Optional - Add a smooth press effect */
+/* Add a smooth press effect */
 .btn-success:active,
 .btn-danger:active {
     transform: scale(0.98);
@@ -220,27 +218,7 @@
     justify-content: center;
     height: 42px; 
 }
-
-    /* Student Name Hover Effect */
-    
-.student-link {
-    display: inline-block;
-    padding: 6px 10px;
-    border-radius: 4px;
-    background-color: transparent;
-    transition: background-color 0.3s, transform 0.2s, color 0.3s;
-    font-weight: 600;
-    text-decoration: none;
-    color: #1e40af; /* Deep blue */
-}
-
-.student-link:hover {
-    background-color: rgba(59, 130, 246, 0.15); /* Light blue background */
-    color: #1e3a8a; /* Darker blue */
-    transform: translateY(-2px);
-    text-shadow: 0 1px 3px rgba(59, 130, 246, 0.4);
-}
-    /* Improved Filter Box */
+/* Improved Filter Box */
     .filter-box {
         background: rgba(255, 255, 255, 0.9);
         border-radius: 8px;
@@ -276,7 +254,6 @@
     .bg-success { background-color: #10b981; color: white; }
     .bg-danger { background-color: #ef4444; color: white; }
     .bg-warning { background-color: #f59e0b; color: white; }
-
     /* Button Styling */
     .btn {
         padding: 0.5rem 1rem;
@@ -299,7 +276,6 @@
         background-color: var(--border-color);
     }
     
-    
     /* Ensure responsive behavior is maintained */
     @media (max-width: 768px) {
         .table td:not(:last-child)::after,
@@ -310,37 +286,36 @@
     background-color: rgba(59, 130, 246, 0.15) !important;
     color: #1e3a8a !important;
     text-shadow: 0 1px 3px rgba(59, 130, 246, 0.4) !important;
-    /* Remove the transform to avoid the element jumping */
+   
 }
 </style>
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // For each approve and reject button
+
     document.querySelectorAll('.btn-success, .btn-danger').forEach(button => {
-        // Add mouseenter event
+        
         button.addEventListener('mouseenter', function() {
-            // Find the parent row
+    
             const row = this.closest('tr');
             if (row) {
-                // Find the student link within this row
+             
                 const studentLink = row.querySelector('.student-link');
                 if (studentLink) {
-                    // Add highlight class to the student link only
+                  
                     studentLink.classList.add('student-link-highlight');
                 }
             }
         });
         
-        // Add mouseleave event
+ 
         button.addEventListener('mouseleave', function() {
-            // Find the parent row
+           
             const row = this.closest('tr');
             if (row) {
-                // Find the student link
+       
                 const studentLink = row.querySelector('.student-link');
                 if (studentLink) {
-                    // Remove highlight class
+                   
                     studentLink.classList.remove('student-link-highlight');
                 }
             }

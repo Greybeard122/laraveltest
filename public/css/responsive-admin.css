@@ -37,9 +37,11 @@ tbody tr:hover {
 }
 /* Floating tooltip for collapsed sidebar */
 .sidebar.collapsed .nav-link::after {
+  z-index: 1200;
   content: attr(data-text); /* Get text from data-text attribute */
   position: absolute;
-  left: 100%; /* Place it outside the sidebar */
+  left: 65px;
+  margin-left: 10px; 
   top: 50%;
   transform: translateY(-50%);
   background: rgba(0, 0, 0, 0.8);
@@ -58,7 +60,8 @@ tbody tr:hover {
 .sidebar.collapsed .nav-link:hover::after {
   content: attr(data-text);
   position: absolute;
-  left: 100%;
+  left: 65px;
+  margin-left: 10px; 
   top: 50%;
   transform: translateY(-50%);
   background: rgba(0, 0, 0, 0.8);
@@ -71,7 +74,7 @@ tbody tr:hover {
   visibility: visible;
   transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1001;
+  z-index: 1200;
 }
 .sidebar .nav-link.active,
 .sidebar .nav-link:hover {
@@ -90,7 +93,7 @@ tbody tr:hover {
 }
 /* Sidebar Toggle Button */
 .toggle-sidebar-btn {
-  position: fixed; /* Change from absolute to fixed */
+  position: fixed; 
   top: 50%;
   left: calc(var(--sidebar-width) - 20px);
   transform: translateY(-50%);
@@ -107,7 +110,7 @@ tbody tr:hover {
   justify-content: center;
   transition: left 0.3s ease-in-out, background 0.3s, box-shadow 0.3s, transform 0.2s;
   box-shadow: var(--shadow-md);
-  z-index: 1100; 
+  z-index: 1200; 
 }
 /*  Collapsed Sidebar - Move Button */
 .sidebar.collapsed .toggle-sidebar-btn {
@@ -265,19 +268,19 @@ tbody tr:hover {
 
 /* Student Name Hover Effect */
 .student-link {
-  display: inline-block;
-  padding: 6px 10px;
-  border-radius: 4px;
-  background-color: transparent;
-  transition: background-color 0.3s, transform 0.2s, color 0.3s;
-  font-weight: 600;
-  text-decoration: none;
-  color: #1e40af; /* Deep blue */
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 4px;
+    background-color: transparent;
+    transition: background-color 0.3s, transform 0.2s, color 0.3s;
+    font-weight: 600;
+    text-decoration: none;
+    color: #1e40af;
 }
 
 .student-link:hover {
-  background-color: rgba(59, 130, 246, 0.15); /* Light blue background */
-  color: #1e3a8a; /* Darker blue */
+  background-color: rgba(59, 130, 246, 0.15); 
+  color: #1e3a8a;
   transform: translateY(-2px);
   text-shadow: 0 1px 3px rgba(59, 130, 246, 0.4);
 }
@@ -462,7 +465,7 @@ body {
   transition: margin 0.3s ease-in-out;
   width: calc(100% - var(--sidebar-width));
   position: relative;
-  z-index: 10;
+  z-index: 100;
 }
 
 .sidebar.collapsed + .content-area {
@@ -847,7 +850,7 @@ select.form-control {
 @media (max-width: 640px) {
   .filter-box form {
     grid-template-columns: 1fr;
-  }
+} 
 .filter-box {
   background: white;
   border-radius: var(--border-radius-lg);
@@ -996,7 +999,14 @@ select.form-control {
   .sidebar.active {
     transform: translateX(0);
   }
-
+  .sidebar.collapsed {
+    transform: translateX(-100%); /* Make sure collapsed sidebar is hidden on mobile */
+  }
+  
+  .sidebar.collapsed.active {
+    transform: translateX(0); /* Show it when active */
+    width: 280px; /* Ensure consistent width when active */
+  }
   .close-sidebar {
     display: flex;
   }
