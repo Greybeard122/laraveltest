@@ -15,7 +15,7 @@ class StudentRegisterController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'student_id' => 'required|unique:students',
+            'student_id' => ['required', 'regex:/^\d{1,2}-?\d{1,5}$/', 'unique:students,student_id'],
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|email|unique:students',
@@ -24,8 +24,11 @@ class StudentRegisterController extends Controller
             'password' => 'required|min:6|confirmed',
         ]);
 
+        $studentId = preg_replace('/[^0-9]/', '', $request->student_id); 
+        $formattedStudentId = substr($studentId, 0, 2) . '-' . substr($studentId, 2, 5); 
+
         Student::create([
-            'student_id' => $request->student_id,
+            'student_id' => $formattedStudentId,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
@@ -33,6 +36,7 @@ class StudentRegisterController extends Controller
             'contact_number' => $request->contact_number,
             'password' => Hash::make($request->password),
         ]);
+
 
         return redirect('/login')->with('message', 'Registration Successful');
     }

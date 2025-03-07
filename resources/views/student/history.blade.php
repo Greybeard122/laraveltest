@@ -6,7 +6,7 @@
         <div class="dashboard-header">
             <h2 class="dashboard-title">Completed Requests</h2>
             <p class="dashboard-subtitle">
-                Here is a list of your past requests that have already passed.
+                Here is a list of your past requests.
             </p>
         </div>
 
