@@ -838,6 +838,13 @@ select.form-control {
   gap: 0.5rem;
 }
 @media (max-width: 640px) {
+  .form-container {
+    padding: 1.25rem;
+  }
+
+  .form-title {
+    font-size: 1.375rem;
+  }
   .filter-box form {
     grid-template-columns: 1fr;
 } 
@@ -1077,17 +1084,6 @@ select.form-control {
     font-size: 0.875rem;
   }
 }
-
-@media (max-width: 640px) {
-  .form-container {
-    padding: 1.25rem;
-  }
-  
-  .form-title {
-    font-size: 1.375rem;
-  }
-}
-
 /* === ACCESSIBILITY IMPROVEMENTS === */
 @media (prefers-reduced-motion: reduce) {
   * {
