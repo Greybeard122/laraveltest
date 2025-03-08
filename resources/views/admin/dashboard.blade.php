@@ -32,10 +32,10 @@
         <h2 class="text-2xl font-bold text-black drop-shadow-md mb-6 text-center">
             Weekly Schedule
         </h2>
-        <div class="grid grid-cols-5 gap-3">
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 w-full">
             @foreach($weeklyCounts as $day => $count)
                 <div class="group rounded-xl bg-white bg-opacity-50 backdrop-blur-sm p-4 shadow-md transition-all hover:bg-white/30">
-                    <h4 class="text-sm  text-black drop-shadow-md">
+                    <h4 class="text-sm text-black drop-shadow-md">
                         {{ $day }}
                     </h4>
                     <p class="text-2xl font-bold text-black drop-shadow-lg mt-2">
@@ -44,7 +44,6 @@
                 </div>
             @endforeach
         </div>
-
         <div class="text-center mt-6">
             <a href="{{ route('admin.schedules.weekly') }}" 
                class="inline-block px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors">
