@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
         sidebarOverlay.style.display = sidebar.classList.contains("active") ? "block" : "none";
     });
 
-    // Hide sidebar when overlay is clicked
+    // Hide sidebar when clicking outside
     sidebarOverlay.addEventListener("click", function () {
         sidebar.classList.remove("active");
         sidebarOverlay.style.display = "none";
