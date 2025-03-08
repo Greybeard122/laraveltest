@@ -1023,7 +1023,7 @@ main {
 .sidebar {
   position: fixed;
   left: 0;  
-  width: var(--sidebar-collapsed-width);  
+  width: var(--mobilesidebar-collapsed-width);  
   height: 100vh;
   transition: left 0.3s ease-in-out, width 0.3s ease-in-out;
   z-index: 1001;
@@ -1053,8 +1053,8 @@ main {
   left: calc(var(--mobilesidebar-width) - 20px);
 }
 .content-area {
-  margin-left: 80px;
-  width: calc(100% - 80px);
+  margin-left: var(--mobilesidebar-collapsed-width);
+  width: calc(100% - var(--mobilesidebar-collapsed-width));
   transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
 }
 /* Expand sidebar when active */
@@ -1081,7 +1081,7 @@ main {
   width: 100%;
 }
 .sidebar.collapsed .toggle-sidebar-btn {
-  left: 140px;
+  left: calc(var(--mobilesidebar-collapsed-width) - 20px);
 }
 .sidebar-overlay {
 position: fixed;
@@ -1113,6 +1113,8 @@ display: block;
 .sidebar.active + .sidebar-overlay {
   display: block;
 }
+.sidebar.active .toggle-sidebar-btn {
+  left: calc(var(--mobilesidebar-width) - 20px);
   body {
     background-size: contain; 
     background-position: top center; 
