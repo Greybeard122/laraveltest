@@ -1023,10 +1023,54 @@ select.form-control {
   .sidebar {
     position: fixed;
     left: -260px;
-    width: 260px;
+    width: 80px;
     height: 100vh;
     transition: left 0.3s ease-in-out;
     z-index: 1001;
+}
+.sidebar .nav-text {
+  display: none;
+}
+.sidebar .nav-link {
+  justify-content: center;
+}
+.sidebar .nav-link i {
+  margin-right: 0; /* Ensure icons are centered */
+}
+
+/* Expand sidebar when active */
+.sidebar.active {
+  width: 260px; /* Expand to full width when toggled */
+}
+
+.sidebar.active .nav-text {
+  display: inline; /* Show text labels when expanded */
+}
+
+.sidebar.active .nav-link {
+  justify-content: flex-start; /* Restore normal alignment */
+}
+
+.sidebar.active .nav-link i {
+  margin-right: 10px;
+}
+}
+
+/* Sidebar Overlay (for expanding effect) */
+.sidebar-overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+background: rgba(0, 0, 0, 0.5);
+display: none;
+z-index: 999;
+}
+
+/* Show overlay when sidebar is expanded */
+.sidebar.active + .sidebar-overlay {
+display: block;
 }
 .sidebar.active {
   left: 0; 

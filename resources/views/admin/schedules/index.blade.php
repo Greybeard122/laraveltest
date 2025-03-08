@@ -43,7 +43,6 @@
                 <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
             </select>
         </div>
-
         <!-- Filter & Reset Buttons -->
         <div class="filter-buttons h-full">
             <button type="submit" class="btn btn-primary h-full">
