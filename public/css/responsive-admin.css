@@ -21,7 +21,7 @@
   --border-radius-sm: 0.375rem;
   --border-radius-md: 0.5rem;
   --border-radius-lg: 0.75rem;
-  --sidebar-width: 220px; 
+  --sidebar-width: 150px; 
   --sidebar-collapsed-width: 70px; 
 }
 tbody tr:hover {
@@ -560,7 +560,7 @@ body {
 /* === FORM STYLES === */
 .form-container {
   width: 100%;
-  max-width: 48rem; /* 3xl in tailwind */
+  max-width: 48rem;
   background-color: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(8px);
   box-shadow: var(--shadow-md);
@@ -1018,6 +1018,19 @@ select.form-control {
 }
 /* === RESPONSIVENESS === */
 @media (max-width: 768px) {
+.nav.flex-column {
+  padding-left: 0; 
+  margin-left: 0; 
+}  
+main {
+  padding: 1rem; 
+  margin-top: 10px; 
+}
+
+.container {
+  padding-left: 0.5rem; 
+  padding-right: 0.5rem; 
+}
 .sidebar {
   position: fixed;
   left: 0;  
@@ -1026,7 +1039,6 @@ select.form-control {
   transition: left 0.3s ease-in-out, width 0.3s ease-in-out;
   z-index: 1001;
 }
-/* Hide text in the collapsed state (default for mobile) */
 .sidebar .nav-text {
   display: none;
 }
