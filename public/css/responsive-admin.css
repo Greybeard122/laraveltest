@@ -14,6 +14,7 @@
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
   --sidebar-width: 260px;
+  --sidebar-collapsed-width: 80px;  
   --sidebar-bg: #2d3748;
   --success-color: #10b981;
   --warning-color: #f59e0b;
@@ -21,15 +22,28 @@
   --border-radius-sm: 0.375rem;
   --border-radius-md: 0.5rem;
   --border-radius-lg: 0.75rem;
-  --mobilesidebar-width: 160px; 
-  --mobilesidebar-collapsed-width: 80px; 
+  --mobilesidebar-width: 160px;
+  --mobilesidebar-collapsed-width: 80px;
+}
+main  {
+  margin-left: var(--sidebar-width);
+  transition: margin-left 0.3s ease-in-out;
+}
+/* When Sidebar is Collapsed */
+.sidebar.collapsed + main,
+.sidebar.collapsed + nav {
+  margin-left: var(--sidebar-collapsed-width);
+}
+.navbar .nav-link:hover, 
+.navbar .nav-link.active {
+  color: #38bdf8; 
+  transform: scale(1.05);
 }
 tbody tr:hover {
-  background-color: #e8f4ff; /* Light blue background */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for depth */
-  transition: all 0.2s ease; /* Smooth transition effect */
+  background-color: #e8f4ff; 
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+  transition: all 0.2s ease; 
 }
-
 .sidebar-tooltip {
   pointer-events: none;
 }
@@ -37,10 +51,9 @@ tbody tr:hover {
 .sidebar.collapsed .nav-link:hover .sidebar-tooltip {
   pointer-events: auto;
 }
-/* Floating tooltip for collapsed sidebar */
 .sidebar.collapsed .nav-link::after {
   z-index: 1200;
-  content: attr(data-text); /* Get text from data-text attribute */
+  content: attr(data-text);
   position: absolute;
   left: 100%;
   margin-left: 10px; 
@@ -87,11 +100,6 @@ tbody tr:hover {
 .sidebar .nav-link.active i,
 .sidebar .nav-link:hover i {
   color: #38bdf8;
-}
-.navbar .nav-link:hover, 
-.navbar .nav-link.active {
-  color: #38bdf8; /* Sky blue hover effect */
-  transform: scale(1.05);
 }
 /* Sidebar Toggle Button */
 .toggle-sidebar-btn {
@@ -290,7 +298,7 @@ tbody tr:hover {
 }
 
 .archived-link:hover {
-  background-color: rgba(59, 130, 246, 0.15); /* Light blue background */
+  background-color: rgba(59, 130, 246, 0.15); 
   color: #1e3a8a; /* Darker blue */
   transform: translateY(-2px);
   text-shadow: 0 1px 3px rgba(59, 130, 246, 0.4);
@@ -343,7 +351,7 @@ cursor: not-allowed;
 
 /* === FORM CONTAINER === */
 .form-container {
-background: rgba(255, 255, 255, 0.95); /* Slight transparency */
+background: rgba(255, 255, 255, 0.95); 
 border-radius: 12px;
 padding: 2rem;
 width: 100%;
@@ -421,9 +429,6 @@ transition: background 0.3s, transform 0.2s;
 background: #5b21b6;
 transform: translateY(-2px);
 }
-
-
-
 body {
   font-family: 'Arial', sans-serif;
   background-color: var(--bg-light);
@@ -433,7 +438,6 @@ body {
   overflow-x: hidden;
   line-height: 1.5;
 }
-
 /* === LAYOUT STRUCTURE === */
 .container {
   padding: .4rem;
@@ -448,7 +452,6 @@ body {
   position: relative;
   z-index: 100;
 }
-
 .sidebar.collapsed + .content-area {
   width: 100%;
 }
@@ -678,7 +681,6 @@ select.form-control {
 /* === TABLE STYLES === */
 .schedule-table-responsive {
   overflow-y: hidden;
-  
   border-radius: var(--border-radius-sm);
   box-shadow: var(--shadow-sm);
 }
@@ -700,7 +702,6 @@ select.form-control {
   border-collapse: separate;
   border-spacing: 0;
 }
-
 .table th,
 .schedule-table th {
   background-color: #f8fafc;
@@ -718,7 +719,6 @@ select.form-control {
   text-align: left;
   color: var(--text-body);
 }
-
 .table th a,
 .schedule-table th a {
   color: var(--text-body);
@@ -728,12 +728,10 @@ select.form-control {
   justify-content: space-between;
   transition: color 0.2s;
 }
-
 .table th a:hover,
 .schedule-table th a:hover {
   color: var(--text-dark);
 }
-
 .table td,
 .schedule-table td {
   padding: 0.875rem 1rem;
@@ -747,21 +745,17 @@ select.form-control {
   line-height: 1.4;
   color: var(--text-body);
 }
-
 .table tr:hover,
 .schedule-table tr:hover {
   background-color: rgba(247, 250, 252, 0.5);
 }
-
 .table td:nth-child(5) {
   max-width: 250px;
 }
-
 /* === STATUS STYLES === */
 .status-cell {
   text-align: center;
 }
-
 .badge {
   padding: 0.35em 0.65em;
   font-size: 0.75em;
@@ -771,22 +765,18 @@ select.form-control {
   letter-spacing: 0.03em;
   display: inline-block;
 }
-
 .bg-success {
   background-color: var(--success-color) !important;
   color: white;
 }
-
 .bg-danger {
   background-color: var(--danger-color) !important;
   color: white;
 }
-
 .bg-warning {
   background-color: var(--warning-color) !important;
   color: white;
 }
-
 .status-pending {
   font-weight: 600;
   color: #dd6b20;
@@ -795,7 +785,6 @@ select.form-control {
   border-radius: 0.25rem;
   display: inline-block;
 }
-
 .status-approved {
   font-weight: 600;
   color: #2f855a;
@@ -804,7 +793,6 @@ select.form-control {
   border-radius: 0.25rem;
   display: inline-block;
 }
-
 .status-rejected {
   font-weight: 600;
   color: #c53030;
@@ -813,7 +801,6 @@ select.form-control {
   border-radius: 0.25rem;
   display: inline-block;
 }
-
 /* === FILTER AND CARD STYLES === */
 .filter-box form {
   display: grid;
@@ -826,16 +813,10 @@ select.form-control {
   gap: 0.5rem;
 }
 @media (max-width: 640px) {
-  .form-container {
-    padding: 1.25rem;
-  }
-
-  .form-title {
-    font-size: 1.375rem;
-  }
-  .filter-box form {
-    grid-template-columns: 1fr;
-} 
+  .form-container {padding: 1.25rem;}
+  .form-title {font-size: 1.375rem;}
+  .filter-box form {grid-template-columns: 1fr;}
+}
 .filter-box {
   background: white;
   border-radius: var(--border-radius-lg);
@@ -845,11 +826,9 @@ select.form-control {
   transition: box-shadow 0.3s;
   padding: 1.25rem;
 }
-
 .filter-box:hover {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
 }
-
 .filter-box label {
   font-weight: 600;
   color: var(--text-body);
@@ -857,7 +836,6 @@ select.form-control {
   font-size: 0.875rem;
   display: block;
 }
-
 .card {
   border: none;
   border-radius: var(--border-radius-lg);
@@ -866,14 +844,11 @@ select.form-control {
   background-color: var(--bg-white);
   box-shadow: var(--shadow-sm);
 }
-
 .card:hover {
   box-shadow: var(--shadow-lg);
   transform: translateY(-2px);
 }
-
 /* === BUTTON STYLES === */
-/* Unified button styling */
 .btn {
   padding: 0.5rem 1rem;
   border-radius: var(--border-radius-sm);
@@ -885,30 +860,24 @@ select.form-control {
   gap: 0.5rem;
   transition: all 0.2s ease;
 }
-
 .btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
 .btn-primary {
   background-color: var(--primary-color);
   color: white;
 }
-
 .btn-primary:hover {
   background-color: var(--primary-hover);
 }
-
 .btn-secondary {
   background-color: #cbd5e0;
   color: var(--text-dark);
 }
-
 .btn-secondary:hover {
   background-color: #a0aec0;
 }
-
 /* Print Button Enhancement */
 .btn-success {
   background-color: #10b981;
@@ -921,7 +890,6 @@ select.form-control {
   font-weight: 500;
   transition: all 0.2s;
 }
-
 .btn-success:hover {
   background-color: #059669;
   transform: translateY(-1px);
@@ -933,7 +901,6 @@ select.form-control {
   gap: 0.5rem;
   margin: 1rem 0;
 }
-
 .button-container .btn {
   padding: 0.375rem 0.75rem;
   font-size: 0.8125rem;
@@ -946,12 +913,10 @@ select.form-control {
   cursor: pointer;
   border: 1px solid transparent;
 }
-
 .button-container .btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
 /* === ANIMATIONS === */
 @keyframes fadeInUp {
   from {
@@ -975,36 +940,36 @@ select.form-control {
 
 /* === RESPONSIVE STYLES === */
 @media (max-width: 992px) {
-  .sidebar {
-    transform: translateX(0);
-    width: 100%;
-    max-width: 280px;
-  }
+.sidebar {
+transform: translateX(0);
+width: 100%;
+max-width: 280px;
+}
 
-  .sidebar.active {
-    transform: translateX(0);
-  }
-  .sidebar.collapsed {
-    transform: translateX(-100%); /* Make sure collapsed sidebar is hidden on mobile */
-  }
-  
-  .sidebar.collapsed.active {
-    transform: translateX(0); /* Show it when active */
-    width: 280px; /* Ensure consistent width when active */
-  }
-  .close-sidebar {
-    display: flex;
-  }
+.sidebar.active {
+transform: translateX(0);
+}
+.sidebar.collapsed {
+transform: translateX(-100%); /* Make sure collapsed sidebar is hidden on mobile */
+}
 
-  .content-area {
-    margin-left: 0;
-    width: 100%;
-  }
+.sidebar.collapsed.active {
+transform: translateX(0); /* Show it when active */
+width: var(--mobilesidebar-width);
+}
+.close-sidebar {
+display: flex;
+}
 
-  .sidebar.active + .content-area {
-    margin-left: 0;
-    width: 100%;
-  }
+.content-area {
+margin-left: 0;
+width: 100%;
+}
+
+.sidebar.active + .content-area {
+margin-left: 0;
+width: 100%;
+}
 }
 /* === RESPONSIVENESS === */
 @media (max-width: 768px) {
@@ -1013,7 +978,7 @@ select.form-control {
   margin-left: 0; 
 }  
 main { 
-  margin-top: 10px; 
+  margin-top: 10px;
 }
 
 .container {
@@ -1130,54 +1095,54 @@ display: block;
 }
   .container {
     padding: 1rem;
-  }
+}
 
-  .d-flex.justify-content-between.align-items-center {
-    flex-direction: column;
-    align-items: flex-start !important;
-    gap: 1rem;
-  }
+.d-flex.justify-content-between.align-items-center {
+  flex-direction: column;
+  align-items: flex-start !important;
+  gap: 1rem;
+}
 
-  .title-container {
-    font-size: 1.25rem;
-    padding: 10px 15px;
-  }
-  
-  .button-container {
-    flex-direction: column;
-    width: 100%;
-  }
+.title-container {
+  font-size: 1.25rem;
+  padding: 10px 15px;
+}
 
-  .button-container .btn {
-    width: 100%;
-  }
+.button-container {
+  flex-direction: column;
+  width: 100%;
+}
 
-  .filter-box .row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
+.button-container .btn {
+  width: 100%;
+}
 
-  .filter-box .col-md-3,
-  .filter-box .form-group {
-    margin-bottom: 1rem;
-  }
+.filter-box .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
 
-  .form-container {
-    padding: 1.5rem;
-  }
-  
-  .form-title {
-    font-size: 1.5rem;
-  }
+.filter-box .col-md-3,
+.filter-box .form-group {
+  margin-bottom: 1rem;
+}
 
-  .table th,
-  .table td,
-  .schedule-table th,
-  .schedule-table td {
-    padding: 0.75rem 0.5rem;
-    font-size: 0.875rem;
-  }
+.form-container {
+  padding: 1.5rem;
+}
+
+.form-title {
+  font-size: 1.5rem;
+}
+
+.table th,
+.table td,
+.schedule-table th,
+.schedule-table td {
+  padding: 0.75rem 0.5rem;
+  font-size: 0.875rem;
+}
 }
 @media (prefers-reduced-motion: reduce) {
   * {
