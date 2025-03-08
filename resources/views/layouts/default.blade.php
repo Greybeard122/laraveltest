@@ -28,7 +28,7 @@
         <!-- Main Content Section -->
         <main class="flex-grow max-w-screen-lg mx-auto p-6 @yield('main-class', 'min-h-[30vh]') mt-20">
             @yield('content')
-        </main>
+        </main> 
 
         <!-- Footer -->
         <footer class="bg-gray-800 text-white py-6 shadow-inner">
@@ -72,19 +72,33 @@ resetLogoutTimer();
 
 document.addEventListener("DOMContentLoaded", function () {
     const sidebar = document.querySelector(".sidebar");
-    const sidebarOverlay = document.querySelector(".sidebar-overlay");
     const toggleBtn = document.querySelector(".toggle-sidebar-btn");
 
-    // Toggle Sidebar
-    toggleBtn.addEventListener("click", function () {
-        sidebar.classList.toggle("active");
-        sidebarOverlay.style.display = sidebar.classList.contains("active") ? "block" : "none";
+    // Function to check if it's a mobile view
+    function isMobile() {
+        return window.innerWidth <= 768;
+    }
+
+    // Function to toggle sidebar
+    function toggleSidebar() {
+        if (isMobile()) {
+            sidebar.classList.toggle("active"); // Expand/collapse on mobile
+        } else {
+            sidebar.classList.toggle("collapsed"); // Collapse/expand on desktop
+        }
+    }
+
+    // Toggle sidebar when clicking the button
+    toggleBtn.addEventListener("click", function (event) {
+        toggleSidebar();
+        event.stopPropagation(); // Prevent closing when clicking the button
     });
 
-    // Hide sidebar when clicking outside
-    sidebarOverlay.addEventListener("click", function () {
-        sidebar.classList.remove("active");
-        sidebarOverlay.style.display = "none";
+    // Close sidebar when clicking outside (only for mobile)
+    document.addEventListener("click", function (event) {
+        if (isMobile() && !sidebar.contains(event.target) && !toggleBtn.contains(event.target)) {
+            sidebar.classList.remove("active"); // Collapse back to icon view on mobile
+        }
     });
 });
 
