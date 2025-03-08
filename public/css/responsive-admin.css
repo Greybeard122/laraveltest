@@ -1054,9 +1054,6 @@ select.form-control {
 .sidebar.active .nav-link i {
   margin-right: 10px;
 }
-}
-
-/* Sidebar Overlay (for expanding effect) */
 .sidebar-overlay {
 position: fixed;
 top: 0;
@@ -1067,7 +1064,6 @@ background: rgba(0, 0, 0, 0.5);
 display: none;
 z-index: 999;
 }
-
 /* Show overlay when sidebar is expanded */
 .sidebar.active + .sidebar-overlay {
 display: block;
