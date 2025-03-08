@@ -1020,6 +1020,30 @@ select.form-control {
 }
 /* === RESPONSIVENESS === */
 @media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    left: -260px;
+    width: 260px;
+    height: 100vh;
+    transition: left 0.3s ease-in-out;
+    z-index: 1001;
+}
+.sidebar.active {
+  left: 0; 
+}
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 1000;
+}
+.sidebar.active + .sidebar-overlay {
+  display: block;
+}
   body {
     background-size: contain; 
     background-position: top center; 
@@ -1084,7 +1108,6 @@ select.form-control {
     font-size: 0.875rem;
   }
 }
-/* === ACCESSIBILITY IMPROVEMENTS === */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
@@ -1093,8 +1116,6 @@ select.form-control {
     scroll-behavior: auto !important;
   }
 }
-
-/* Focus visible styles for keyboard navigation */
 .form-control:focus-visible,
 .btn:focus-visible,
 .nav-link:focus-visible {

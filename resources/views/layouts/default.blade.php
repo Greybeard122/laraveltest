@@ -69,6 +69,25 @@ document.addEventListener("click", resetLogoutTimer);
 document.addEventListener("scroll", resetLogoutTimer);
 
 resetLogoutTimer();
+
+document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.querySelector(".sidebar");
+    const sidebarOverlay = document.querySelector(".sidebar-overlay");
+    const toggleBtn = document.querySelector(".toggle-sidebar-btn");
+
+    // Toggle Sidebar
+    toggleBtn.addEventListener("click", function () {
+        sidebar.classList.toggle("active");
+        sidebarOverlay.style.display = sidebar.classList.contains("active") ? "block" : "none";
+    });
+
+    // Hide sidebar when overlay is clicked
+    sidebarOverlay.addEventListener("click", function () {
+        sidebar.classList.remove("active");
+        sidebarOverlay.style.display = "none";
+    });
+});
+
 </script>
 
 </html>
