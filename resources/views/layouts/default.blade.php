@@ -31,7 +31,7 @@
         </main> 
 
         <!-- Footer -->
-        <footer class="bg-gray-800 text-white py-6 shadow-inner">
+        <footer class="bg-gray-800 text-white py-4 shadow-inner mt-auto">
             <div class="container mx-auto text-center">
                 <p>&copy; {{ date('Y') }} PRMSU File Retrieval System | All Rights Reserved</p>
             </div>
