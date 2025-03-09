@@ -32,7 +32,7 @@
         <h2 class="text-2xl font-bold text-black drop-shadow-md mb-6 text-center">
             Weekly Schedule
         </h2>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 w-full">
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-3 w-full">
             @foreach($weeklyCounts as $day => $count)
                 <div class="group rounded-xl bg-white bg-opacity-50 backdrop-blur-sm p-4 shadow-md transition-all hover:bg-white/30">
                     <h4 class="text-sm text-black drop-shadow-md">
