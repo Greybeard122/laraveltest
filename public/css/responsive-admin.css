@@ -26,18 +26,26 @@
   --mobilesidebar-collapsed-width: 80px;
 }
 html, body {
-  height: 100%;
   margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* Flexbox layout */
+body {
   display: flex;
   flex-direction: column;
+  min-height: 100vh; /* Ensure body takes at least the full viewport height */
 }
 
 main {
-  flex-grow: 1; 
+  flex: 1; /* Allow main to grow and fill available space */
 }
 
+
 footer {
-  margin-top: auto; 
+  margin-top: auto;
+   
 }
 
 tbody tr:hover {

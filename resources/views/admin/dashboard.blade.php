@@ -2,7 +2,7 @@
 @section('content')
     <div class="container mx-auto max-w-6xl px-4">
         <div class="text-center mb-8">
-            <h2 class="text-3xl font-bold text-black drop-shadow-md">
+            <h2 class="text-3xl font-bold text-black drop-shadow-md mt-10">
                 Admin Dashboard
             </h2>
         </div>
@@ -42,7 +42,7 @@
                 </div>
             @endforeach
         </div>
-        <div class="text-center mt-6">
+        <div class="text-center mt-10">
             <a href="{{ route('admin.schedules.weekly') }}" 
                class="inline-block px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors">
                 View Full Weekly Schedule
