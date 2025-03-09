@@ -29,10 +29,19 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
+  overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
+body {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; 
+  min-height: 100vh;
 }
+
+main {
+  flex: 1; /* Allow main content to grow */
+}
+
 footer {
   margin-top: auto;
   height: 60px;
@@ -46,7 +55,6 @@ tbody tr:hover {
 .sidebar-tooltip {
   pointer-events: none;
 }
-
 .sidebar.collapsed .nav-link:hover .sidebar-tooltip {
   pointer-events: auto;
 }
