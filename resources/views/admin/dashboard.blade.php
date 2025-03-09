@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container mx-auto max-w-6xl px-4">
-        <!-- Admin Dashboard Header -->
+        <!-- Admin Dashboard Header (No Hover) -->
         <div class="text-center mt-4 mb-8 fade-in">
             <h2 class="text-3xl font-bold dashboard-title">
                 Admin Dashboard
@@ -12,7 +12,7 @@
         <!-- Overview Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             <a href="{{ route('admin.schedules.index') }}" 
-               class="group rounded-xl bg-white bg-opacity-50 backdrop-blur-sm p-6 shadow-md transition-all hover:bg-white/30 fade-in">
+               class="group rounded-xl bg-white bg-opacity-50 backdrop-blur-sm p-6 shadow-md transition-all hover:bg-white/30 fade-in pending-requests-card">
                 <h5 class="text-lg text-black drop-shadow-md">
                     Pending Requests
                 </h5>
@@ -22,7 +22,7 @@
             </a>
 
             <a href="{{ route('admin.schedules.today') }}" 
-               class="group rounded-xl bg-white bg-opacity-50 backdrop-blur-sm p-6 shadow-md transition-all hover:bg-white/30 fade-in">
+               class="group rounded-xl bg-white bg-opacity-50 backdrop-blur-sm p-6 shadow-md transition-all hover:bg-white/30 fade-in today-appointments-card">
                 <h5 class="text-lg text-black drop-shadow-md">
                     Today's Appointments
                 </h5>
@@ -32,7 +32,7 @@
             </a>
         </div>
 
-        <!-- Weekly Schedule Summary -->
+        <!-- Weekly Schedule Summary (No Hover) -->
         <div class="text-center mb-6 fade-in">
             <h2 class="text-2xl font-bold dashboard-title">
                 Weekly Schedule
@@ -54,7 +54,7 @@
 
         <div class="text-center mt-6 fade-in">
             <a href="{{ route('admin.schedules.weekly') }}" 
-               class="inline-block px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors">
+               class="inline-block px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors view-weekly-btn">
                 View Full Weekly Schedule
             </a>
         </div>
