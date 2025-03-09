@@ -1,9 +1,10 @@
 @extends('layouts.default')
+
 @section('content')
     <div class="container mx-auto max-w-6xl px-4">
         <!-- Admin Dashboard Header -->
         <div class="text-center mt-4 mb-8 fade-in">
-            <h2 class="text-3xl font-bold text-white bg-blue-600 py-2 px-4 inline-block rounded-lg shadow-md">
+            <h2 class="text-3xl font-bold dashboard-title">
                 Admin Dashboard
             </h2>
         </div>
@@ -15,7 +16,7 @@
                 <h5 class="text-lg text-black drop-shadow-md">
                     Pending Requests
                 </h5>
-                <h2 class="text-4xl font-bold text-black drop-shadow-lg mt-2 pending-requests">
+                <h2 class="text-4xl font-bold text-black drop-shadow-lg mt-2 pending-requests count-up">
                     {{ $pendingRequests }}
                 </h2>
             </a>
@@ -25,7 +26,7 @@
                 <h5 class="text-lg text-black drop-shadow-md">
                     Today's Appointments
                 </h5>
-                <h2 class="text-4xl font-bold text-black drop-shadow-lg mt-2 today-appointments">
+                <h2 class="text-4xl font-bold text-black drop-shadow-lg mt-2 today-appointments count-up">
                     {{ $todayAppointments }}
                 </h2>
             </a>
@@ -33,7 +34,7 @@
 
         <!-- Weekly Schedule Summary -->
         <div class="text-center mb-6 fade-in">
-            <h2 class="text-2xl font-bold text-white bg-blue-600 py-2 px-4 inline-block rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold dashboard-title">
                 Weekly Schedule
             </h2>
         </div>
@@ -44,7 +45,7 @@
                     <h4 class="text-sm text-black drop-shadow-md">
                         {{ $day }}
                     </h4>
-                    <p class="text-2xl font-bold text-black drop-shadow-lg mt-2 weekly-count">
+                    <p class="text-2xl font-bold text-black drop-shadow-lg mt-2 weekly-count count-up">
                         {{ $count }}
                     </p>
                 </div>
@@ -58,39 +59,42 @@
             </a>
         </div>
     </div>
-@endsection
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    // Function to animate counting up
-    function animateValue(element, start, end, duration) {
-        let startTimestamp = null;
-        const step = (timestamp) => {
-            if (!startTimestamp) startTimestamp = timestamp;
-            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            element.textContent = Math.floor(progress * (end - start) + start;
-            if (progress < 1) {
+
+    <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Function to animate counting up
+            function animateValue(element, start, end, duration) {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    element.textContent = Math.floor(progress * (end - start) + start);
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
                 window.requestAnimationFrame(step);
             }
-        };
-        window.requestAnimationFrame(step);
-    }
 
-    // Animate the card values
-    const pendingRequests = document.querySelector('.pending-requests');
-    const todayAppointments = document.querySelector('.today-appointments');
-    const weeklyCounts = document.querySelectorAll('.weekly-count');
+            // Animate the card values
+            const pendingRequests = document.querySelector('.pending-requests');
+            const todayAppointments = document.querySelector('.today-appointments');
+            const weeklyCounts = document.querySelectorAll('.weekly-count');
 
-    if (pendingRequests) {
-        animateValue(pendingRequests, 0, {{ $pendingRequests }}, 1000);
-    }
+            if (pendingRequests) {
+                animateValue(pendingRequests, 0, {{ $pendingRequests }}, 1000);
+            }
 
-    if (todayAppointments) {
-        animateValue(todayAppointments, 0, {{ $todayAppointments }}, 1000);
-    }
+            if (todayAppointments) {
+                animateValue(todayAppointments, 0, {{ $todayAppointments }}, 1000);
+            }
 
-    weeklyCounts.forEach((element, index) => {
-        const count = parseInt(element.textContent);
-        animateValue(element, 0, count, 1000);
-    });
-});
-</script>
+            weeklyCounts.forEach((element, index) => {
+                const count = parseInt(element.textContent);
+                animateValue(element, 0, count, 1000);
+            });
+        });
+    </script>
+@endsection
