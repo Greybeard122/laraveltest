@@ -25,6 +25,12 @@
   --mobilesidebar-width: 160px;
   --mobilesidebar-collapsed-width: 80px;
 }
+body {
+  margin: 0; 
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; 
+}
 footer {
   margin-top: auto;
   height: 60px;

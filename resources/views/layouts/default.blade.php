@@ -18,25 +18,25 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body class="bg-gray-100 text-gray-800 bg-cover bg-center md:bg-fixed" 
+<body class="bg-gray-100 text-gray-800 bg-cover bg-center md:bg-fixed m-0 flex flex-col min-h-screen" 
       style="background-image: url('{{ secure_asset('images/bg-login-register.jpg') }}');">
 
     <x-nav/>
     <x-messages/>
 
-    <div class="flex flex-col min-h-screen">
+    
         <!-- Main Content Section -->
-        <main class="flex-grow max-w-screen-lg mx-auto p-6 @yield('main-class', 'min-h-[30vh]') mt-20">
+        <main class="flex-grow max-w-screen-lg mx-auto p-6 @yield('main-class') mt-20">
             @yield('content')
         </main> 
 
         <!-- Footer -->
-        <footer class="bg-gray-800 text-white py-4 shadow-inner mt-auto">
+        <footer class="bg-gray-800 text-white py-4 shadow-inner">
             <div class="container mx-auto text-center">
                 <p>&copy; {{ date('Y') }} PRMSU File Retrieval System | All Rights Reserved</p>
             </div>
         </footer>
-    </div>
+   
 </body>
 <script>
     let logoutTimer;
