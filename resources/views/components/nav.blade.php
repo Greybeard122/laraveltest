@@ -19,7 +19,9 @@
 
         <!-- Menu Items -->
         <div :class="open ? 'block' : 'hidden'" class="w-full md:flex md:w-auto" id="navbar-main">
-            <ul class="flex flex-col md:flex-row md:space-x-6 px-4 [&>li]:hover:text-sky-400 [&>li]:transition-transform [&>li]:transform [&>li]:hover:scale-105">
+            <ul class="flex flex-col md:flex-row md:space-x-6 px-4">
+            @guest        
+            
                 <li class="hover:text-sky-400 transition-transform transform hover:scale-105">
                     <a href="{{ route('login') }}" class="block py-2 px-4 text-white rounded-lg transition duration-300 hover:bg-gray-700 hover:text-sky-400">
                         Login
