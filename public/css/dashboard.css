@@ -1,12 +1,71 @@
-/* Remove background darkening */
-body::before {
-    content: none !important;
+/* === Fade-in + Staggered Animation for Cards === */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* Logout Button Alignment */
+.dashboard-card {
+    animation: fadeIn 0.6s ease-in-out both;
+}
+
+/* Staggered Effect */
+.dashboard-card:nth-child(1) { animation-delay: 0.1s; }
+.dashboard-card:nth-child(2) { animation-delay: 0.2s; }
+.dashboard-card:nth-child(3) { animation-delay: 0.3s; }
+.dashboard-card:nth-child(4) { animation-delay: 0.4s; }
+
+/* === General Dashboard Layout === */
+.dashboard-container {
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    position: relative;
+    z-index: 10;
+}
+
+/* Grid Layout */
+.dashboard-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+/* Responsive Columns */
+@media (min-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* === Card Styling === */
+.dashboard-card {
+    background-color: white !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Hover Effect */
+.dashboard-card:hover {
+    transform: scale(1.05);
+}
+
+/* === Logout Button Styling === */
 .logout-form {
-    margin: 0;
-    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -14,7 +73,6 @@ body::before {
 
 .logout-form button {
     width: 100%;
-    height: 100%;
     padding: 0.5rem 1rem;
     color: white;
     background-color: rgb(55 65 81);
@@ -26,36 +84,4 @@ body::before {
 .logout-form button:hover {
     background-color: rgb(75, 85, 99);
     color: rgb(56 189 248);
-}
-
-/* Ensure dashboard elements remain structured */
-.dashboard-container {
-    max-width: 80rem;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    position: relative;
-    z-index: 10;
-}
-
-/* Prevent conflicting styles */
-.schedule-card,
-.stat-card {
-    background-color: white !important;
-    backdrop-filter: none !important;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Responsive Adjustments */
-@media (min-width: 768px) {
-    .dashboard-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (min-width: 1024px) {
-    .dashboard-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
 }
