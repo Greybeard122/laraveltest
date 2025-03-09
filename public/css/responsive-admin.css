@@ -488,8 +488,6 @@ body {
 
 /* === NAVBAR STYLES === */
 .navbar {
-  width: calc(100% - var(--sidebar-width));
-  margin-left: var(--sidebar-width);
   transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
   background-color: var(--sidebar-bg);
   padding: 12px;
