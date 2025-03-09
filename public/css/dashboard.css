@@ -1,5 +1,30 @@
-/* === Fade-in + Staggered Animation for Cards === */
-@keyframes fadeIn {
+/* Dashboard Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+/* Dashboard Cards */
+.dashboard-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Stagger Effect */
+.dashboard-card:nth-child(1) { animation-delay: 0.1s; }
+.dashboard-card:nth-child(2) { animation-delay: 0.2s; }
+.dashboard-card:nth-child(3) { animation-delay: 0.3s; }
+.dashboard-card:nth-child(4) { animation-delay: 0.4s; }
+
+/* Fade-in Animation */
+@keyframes fadeInUp {
     from {
         opacity: 0;
         transform: translateY(20px);
@@ -8,80 +33,4 @@
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-.dashboard-card {
-    animation: fadeIn 0.6s ease-in-out both;
-}
-
-/* Staggered Effect */
-.dashboard-card:nth-child(1) { animation-delay: 0.1s; }
-.dashboard-card:nth-child(2) { animation-delay: 0.2s; }
-.dashboard-card:nth-child(3) { animation-delay: 0.3s; }
-.dashboard-card:nth-child(4) { animation-delay: 0.4s; }
-
-/* === General Dashboard Layout === */
-.dashboard-container {
-    max-width: 80rem;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    position: relative;
-    z-index: 10;
-}
-
-/* Grid Layout */
-.dashboard-grid {
-    display: grid;
-    gap: 1rem;
-}
-
-/* Responsive Columns */
-@media (min-width: 768px) {
-    .dashboard-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (min-width: 1024px) {
-    .dashboard-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
-/* === Card Styling === */
-.dashboard-card {
-    background-color: white !important;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    transition: transform 0.3s ease-in-out;
-}
-
-/* Hover Effect */
-.dashboard-card:hover {
-    transform: scale(1.05);
-}
-
-/* === Logout Button Styling === */
-.logout-form {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.logout-form button {
-    width: 100%;
-    padding: 0.5rem 1rem;
-    color: white;
-    background-color: rgb(55 65 81);
-    border-radius: 0.5rem;
-    transition: all 300ms ease-in-out;
-    border: none;
-}
-
-.logout-form button:hover {
-    background-color: rgb(75, 85, 99);
-    color: rgb(56 189 248);
 }
