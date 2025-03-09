@@ -3,7 +3,7 @@
     <div class="container mx-auto max-w-6xl px-4">
         <!-- Admin Dashboard Header -->
         <div class="text-center mb-8">
-            <h2 class="text-3xl font-bold text-white bg-blue-600 py-3 px-6 inline-block rounded-lg shadow-md">
+            <h2 class="text-3xl font-bold text-white bg-blue-600 py-2 px-4 inline-block rounded-lg shadow-md">
                 Admin Dashboard
             </h2>
         </div>
@@ -33,7 +33,7 @@
 
         <!-- Weekly Schedule Summary -->
         <div class="text-center mb-6">
-            <h2 class="text-2xl font-bold text-white bg-blue-600 py-3 px-6 inline-block rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold text-white bg-blue-600 py-2 px-4 inline-block rounded-lg shadow-md">
                 Weekly Schedule
             </h2>
         </div>
