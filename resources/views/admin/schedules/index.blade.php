@@ -291,7 +291,6 @@ background-color: rgba(59, 130, 246, 0.15) !important;
 color: #1e3a8a !important;
 text-shadow: 0 1px 3px rgba(59, 130, 246, 0.4) !important;
 transition: all 0.3s ease-in-out;
-
 @keyframes fadeIn {
 from {
     opacity: 0;
@@ -347,12 +346,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-document.addEventListener('DOMContentLoaded', function() {
-    // Apply fade-in effect to table rows
-    document.querySelectorAll('.table tbody tr').forEach((row, index) => {
-        row.classList.add('fade-in');
-        row.style.animationDelay = `${index * 0.1}s`;
-    });
 </script>
 @endsection
 
