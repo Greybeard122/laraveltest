@@ -25,18 +25,9 @@
   --mobilesidebar-width: 160px;
   --mobilesidebar-collapsed-width: 80px;
 }
-html, body {
-  height: 100%;
-  overflow-y: hidden;
-}
-
-.flex-grow {
-  flex-grow: 1; 
-}
-
 footer {
   margin-top: auto;
-  height: 60px; 
+  height: 60px;
 }
 tbody tr:hover {
   background-color: #e8f4ff; 

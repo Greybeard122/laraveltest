@@ -20,12 +20,13 @@
 
 <body class="bg-gray-100 text-gray-800 bg-cover bg-center md:bg-fixed" 
       style="background-image: url('{{ secure_asset('images/bg-login-register.jpg') }}');">
-    <div class="flex flex-col min-h-screen">
-        <x-nav/>
-        <x-messages/>
 
+    <x-nav/>
+    <x-messages/>
+
+    <div class="flex flex-col min-h-screen">
         <!-- Main Content Section -->
-        <main class="flex-grow max-w-screen-lg mx-auto p-6 @yield('main-class', 'min-h-[calc(100vh-200px)]') mt-20">
+        <main class="flex-grow max-w-screen-lg mx-auto p-6 @yield('main-class', 'min-h-[30vh]') mt-20">
             @yield('content')
         </main> 
 
