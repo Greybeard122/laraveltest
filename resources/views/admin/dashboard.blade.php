@@ -2,7 +2,7 @@
 @section('content')
     <div class="container mx-auto max-w-6xl px-4">
         <div class="text-center mb-8">
-            <h2 class="text-3xl font-bold text-black drop-shadow-md mt-10">
+            <h2 class="text-3xl font-bold text-black drop-shadow-md">
                 Admin Dashboard
             </h2>
         </div>
@@ -29,11 +29,13 @@
         </div>
 
         <!-- Weekly Schedule Summary -->
-       
-        <div class="flex flex-col md:flex-row w-full gap-3">
+        <h2 class="text-2xl font-bold text-black drop-shadow-md mb-6 text-center">
+            Weekly Schedule
+        </h2>
+        <div class="grid grid-cols-5 gap-3">
             @foreach($weeklyCounts as $day => $count)
-                <div class="group rounded-xl bg-white bg-opacity-50 backdrop-blur-sm p-4 shadow-md transition-all hover:bg-white/30 flex-1">
-                    <h4 class="text-sm text-black drop-shadow-md">
+                <div class="group rounded-xl bg-white bg-opacity-50 backdrop-blur-sm p-4 shadow-md transition-all hover:bg-white/30">
+                    <h4 class="text-sm  text-black drop-shadow-md">
                         {{ $day }}
                     </h4>
                     <p class="text-2xl font-bold text-black drop-shadow-lg mt-2">
@@ -42,7 +44,8 @@
                 </div>
             @endforeach
         </div>
-        <div class="text-center mt-10">
+
+        <div class="text-center mt-6">
             <a href="{{ route('admin.schedules.weekly') }}" 
                class="inline-block px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors">
                 View Full Weekly Schedule
