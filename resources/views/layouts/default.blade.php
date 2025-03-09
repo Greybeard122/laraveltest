@@ -26,7 +26,7 @@
 
     <div class="flex flex-col min-h-screen">
         <!-- Main Content Section -->
-        <main class="flex-grow max-w-screen-lg mx-auto p-6 @yield('main-class', 'min-h-[30vh]') mt-20">
+        <main class="flex-grow max-w-screen-lg mx-auto p-6 @yield('main-class', 'min-h-[calc(100vh-200px)]') mt-20">
             @yield('content')
         </main> 
 
