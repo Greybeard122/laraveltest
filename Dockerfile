@@ -1,49 +1,51 @@
-# Use official PHP-FPM base image
-FROM php:8.2-fpm
+# Start with the official PHP 8.2 image with Apache
+FROM php:8.2-apache
+
+# Set the working directory inside the container
+WORKDIR /var/www/html
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    unzip \
     git \
+    zip \
+    unzip \
     curl \
-    nginx \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
     libonig-dev \
     libzip-dev \
-    supervisor \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd mbstring zip pdo_mysql
+    nodejs \
+    npm && \
+    docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install gd pdo pdo_mysql mbstring zip exif pcntl bcmath
 
-# Set working directory
-WORKDIR /var/www
+# Install Composer (PHP package manager)
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
-# Copy Laravel project files into the container
+# Copy all project files to the container
 COPY . .
 
-# Download and install Composer
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
-    && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
-    && php -r "unlink('composer-setup.php');"
-
 # Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progress
+RUN composer install --optimize-autoloader --no-dev
 
-# Set correct permissions for Laravel storage & cache
-RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+# Install Node.js dependencies and build Vite assets (only if needed)
+RUN npm install && npm run build
 
-# Copy Nginx configuration
-COPY default.conf /etc/nginx/sites-available/default
+# Set Apache DocumentRoot to the public directory
+RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
 
-# Ensure the symlink does not already exist before creating it
-RUN rm -f /etc/nginx/sites-enabled/default && ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+# Set the correct permissions
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Copy Supervisor configuration
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
-# Expose HTTP port 80
+# Expose port 80 (default for Apache)
 EXPOSE 80
 
-# Start Supervisor to manage both Nginx & PHP-FPM
-CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+# Enable Apache mod_rewrite (for Laravel routes)
+RUN a2enmod rewrite
+
+# Allow .htaccess Overrides
+RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
+
+# Start Apache server
+CMD ["apache2-foreground"]
