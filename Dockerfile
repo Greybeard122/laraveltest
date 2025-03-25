@@ -29,12 +29,14 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progress
 
-# Set correct permissions
+# Set correct permissions for Laravel storage & cache
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
 # Copy Nginx configuration
 COPY default.conf /etc/nginx/sites-available/default
-RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+
+# Ensure the symlink does not already exist before creating it
+RUN rm -f /etc/nginx/sites-enabled/default && ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 
 # Expose HTTP port 80
 EXPOSE 80
