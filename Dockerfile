@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     libonig-dev \
     libzip-dev \
+    supervisor \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd mbstring zip pdo_mysql
 
@@ -38,8 +39,11 @@ COPY default.conf /etc/nginx/sites-available/default
 # Ensure the symlink does not already exist before creating it
 RUN rm -f /etc/nginx/sites-enabled/default && ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 
+# Copy Supervisor configuration for process management
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
 # Expose HTTP port 80
 EXPOSE 80
 
-# Start Nginx & PHP-FPM together
-CMD service nginx start && php-fpm
+# Start Supervisor to manage both Nginx & PHP-FPM
+CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
