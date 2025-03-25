@@ -923,7 +923,94 @@ select.form-control {
   transform: translateY(-1px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-/* === ANIMATIONS === */
+
+/* General Fade-in Animation */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(10px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+/* Smooth fade-in effect */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Fade-in with delay for staggered effect */
+.fade-in-delay-1 {
+  opacity: 0;
+  animation: fadeIn 0.8s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+.fade-in-delay-2 {
+  opacity: 0;
+  animation: fadeIn 1s ease-out forwards;
+  animation-delay: 0.4s;
+}
+
+.fade-in-delay-3 {
+  opacity: 0;
+  animation: fadeIn 1.2s ease-out forwards;
+  animation-delay: 0.6s;
+}
+
+/* Scale & Fade-in Effect */
+@keyframes scaleFadeIn {
+  from {
+      opacity: 0;
+      transform: scale(0.95);
+  }
+  to {
+      opacity: 1;
+      transform: scale(1);
+  }
+}
+
+.scale-fade-in {
+  opacity: 0;
+  animation: scaleFadeIn 0.6s ease-out forwards;
+}
+
+/* Left-to-Right Fade-in */
+@keyframes slideFadeInLeft {
+  from {
+      opacity: 0;
+      transform: translateX(-20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateX(0);
+  }
+}
+
+.slide-fade-in-left {
+  opacity: 0;
+  animation: slideFadeInLeft 0.7s ease-out forwards;
+}
+
+/* Right-to-Left Fade-in */
+@keyframes slideFadeInRight {
+  from {
+      opacity: 0;
+      transform: translateX(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateX(0);
+  }
+}
+
+.slide-fade-in-right {
+  opacity: 0;
+  animation: slideFadeInRight 0.7s ease-out forwards;
+}
 @keyframes fadeInUp {
   from {
     opacity: 0;
