@@ -39,7 +39,7 @@ COPY default.conf /etc/nginx/sites-available/default
 # Ensure the symlink does not already exist before creating it
 RUN rm -f /etc/nginx/sites-enabled/default && ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 
-# Copy Supervisor configuration for process management
+# Copy Supervisor configuration
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Expose HTTP port 80
