@@ -1,6 +1,9 @@
 # Use official PHP-FPM image
 FROM php:8.2-fpm
 
+# Set working directory inside the container
+WORKDIR /var/www
+
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     unzip \
@@ -14,27 +17,21 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd mbstring zip pdo_mysql
 
-# Set working directory inside the container
-WORKDIR /var/www
+# Ensure correct permissions
+RUN chown -R www-data:www-data /var/www
 
 # Copy Laravel project files into the container
 COPY . .
 
-# Install Composer globally
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# Download and install Composer safely
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+    && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
+    && php -r "unlink('composer-setup.php');"
 
-# Ensure artisan exists before running composer
-RUN ls -la /var/www
+# Install PHP dependencies (prevents permission errors)
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progress
 
-# Create a new non-root user for security
-RUN useradd -m laravel
-USER laravel
-
-# Install dependencies as a non-root user
-RUN composer install --no-dev --optimize-autoloader
-
-# Switch back to root for permissions
-USER root
+# Set correct permissions for storage and cache
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
 # Expose PHP-FPM port
