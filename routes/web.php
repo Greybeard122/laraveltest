@@ -16,7 +16,17 @@ use App\Http\Controllers\Student\DashboardController as StudentDashboardControll
 use App\Http\Controllers\Student\StudentProfileController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Models\Student;
+use Illuminate\Support\Facades\DB;
 
+
+Route::get('/db-test', function () {
+    try {
+        DB::connection()->getPdo();
+        return "✅ Database Connected Successfully!";
+    } catch (\Exception $e) {
+        return "❌ Database Connection Failed: " . $e->getMessage();
+    }
+});
 
 // Email verification routes
 Route::get('/email/verify/{id}/{hash}', [LoginController::class, 'verifyEmail'])
