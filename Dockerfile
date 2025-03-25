@@ -1,14 +1,12 @@
-# Use official PHP-FPM image
+# Use official PHP-FPM base image
 FROM php:8.2-fpm
-
-# Set working directory inside the container
-WORKDIR /var/www
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     unzip \
     git \
     curl \
+    nginx \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
@@ -17,25 +15,29 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd mbstring zip pdo_mysql
 
-# Ensure correct permissions
-RUN chown -R www-data:www-data /var/www
+# Set working directory
+WORKDIR /var/www
 
 # Copy Laravel project files into the container
 COPY . .
 
-# Download and install Composer safely
+# Download and install Composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && php -r "unlink('composer-setup.php');"
 
-# Install PHP dependencies (prevents permission errors)
+# Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progress
 
-# Set correct permissions for storage and cache
+# Set correct permissions
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
-# Expose PHP-FPM port
-EXPOSE 9000
+# Copy Nginx configuration
+COPY default.conf /etc/nginx/sites-available/default
+RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 
-# Start PHP-FPM
-CMD ["php-fpm"]
+# Expose HTTP port 80
+EXPOSE 80
+
+# Start Nginx & PHP-FPM together
+CMD service nginx start && php-fpm
